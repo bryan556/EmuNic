@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<!-- HERO -->
+<section class="py-5">
+
+    <div class="row align-items-center">
+
+        <div class="col-lg-6">
+
+            <h1 class="display-3 fw-bold">
+                Arquitectura de Máquinas
+            </h1>
+
+            <p class="lead text-secondary mt-4">
+
+                Plataforma educativa enfocada en
+                arquitectura computacional,
+                ensamblador, Arduino y RP2040 Zero.
+
+            </p>
+
+            <a href="/unidad1/"
+               class="btn btn-info btn-lg mt-3">
+
+                Comenzar
+
+            </a>
+
+        </div>
+
+        <div class="col-lg-6 text-center">
+
+            <img src="{% static 'img/emu.jpg' %}"
+                 class="img-fluid"
+                 style="max-height: 420px;">
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- CARDS -->
+<section class="py-5">
+
+    <div class="row g-4">
+
+        <!-- CARD 1 -->
+        <div class="col-md-4">
+
+            <div class="card bg-black text-light border-secondary shadow-lg h-100">
+
+                <img src="{% static 'img/intel.jpg' %}"
+                     class="card-img-top"
+                     style="height: 220px; object-fit: cover;">
+
+                <div class="card-body">
+
+                    <h3 class="card-title text-info">
+                        Arquitectura
+                    </h3>
+
+                    <p class="card-text text-secondary">
+
+                        Explora CPU, registros,
+                        memoria, buses y lenguaje ensamblador.
+
+                    </p>
+
+                    <a href="/unidad1/"
+                       class="btn btn-outline-info">
+
+                        Ver más
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- CARD 2 -->
+        <div class="col-md-4">
+
+            <div class="card bg-black text-light border-success shadow-lg h-100">
+
+                <img src="{% static 'img/arduino.png' %}"
+                     class="card-img-top"
+                     style="height: 220px; object-fit: cover;">
+
+                <div class="card-body">
+
+                    <h3 class="card-title text-success">
+                        Arduino
+                    </h3>
+
+                    <p class="card-text text-secondary">
+
+                        Aprende automatización,
+                        sensores y proyectos electrónicos.
+
+                    </p>
+
+                    <a href="/arduino/"
+                       class="btn btn-outline-success">
+
+                        Ver más
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- CARD 3 -->
+        <div class="col-md-4">
+
+            <div class="card bg-black text-light border-primary shadow-lg h-100">
+
+                <img src="{% static 'img/rp2040.jpg' %}"
+                     class="card-img-top"
+                     style="height: 220px; object-fit: cover;">
+
+                <div class="card-body">
+
+                    <h3 class="card-title text-primary">
+                        RP2040 Zero
+                    </h3>
+
+                    <p class="card-text text-secondary">
+
+                        Descubre GPIO, PWM y
+                        MicroPython en sistemas modernos.
+
+                    </p>
+
+                    <a href="/rp2040/"
+                       class="btn btn-outline-primary">
+
+                        Ver más
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
