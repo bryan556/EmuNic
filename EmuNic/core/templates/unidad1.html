@@ -1,0 +1,330 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<section class="py-5">
+
+    <div class="text-center mb-5">
+
+        <h1 class="display-4 fw-bold text-info">
+            Unidad 1
+        </h1>
+
+        <p class="lead text-secondary">
+            Fundamentos de Arquitectura y Organización de Computadoras
+        </p>
+
+    </div>
+
+    <div class="accordion accordion-flush" id="accordionUnidad1">
+
+        <!-- 1.1 -->
+        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
+
+            <h2 class="accordion-header">
+
+                <button class="accordion-button collapsed bg-dark text-info fw-bold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#tema1">
+
+                    1.1 Conceptos de Arquitectura y Organización de Computadoras
+
+                </button>
+
+            </h2>
+
+            <div id="tema1"
+                 class="accordion-collapse collapse"
+                 data-bs-parent="#accordionUnidad1">
+
+                <div class="accordion-body">
+
+                    <p class="fs-5 text-secondary">
+
+                        La arquitectura y organización de computadoras estudia
+                        el diseño interno de los sistemas computacionales y la
+                        manera en que sus componentes trabajan para procesar información.
+
+                    </p>
+
+                    <p class="fs-5 text-secondary">
+
+                        Estos conceptos permiten comprender cómo funcionan
+                        dispositivos modernos como computadoras, microcontroladores
+                        y sistemas electrónicos.
+
+                    </p>
+
+                    <img src="{% static 'img/unidad1/arquitectura_general.jpg' %}"
+                         class="img-fluid rounded shadow mt-4">
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ARQUITECTURA -->
+        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
+
+            <h2 class="accordion-header">
+
+                <button class="accordion-button collapsed bg-dark text-primary fw-bold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#tema2">
+
+                    1.1.1.1 Arquitectura
+
+                </button>
+
+            </h2>
+
+            <div id="tema2"
+                 class="accordion-collapse collapse"
+                 data-bs-parent="#accordionUnidad1">
+
+                <div class="accordion-body">
+
+                    <p class="fs-5 text-secondary">
+
+                        La arquitectura define las características visibles para el usuario,
+                        incluyendo instrucciones, registros y memoria.
+
+                    </p>
+
+                    <p class="fs-5 text-secondary">
+
+                        También establece cómo el software interactúa con el hardware
+                        y cómo se ejecutan los programas dentro del sistema computacional.
+
+                    </p>
+
+                    <p class="fs-5 text-secondary">
+
+                        Un ejemplo de arquitectura ampliamente conocida es la
+                        arquitectura Von Neumann.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ORGANIZACION -->
+        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
+
+            <h2 class="accordion-header">
+
+                <button class="accordion-button collapsed bg-dark text-success fw-bold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#tema3">
+
+                    1.1.1.2 Organización
+
+                </button>
+
+            </h2>
+
+            <div id="tema3"
+                 class="accordion-collapse collapse"
+                 data-bs-parent="#accordionUnidad1">
+
+                <div class="accordion-body">
+
+                    <p class="fs-5 text-secondary">
+
+                        La organización describe cómo están conectados
+                        físicamente los componentes internos de una computadora.
+
+                    </p>
+
+                    <p class="fs-5 text-secondary">
+
+                        Incluye buses de comunicación, memoria, unidades de control
+                        y dispositivos de entrada y salida.
+
+                    </p>
+
+                    <h4 class="text-warning mt-4">
+                        Estructura
+                    </h4>
+
+                    <p class="fs-5 text-secondary">
+
+                        La estructura representa la relación entre los diferentes
+                        componentes del sistema computacional.
+
+                    </p>
+
+                    <h4 class="text-warning mt-4">
+                        Función
+                    </h4>
+
+                    <p class="fs-5 text-secondary">
+
+                        La función determina el trabajo específico que realiza
+                        cada componente dentro del sistema.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ESTRUCTURA -->
+        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
+
+            <h2 class="accordion-header">
+
+                <button class="accordion-button collapsed bg-dark text-warning fw-bold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#tema4">
+
+                    1.1.2 Estructura de la Computadora
+
+                </button>
+
+            </h2>
+
+            <div id="tema4"
+                 class="accordion-collapse collapse"
+                 data-bs-parent="#accordionUnidad1">
+
+                <div class="accordion-body">
+
+                    <p class="fs-5 text-secondary">
+
+                        La computadora está formada por distintos módulos
+                        capaces de procesar, almacenar y transferir información.
+
+                    </p>
+
+                    <img src="{% static 'img/unidad1/estructura_pc.jpg' %}"
+                         class="img-fluid rounded shadow my-4">
+
+                    <h4 class="text-info">
+                        Procesamiento
+                    </h4>
+
+                    <p class="fs-5 text-secondary">
+
+                        El procesamiento es realizado por la CPU,
+                        encargada de ejecutar instrucciones.
+
+                    </p>
+
+                    <h4 class="text-success mt-4">
+                        Sistema de Memoria
+                    </h4>
+
+                    <p class="fs-5 text-secondary">
+
+                        La memoria almacena datos temporales y permanentes
+                        necesarios para el funcionamiento del sistema.
+
+                    </p>
+
+                    <h4 class="text-primary mt-4">
+                        Sistema de Entrada y Salida
+                    </h4>
+
+                    <p class="fs-5 text-secondary">
+
+                        Los dispositivos de entrada y salida permiten la interacción
+                        entre el usuario y la computadora.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- MICROCONTROLADOR -->
+        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
+
+            <h2 class="accordion-header">
+
+                <button class="accordion-button collapsed bg-dark text-danger fw-bold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#tema5">
+
+                    1.2 Diferencia entre Microprocesador y Microcontrolador
+
+                </button>
+
+            </h2>
+
+            <div id="tema5"
+                 class="accordion-collapse collapse"
+                 data-bs-parent="#accordionUnidad1">
+
+                <div class="accordion-body">
+
+                    <p class="fs-5 text-secondary">
+
+                        El microprocesador y el microcontrolador son dispositivos
+                        fundamentales en electrónica y computación.
+
+                    </p>
+
+                    <img src="{% static 'img/unidad1/microprocesador_microcontrolador.jpg' %}"
+                         class="img-fluid rounded shadow my-4">
+
+                    <h4 class="text-info">
+                        Microprocesador
+                    </h4>
+
+                    <p class="fs-5 text-secondary">
+
+                        Necesita componentes externos como memoria RAM,
+                        almacenamiento y periféricos.
+
+                    </p>
+
+                    <h4 class="text-success mt-4">
+                        Microcontrolador
+                    </h4>
+
+                    <p class="fs-5 text-secondary">
+
+                        Integra CPU, memoria y periféricos en un solo chip,
+                        siendo ideal para sistemas embebidos.
+
+                    </p>
+
+                    <h4 class="text-warning mt-4">
+                        Diferencia Principal
+                    </h4>
+
+                    <p class="fs-5 text-secondary">
+
+                        El microprocesador está orientado a sistemas complejos,
+                        mientras que el microcontrolador se utiliza en dispositivos
+                        electrónicos específicos como Arduino y robots.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
