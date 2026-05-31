@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<section class="py-5">
+
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold text-info">
+            RP2040 zero
+        </h1>
+        <p class="lead text-secondary fw-semibold">
+            Aprende sobre RP2040 zero (Thony IDE)
+        </p>
+    </div>
+
+    <div class="accordion accordion-flush" id="RP2040">
+
+        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed bg-dark text-info fw-bold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#tema1">
+                    1. ¿Qué es RP2040 Zero?
+                </button>
+            </h2>
+            <div id="tema1" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
+                <div class="accordion-body">
+                    <p class="fs-5 text-secondary text-justify">
+                        El RP2040 Zero es una placa de desarrollo de microcontrolador diminuta y de bajo costo. Utiliza el chip RP2040 (el mismo de la Raspberry Pi Pico) pero en un formato súper compacto diseñado para integrarse fácilmente en proyectos electrónicos con restricciones de espacio.
+                    </p>
+                    <img src="{% static 'img/rp2040.jpg' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto" style="max-width: 200px; height: auto;">
+                </div>
+            </div>
+        </div>
+        
+        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed bg-dark text-info fw-bold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#tema2">
+                    2. Características principales
+                </button>
+            </h2>
+            <div id="tema2" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
+                <div class="accordion-body">
+
+                    <ul class="fs-5 text-secondary text-justify">
+                        <li>Potencia: Procesador ARM Cortex-M0+ de doble núcleo a 133 MHz.</li>
+                        <li>Memoria: 264 KB de SRAM y 2 MB de memoria Flash integrada.</li>
+                        <li>Conectividad: Puerto USB Tipo-C y compatible con USB 1.1 (dispositivo y host).</li>
+                        <li>Pines: Cuenta con múltiples pines GPIO multifunción (incluyendo SPI, I2C, UART, PWM y ADC).</li>
+                        Extras: Frecuentemente incluye un LED RGB integrado y bordes almenados (castellated holes) que permiten soldarla directamente sobre otras placas base. 
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+        
+        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed bg-dark text-info fw-bold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#tema3">
+                    3. ¿Para qué se utiliza?
+                </button>
+            </h2>
+            <div id="tema3" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
+                <div class="accordion-body">
+                    <p class="fs-5 text-secondary text-justify">
+                        El RP2040 Zero es una placa de desarrollo ultracompacta impulsada por el chip oficial Raspberry Pi RP2040. Es una versión miniatura y mejorada de la clásica Raspberry Pi Pico, diseñada para proyectos de electrónica, automatización e Internet de las Cosas (IoT) donde el espacio es muy reducido.
+                    </p>
+                    <p class="fs-5 text-secondary text-justify"> Sirve para controlar hardware y crear dispositivos personalizados. Sus usos más comunes incluyen:</p>
+                    <ul class="fs-5 text-secondary text-justify">
+                        <li>Teclados y gamepads personalizados: Crear teclados mecánicos, macropads o mandos para videojuegos debido a su emulación USB.</li>
+                        <li>Proyectos IoT: Conectar sensores, pantallas y módulos inalámbricos para domótica.</li>
+                        <li>Iluminación y Robótica: Controlar tiras de luces LED inteligentes y motores paso a paso.</li>
+                        <li>Educación y prototipado: Aprender programación y electrónica usando lenguajes como C/C++ o MicroPython.</li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed bg-dark text-info fw-bold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#tema4">
+                    4. ¿Como usar la RP2040 zero?
+                </button>
+            </h2>
+            <div id="tema4" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
+                <div class="accordion-body">
+                    <p class="fs-5 text-secondary text-justify">
+                        Para usar la placa RP2040 Zero (un microcontrolador miniatura basado en el chip RP2040 de Raspberry Pi), solo necesitas conectarla a tu computadora mediante un cable USB-C y programarla en MicroPython o C/C++. Su puerto USB integrado permite programarla directamente mediante "arrastrar y soltar".
+                    </p>
+                    <p class="fs-5 text-secondary text-justify">
+                        A continuación se presenta un video tutorial de 5 minutos, donde se aborda de manera detalla la forma mas sencilla de usar la RP2040 zero con la instalacion de Thonny IDE:
+                    </p>
+                    <div class="d-flex justify-content-center">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/f5xXkBVM2Rc?si=hwxWGnbpTeI_exup" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>        
+
+    </div>
+
+
+
+</section>
+{% endblock %}
