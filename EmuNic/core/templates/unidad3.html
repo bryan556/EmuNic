@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<section class="py-5">
+
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold text-info">
+            UNIDAD III
+        </h1>
+        <p class="lead text-secondary fw-semibold">
+            Programación del Microprocesador
+        </p>
+    </div>
+
+    <div class="accordion accordion-flush" id="accordionUnidad3">
+
+        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed bg-dark text-info fw-bold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#tema3-1">
+                    3.1. Arquitectura de la Familia ix86
+                </button>
+            </h2>
+            <div id="tema3-1" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad3">
+                <div class="accordion-body">
+                    <p class="fs-5 text-secondary text-justify">
+                        La familia ix86 corresponde a una serie de microprocesadores desarrollados inicialmente por Intel, cuya evolución marcó un avance significativo en la arquitectura de las computadoras personales. Estos procesadores se caracterizan por emplear una arquitectura de conjunto de instrucciones complejas (CISC), diseñada para ejecutar una amplia variedad de operaciones mediante instrucciones especializadas. La familia incluye modelos como el 8086, 80286, 80386 y posteriores generaciones. Su amplia adopción permitió establecer estándares de compatibilidad que continúan siendo utilizados en numerosos sistemas actuales. Debido a su importancia histórica y tecnológica, constituye una referencia fundamental en el estudio de la arquitectura de microprocesadores.
+                    </p>
+                    <img src="{% static 'img/unidad3/ejemplo.jpg' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed bg-dark text-primary fw-bold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#tema3-1-1">
+                    3.1.1. Diagrama de Bloques
+                </button>
+            </h2>
+            <div id="tema3-1-1" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad3">
+                <div class="accordion-body">
+                    <p class="fs-5 text-secondary text-justify">
+                        El diagrama de bloques de la familia ix86 representa gráficamente la estructura interna del procesador y la relación existente entre sus diferentes componentes. Entre los elements principales se encuentran la unidad de control, la unidad aritmético-lógica, los registros internos, la interfaz de buses y las unidades de ejecución. Esta representación permite comprender el flujo de datos y la manera en que las instrucciones son procesadas internamente. Además, facilita el análisis de las operaciones realizadas durante la ejecución de programas[cite: 126]. Su estudio resulta esencial para comprender el funcionamiento general de los microprocesadores de esta familia[cite: 127].
+                    </p>
+                    <img src="{% static 'img/unidad3/ix86.jpg' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed bg-dark text-success fw-bold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#tema3-1-2">
+                    3.1.2. Modelos de Memoria
+                </button>
+            </h2>
+            <div id="tema3-1-2" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad3">
+                <div class="accordion-body">
+                    <p class="fs-5 text-secondary text-justify">
+                        Los modelos de memoria en la familia ix86 definen la forma en que los programas organizan y acceden a los segmentos de código, datos y pila[cite: 129]. Estos modelos fueron desarrollados para optimizar el uso de la memoria disponible y facilitar la administración de los recursos del sistema[cite: 130]. Entre los más conocidos se encuentran los modelos Tiny, Small, Medium, Compact, Large y Huge, cada uno diseñado para aplicaciones con diferentes requerimientos[cite: 131]. La selección del modelo adecuado influye en la eficiencia y capacidad de los programas desarrollados[cite: 132]. Por ello, su comprensión es indispensable para la programación en lenguaje ensamblador[cite: 133].
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed bg-dark text-warning fw-bold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#tema3-1-3">
+                    3.1.3. Registros
+                </button>
+            </h2>
+            <div id="tema3-1-3" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad3">
+                <div class="accordion-body">
+                    <p class="fs-5 text-secondary text-justify">
+                        Los registros son pequeñas áreas de almacenamiento ubicadas dentro del microprocesador que permiten guardar datos temporalmente durante la ejecución de instrucciones[cite: 135]. En la arquitectura ix86 existen registros de propósito general, registros de segmento, registros índice y registros de control, cada uno con funciones específicas[cite: 136]. Estos elementos ofrecen acceso extremadamente rápido a la información, lo que contribuye al rendimiento del sistema[cite: 137]. Asimismo, participan directamente en operaciones aritméticas, lógicas y de direccionamiento de memoria[cite: 138]. Su correcta utilización es fundamental para desarrollar programas eficientes y optimizar el uso de los recursos del procesador[cite: 139].
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed bg-dark text-danger fw-bold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#tema3-2">
+                    3.2. Ensamblador de la Familia ix86
+                </button>
+            </h2>
+            <div id="tema3-2" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad3">
+                <div class="accordion-body">
+                    <p class="fs-5 text-secondary text-justify mb-4">
+                        El lenguaje ensamblador de la familia ix86 es un lenguaje de bajo nivel que permite programar directamente el hardware mediante instrucciones específicas del procesador[cite: 141]. Cada instrucción ensambladora tiene una correspondencia directa con una instrucción ejecutable por la unidad central de procesamiento[cite: 142]. Este lenguaje proporciona un alto grado de control sobre los recursos del sistema y permite optimizar el rendimiento de las aplicaciones[cite: 143]. Aunque su complejidad es mayor que la de los lenguajes de alto nivel, continúa siendo ampliamente utilizado en áreas relacionadas con sistemas operativos, controladores y sistemas embebidos[cite: 144]. Su estudio facilita la comprensión profunda del funcionamiento interno del computador[cite: 145].
+                    </p>
+
+                    <h4 class="text-info fw-bold mt-4">3.2.1. Declaración de Segmentos</h4>
+                    <p class="fs-5 text-secondary text-justify">
+                        La declaración de segmentos es un mecanismo utilizado en ensamblador para organizar la memoria en áreas específicas destinadas al código, los datos y la pila[cite: 147]. Esta división permite que el procesador administre de manera eficiente los diferentes recursos necesarios durante la ejecución de un programa[cite: 148]. Cada segmento posee una función determinada y es identificado mediante registros especializados[cite: 149]. La correcta definición de los segmentos contribuye a mejorar la organización y mantenimiento del código fuente [cite: 150], facilitando el acceso estructurado a la información almacenada en memoria[cite: 151].
+                    </p>
+
+                    <h4 class="text-primary fw-bold mt-4">3.2.2. Modos de Direccionamiento</h4>
+                    <p class="fs-5 text-secondary text-justify">
+                        Los modos de direccionamiento son técnicas utilizadas por el procesador para localizar los operandos necesarios durante la ejecución de una instrucción[cite: 153]. Estos mecanismos determinan cómo se obtiene la dirección de los datos, ya sea directamente, mediante registros o utilizando direcciones calculadas[cite: 154]. La arquitectura ix86 dispone de diversos modos de direccionamiento que proporcionan flexibilidad en el acceso a la memoria[cite: 155]. Gracias a esta variedad, los programadores pueden optimizar la eficiencia y reducir el número de instrucciones requeridas [cite: 156], siendo su comprensión esencial para el desarrollo en lenguaje ensamblador[cite: 157].
+                    </p>
+
+                    <h4 class="text-success fw-bold mt-4">3.2.3. Implementación de las Estructuras de Control de Flujo</h4>
+                    <p class="fs-5 text-secondary text-justify">
+                        Las estructuras de control de flujo permiten modificar la secuencia normal de ejecución de un programa según determinadas condiciones o eventos[cite: 159]. En ensamblador, estas estructuras se implementan mediante instrucciones de salto, comparación y control de ciclos[cite: 160]. Su utilización posibilita la creación de algoritmos capaces de tomar decisiones y repetir procesos de manera eficiente [cite: 161], constituyendo la base para desarrollar aplicaciones más complejas y funcionales[cite: 162]. El dominio de estas técnicas es indispensable para la programación efectiva en cualquier arquitectura[cite: 163].
+                    </p>
+
+                    <h4 class="text-warning fw-bold mt-4">3.2.4. Formato de una Sentencia en Ensamblador</h4>
+                    <p class="fs-5 text-secondary text-justify">
+                        Una sentencia en lenguaje ensamblador está compuesta por diferentes elementos que especifican la operación a realizar y los datos involucrados[cite: 165]. Generalmente incluye etiquetas, mnemónicos, operandos y comentarios que facilitan la comprensión del código[cite: 166]. Cada componente cumple una función específica dentro de la estructura de la instrucción[cite: 167]. El formato correcto garantiza que el ensamblador pueda traducir adecuadamente el programa al lenguaje máquina [cite: 168], favoreciendo la legibilidad y mantenimiento del código desarrollado[cite: 169].
+                    </p>
+
+                    <h4 class="text-danger fw-bold mt-4">3.2.5. Palabras Reservadas</h4>
+                    <p class="fs-5 text-secondary text-justify">
+                        Las palabras reservadas son términos definidos por el ensamblador que poseen un significado especial dentro del lenguaje y no pueden utilizarse libremente como identificadores[cite: 171]. Estas palabras incluyen instrucciones, directivas y operadores reconocidos por el compilador o ensamblador[cite: 172]. Su función es proporcionar mecanismos estandarizados para controlar el proceso de ensamblaje y la ejecución de programas[cite: 173]. El conocimiento de estas palabras resulta indispensable para evitar errores de sintaxis [cite: 174] y contribuye al desarrollo de código claro y estructurado[cite: 175].
+                    </p>
+
+                    <h4 class="text-info fw-bold mt-4">3.2.6. Constantes</h4>
+                    <p class="fs-5 text-secondary text-justify">
+                        Las constantes representan valores fijos que permanecen inalterables durante la ejecución de un programa[cite: 177]. En lenguaje ensamblador pueden expresarse en diferentes sistemas numéricos, como decimal, hexadecimal, binario u octal[cite: 178]. Su utilización mejora la claridad del código y facilita la modificación de valores cuando sea necesario[cite: 179]. Además, permiten representar direcciones, caracteres y datos numéricos de forma precisa [cite: 180], contribuyendo a una programación más organizada y comprensible[cite: 181].
+                    </p>
+
+                    <h4 class="text-primary fw-bold mt-4">3.2.7. Operadores</h4>
+                    <p class="fs-5 text-secondary text-justify">
+                        Los operadores son símbolos o palabras clave que permiten realizar operaciones sobre datos y expresiones dentro de un programa ensamblador[cite: 183]. Estos pueden emplearse para efectuar cálculos aritméticos, comparaciones lógicas o manipulaciones de direcciones de memoria[cite: 184]. Su uso facilita la construcción de expresiones más complejas y reduce la necesidad de instrucciones adicionales [cite: 185], mejorando la legibilidad y funcionalidad del código[cite: 186]. El conocimiento de los diferentes operadores es fundamental para aprovechar las capacidades del lenguaje[cite: 187].
+                    </p>
+
+                    <h4 class="text-success fw-bold mt-4">3.2.8. Tipos de Datos</h4>
+                    <p class="fs-5 text-secondary text-justify">
+                        Los tipos de datos definen la naturaleza y tamaño de la información que será almacenada y procesada por el sistema[cite: 189]. En la programación ensambladora de la familia ix86 se emplean diversos formatos para representar números enteros, caracteres y cadenas de texto[cite: 190]. La correcta selección del tipo de dato influye directamente en el uso eficiente de la memoria y el rendimiento de las aplicaciones[cite: 191]. Además, permite garantizar que las operaciones realizadas produzcan resultados adecuados [cite: 192], constituyendo un elemento esencial en el diseño de programas[cite: 193].
+                    </p>
+
+                    <h4 class="text-warning fw-bold mt-4">3.2.9. El Conjunto de Instrucciones</h4>
+                    <p class="fs-5 text-secondary text-justify">
+                        El conjunto de instrucciones corresponde al repertorio de operaciones que el procesador puede ejecutar directamente[cite: 195]. Estas instrucciones incluyen operaciones de transferencia de datos, cálculos aritméticos, comparaciones, control de flujo y manejo de dispositivos externos[cite: 196]. Cada instrucción posee una función específica que contribuye a la ejecución de tareas determinadas[cite: 197]. La arquitectura ix86 se caracteriza por disponer de un conjunto amplio y versátil de instrucciones [cite: 198], lo que proporciona gran flexibilidad para el desarrollo de aplicaciones complejas[cite: 199].
+                    </p>
+
+                    <h4 class="text-danger fw-bold mt-4">3.2.10. Control de Dispositivos de Entrada/Salida</h4>
+                    <p class="fs-5 text-secondary text-justify">
+                        El control de dispositivos de entrada y salida permite al microprocesador intercambiar información con componentes externos como teclados, pantallas, impresoras y unidades de almacenamiento[cite: 201]. Esta comunicación se realiza mediante instrucciones especializadas y puertos de entrada/salida que facilitan la transferencia de datos[cite: 202]. El manejo adecuado de estos dispositivos es esencial para garantizar la interacción entre el sistema y el usuario [cite: 203], permitiendo coordinar el funcionamiento de diferentes periféricos conectados al computador[cite: 204].
+                    </p>
+
+                    <h4 class="text-info fw-bold mt-4">3.2.11. Interrupciones</h4>
+                    <p class="fs-5 text-secondary text-justify">
+                        Las interrupciones son mecanismos que permiten suspender temporalmente la ejecución normal de un programa para atender eventos que requieren atención inmediata[cite: 207]. Estos eventos pueden originarse en dispositivos externos, errores internos o solicitudes específicas del software[cite: 208]. Una vez atendida la interrupción, el procesador reanuda la ejecución del programa desde el punto donde fue interrumpido[cite: 209]. Este procedimiento mejora la eficiencia del sistema y permite responder rápidamente a situaciones importantes [cite: 210], siendo un elemento esencial en los microprocesadores modernos[cite: 211].
+                    </p>
+
+                    <h4 class="text-primary fw-bold mt-4">3.2.12. Uso de Macros</h4>
+                    <p class="fs-5 text-secondary text-justify">
+                        Las macros son conjuntos de instrucciones agrupadas bajo un nombre único que pueden reutilizarse en diferentes partes de un programa[cite: 213]. Su principal ventaja consiste en simplificar el desarrollo de código al evitar la repetición constante de secuencias de instrucciones similares[cite: 214]. Durante el proceso de ensamblaje, las macros son expandidas automáticamente por el ensamblador[cite: 215]. Esto facilita el mantenimiento y mejora la legibilidad del programa [cite: 216], reduciendo notablemente errores asociados con la duplicación de código[cite: 217].
+                    </p>
+
+                    <h4 class="text-success fw-bold mt-4">3.2.13. Uso de Procedimientos</h4>
+                    <p class="fs-5 text-secondary text-justify">
+                        Los procedimientos son bloques de instrucciones diseñados para ejecutar tareas específicas que pueden ser invocadas desde distintas partes de un programa[cite: 219]. Su utilización favorece la modularidad y organización del código, permitiendo dividir aplicaciones complejas en componentes más pequeños y manejables[cite: 220]. Cuando un procedimiento es llamado, el control de ejecución se transfiere temporalmente a dicho bloque y posteriormente regresa al punto de origen[cite: 221]. Esta técnica mejora la reutilización de código y facilita significativamente las tareas de mantenimiento[cite: 222, 223].
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

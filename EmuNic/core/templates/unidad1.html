@@ -7,320 +7,151 @@
 <section class="py-5">
 
     <div class="text-center mb-5">
-
         <h1 class="display-4 fw-bold text-info">
-            Unidad 1
+            UNIDAD I
         </h1>
-
-        <p class="lead text-secondary">
-            Fundamentos de Arquitectura y Organización de Computadoras
+        <p class="lead text-secondary fw-semibold">
+            Introducción a los Microprocesadores y Microcontroladores
         </p>
-
     </div>
 
     <div class="accordion accordion-flush" id="accordionUnidad1">
 
-        <!-- 1.1 -->
         <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
-
             <h2 class="accordion-header">
-
                 <button class="accordion-button collapsed bg-dark text-info fw-bold"
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#tema1">
-
-                    1.1 Conceptos de Arquitectura y Organización de Computadoras
-
+                    1.1. Conceptos de Arquitectura y Organización de Computadoras
                 </button>
-
             </h2>
-
-            <div id="tema1"
-                 class="accordion-collapse collapse"
-                 data-bs-parent="#accordionUnidad1">
-
+            <div id="tema1" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
                 <div class="accordion-body">
-
-                    <p class="fs-5 text-secondary">
-
-                        La arquitectura y organización de computadoras estudia
-                        el diseño interno de los sistemas computacionales y la
-                        manera en que sus componentes trabajan para procesar información.
-
+                    <p class="fs-5 text-secondary text-justify">
+                        La arquitectura y organización de computadoras es una rama de la informática que estudia la estructura interna de los sistemas computacionales y la manera en que cada componente trabaja para ejecutar instrucciones y procesar datos. Estos conceptos permiten comprender cómo funcionan dispositivos modernos como computadoras personales, servidores, teléfonos inteligentes y sistemas embebidos utilizados en electrónica. El estudio de esta área es fundamental para entender temas relacionados con microprocesadores, memoria, buses de comunicación y dispositivos electrónicos programables.
                     </p>
-
-                    <p class="fs-5 text-secondary">
-
-                        Estos conceptos permiten comprender cómo funcionan
-                        dispositivos modernos como computadoras, microcontroladores
-                        y sistemas electrónicos.
-
-                    </p>
-
-                    <img src="{% static 'img/unidad1/arquitectura_general.jpg' %}"
-                         class="img-fluid rounded shadow mt-4">
-
+                    <img src="{% static 'img/unidad1/arquitectura.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
                 </div>
-
             </div>
-
         </div>
 
-        <!-- ARQUITECTURA -->
         <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
-
             <h2 class="accordion-header">
-
                 <button class="accordion-button collapsed bg-dark text-primary fw-bold"
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#tema2">
-
-                    1.1.1.1 Arquitectura
-
+                    1.1.1.1. Arquitectura
                 </button>
-
             </h2>
-
-            <div id="tema2"
-                 class="accordion-collapse collapse"
-                 data-bs-parent="#accordionUnidad1">
-
+            <div id="tema2" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
                 <div class="accordion-body">
-
-                    <p class="fs-5 text-secondary">
-
-                        La arquitectura define las características visibles para el usuario,
-                        incluyendo instrucciones, registros y memoria.
-
+                    <p class="fs-5 text-secondary text-justify">
+                        La arquitectura de computadoras se refiere a los atributos de un sistema que son visibles para un programador, teniendo un impacto directo en la ejecución lógica de un programa. Estos atributos incluyen el conjunto de instrucciones, el número de bits utilizados para representar los datos, los mecanismos de direccionamiento de memoria y las técnicas de entrada y salida. Esencialmente, la arquitectura establece el diseño conceptual y la estructura operativa fundamental del sistema, definiendo la interfaz exacta entre el hardware físico y el software de bajo nivel.
                     </p>
-
-                    <p class="fs-5 text-secondary">
-
-                        También establece cómo el software interactúa con el hardware
-                        y cómo se ejecutan los programas dentro del sistema computacional.
-
-                    </p>
-
-                    <p class="fs-5 text-secondary">
-
-                        Un ejemplo de arquitectura ampliamente conocida es la
-                        arquitectura Von Neumann.
-
-                    </p>
+                    <img src="{% static 'img/unidad1/arq_pc.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
 
                 </div>
-
             </div>
-
         </div>
 
-        <!-- ORGANIZACION -->
         <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
-
             <h2 class="accordion-header">
-
                 <button class="accordion-button collapsed bg-dark text-success fw-bold"
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#tema3">
-
-                    1.1.1.2 Organización
-
+                    1.1.1.2. Organización
                 </button>
-
             </h2>
-
-            <div id="tema3"
-                 class="accordion-collapse collapse"
-                 data-bs-parent="#accordionUnidad1">
-
+            <div id="tema3" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
                 <div class="accordion-body">
-
-                    <p class="fs-5 text-secondary">
-
-                        La organización describe cómo están conectados
-                        físicamente los componentes internos de una computadora.
-
+                    <p class="fs-5 text-secondary text-justify">
+                        La organización de computadoras se enfoca en las unidades funcionales y sus interconexiones de manera que se materialicen todas las especificaciones detalladas por la arquitectura. Mientras que la arquitectura define qué hace el sistema, la organización se encarga de determinar detalladamente cómo se implementan dichas funciones a través del hardware disponible. Este concepto abarca aspectos fundamentales como las señales de control de los circuitos, las interfaces del sistema de memoria y la tecnología física utilizada en los componentes electrónicos.
                     </p>
 
-                    <p class="fs-5 text-secondary">
-
-                        Incluye buses de comunicación, memoria, unidades de control
-                        y dispositivos de entrada y salida.
-
+                    <h4 class="text-warning mt-4 fw-bold">1.1.1.2.1. Estructura</h4>
+                    <p class="fs-5 text-secondary text-justify">
+                        La estructura se define formalmente como la forma particular en la que los componentes individuales de una computadora están interconectados entre sí dentro del sistema global. Para comprender el funcionamiento de una computadora, es totalmente indispensable analizar primero la disposición espacial y las relaciones jerárquicas que existen entre sus bloques principales. Esta configuración estructural garantiza que los datos y las señales de control fluyan de manera ordenada, eficiente y segura a través de los diferentes canales del circuito.
                     </p>
 
-                    <h4 class="text-warning mt-4">
-                        Estructura
-                    </h4>
-
-                    <p class="fs-5 text-secondary">
-
-                        La estructura representa la relación entre los diferentes
-                        componentes del sistema computacional.
-
+                    <h4 class="text-warning mt-4 fw-bold">1.1.1.2.2. Función</h4>
+                    <p class="fs-5 text-secondary text-justify">
+                        La función representa la operation individual que realiza cada componente de la computadora como parte integral de la estructura y del procesamiento general de la información. En términos generales, existen cuatro funciones operativas básicas que el sistema ejecuta de forma constante: procesamiento de datos, almacenamiento de datos, transferencia de datos y control de operaciones. Cada elemento del hardware está diseñado específicamente para cumplir una o más de estas tareas, logrando así un comportamiento armonioso y coordinado en todo momento.
                     </p>
-
-                    <h4 class="text-warning mt-4">
-                        Función
-                    </h4>
-
-                    <p class="fs-5 text-secondary">
-
-                        La función determina el trabajo específico que realiza
-                        cada componente dentro del sistema.
-
-                    </p>
-
                 </div>
-
             </div>
-
         </div>
 
-        <!-- ESTRUCTURA -->
         <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
-
             <h2 class="accordion-header">
-
                 <button class="accordion-button collapsed bg-dark text-warning fw-bold"
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#tema4">
-
-                    1.1.2 Estructura de la Computadora
-
+                    1.1.2. Estructura de la Computadora
                 </button>
-
             </h2>
-
-            <div id="tema4"
-                 class="accordion-collapse collapse"
-                 data-bs-parent="#accordionUnidad1">
-
+            <div id="tema4" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
                 <div class="accordion-body">
+                    <p class="fs-5 text-secondary text-justify">
+                        La computadora está formada por distintos módulos autónomos capaces de procesar, almacenar y transferir información digital bajo criterios preestablecidos. El análisis modular de la estructura informática permite aislar fallas físicas y optimizar los buses lógicos que enlazan las respuestas lógicas del sistema operativo de manera coordinada.
+                    </p>
+                    
+                    <img src="{% static 'img/unidad1/estructura.jpg' %}" class="img-fluid rounded shadow my-4 d-block mx-auto">
 
-                    <p class="fs-5 text-secondary">
-
-                        La computadora está formada por distintos módulos
-                        capaces de procesar, almacenar y transferir información.
-
+                    <h4 class="text-info fw-bold">1.1.2.1. Procesamiento</h4>
+                    <p class="fs-5 text-secondary text-justify">
+                        El procesamiento de datos es la tarea ejecutada principalmente por la Unidad Central de Procesamiento, la cual se encarga de manipular la información según las instrucciones del software. Este bloque fundamental se compone de la Unidad Aritmético Lógica, encargada de realizar cálculos matemáticos y comparaciones lógicas, y de la Unidad de Control que dirige las operaciones. Adicionalmente, cuenta con registros de alta velocidad que almacenan temporalmente los datos más críticos y los resultados inmediatos que el sistema requiere para continuar operando continuamente.
                     </p>
 
-                    <img src="{% static 'img/unidad1/estructura_pc.jpg' %}"
-                         class="img-fluid rounded shadow my-4">
-
-                    <h4 class="text-info">
-                        Procesamiento
-                    </h4>
-
-                    <p class="fs-5 text-secondary">
-
-                        El procesamiento es realizado por la CPU,
-                        encargada de ejecutar instrucciones.
-
+                    <h4 class="text-success mt-4 fw-bold">1.1.2.2. Sistema de Memoria</h4>
+                    <p class="fs-5 text-secondary text-justify">
+                        El sistema de memoria es el encargado de almacenar de forma digital tanto las instrucciones que ejecuta la computadora como los datos que están siendo procesados activamente. Este sistema se organiza comúnmente de forma jerárquica para balancear de manera óptima la velocidad de acceso, la capacidad de almacenamiento y los costos económicos de fabricación. Desde la memoria caché de alta velocidad hasta la memoria principal y los dispositivos de almacenamiento secundario, cada nivel cumple un rol vital en la estabilidad operativa de la máquina.
                     </p>
 
-                    <h4 class="text-success mt-4">
-                        Sistema de Memoria
-                    </h4>
-
-                    <p class="fs-5 text-secondary">
-
-                        La memoria almacena datos temporales y permanentes
-                        necesarios para el funcionamiento del sistema.
-
+                    <h4 class="text-primary mt-4 fw-bold">1.1.2.3. Sistema de Entrada – Salida</h4>
+                    <p class="fs-5 text-secondary text-justify">
+                        El sistema de entrada y salida constituye el puente de comunicación indispensable entre los componentes internos de la computadora y el entorno externo o los usuarios humanos. A través de este sistema, los datos del mundo real se convierten en señales digitales comprensibles para el procesador, y los resultados del procesamiento se traducen nuevamente en formatos útiles. Los módulos de entrada y salida gestionan los protocolos de comunicación y el flujo de datos proveniente de periféricos como teclados, monitores, discos externos y redes.
                     </p>
-
-                    <h4 class="text-primary mt-4">
-                        Sistema de Entrada y Salida
-                    </h4>
-
-                    <p class="fs-5 text-secondary">
-
-                        Los dispositivos de entrada y salida permiten la interacción
-                        entre el usuario y la computadora.
-
-                    </p>
-
                 </div>
-
             </div>
-
         </div>
 
-        <!-- MICROCONTROLADOR -->
         <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
-
             <h2 class="accordion-header">
-
                 <button class="accordion-button collapsed bg-dark text-danger fw-bold"
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#tema5">
-
-                    1.2 Diferencia entre Microprocesador y Microcontrolador
-
+                    1.2. Diferencia entre Microprocesador y Microcontrolador
                 </button>
-
             </h2>
-
-            <div id="tema5"
-                 class="accordion-collapse collapse"
-                 data-bs-parent="#accordionUnidad1">
-
+            <div id="tema5" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
                 <div class="accordion-body">
-
-                    <p class="fs-5 text-secondary">
-
-                        El microprocesador y el microcontrolador son dispositivos
-                        fundamentales en electrónica y computación.
-
+                    <p class="fs-5 text-secondary text-justify">
+                        El microprocesador y el microcontrolador son dispositivos semiconductores fundamentales en las bases de la ingeniería electrónica, la robótica contemporánea y las tecnologías de computación avanzadas. Ambos elementos basan su arquitectura física básica en compuertas lógicas integradas a gran escala dentro de láminas microscópicas de silicio puro de grado industrial.
                     </p>
 
-                    <img src="{% static 'img/unidad1/microprocesador_microcontrolador.jpg' %}"
-                         class="img-fluid rounded shadow my-4">
+                    <img src="{% static 'img/unidad1/micro.png' %}" class="img-fluid rounded shadow my-4 d-block mx-auto">
 
-                    <h4 class="text-info">
-                        Microprocesador
-                    </h4>
-
-                    <p class="fs-5 text-secondary">
-
-                        Necesita componentes externos como memoria RAM,
-                        almacenamiento y periféricos.
-
+                    <h4 class="text-info fw-bold">1.2.1. Definición de Microprocesador</h4>
+                    <p class="fs-5 text-secondary text-justify">
+                        Un microprocesador es un circuito integrado de alta complejidad que agrupa exclusivamente las funciones de una Unidad Central de Procesamiento en un solo chip de silicio. Este componente requiere de la adición externa de módulos de memoria de acceso aleatorio, memoria de lectura, puertos de entrada y salida, y otros periféricos para operar adecuadamente. Debido a esta naturaleza modular, el microprocesador está diseñado para aplicaciones de propósito general donde se necesita una potencia de cálculo sumamente elevada, flexibilidad de configuración y velocidad.
                     </p>
 
-                    <h4 class="text-success mt-4">
-                        Microcontrolador
-                    </h4>
-
-                    <p class="fs-5 text-secondary">
-
-                        Integra CPU, memoria y periféricos en un solo chip,
-                        siendo ideal para sistemas embebidos.
-
+                    <h4 class="text-success mt-4 fw-bold">1.2.2. Definición de Microcontrolador</h4>
+                    <p class="fs-5 text-secondary text-justify">
+                        Un microcontrolador es un sistema computacional completo contenido en un único chip de silicio, diseñado específicamente para realizar tareas de control automatizadas en sistemas embebidos. A diferencia del microprocesador, este circuito integra internamente la CPU junto con bloques de memoria RAM, memoria ROM, temporizadores y puertos de entrada y salida digitales o analógicos. Esta configuración integrada reduce drásticamente el espacio físico necesario en el diseño del hardware, optimiza el consumo energético general y disminuye significativamente los costos de producción.
                     </p>
 
-                    <h4 class="text-warning mt-4">
-                        Diferencia Principal
-                    </h4>
-
-                    <p class="fs-5 text-secondary">
-
-                        El microprocesador está orientado a sistemas complejos,
-                        mientras que el microcontrolador se utiliza en dispositivos
-                        electrónicos específicos como Arduino y robots.
-
+                    <h4 class="text-warning mt-4 fw-bold">1.2.3. Diferencia entre el Microprocesador y Microcontrolador</h4>
+                    <p class="fs-5 text-secondary text-justify">
+                        La diferencia fundamental entre ambos radica principalmente en su arquitectura de integración, el propósito de su diseño industrial y el costo de su implementación en proyectos reales. El microprocesador busca maximizar la velocidad de cómputo delegando el almacenamiento y la conectividad a chips externos, lo que lo hace ideal para computadoras y servidores potentes. Por su parte, el microcontrolador prioriza la autosuficiencia, el bajo consumo de corriente y la economía, integrando todo en un único circuito para controlar electrodomésticos, vehículos y herramientas electrónicas.
                     </p>
-
                 </div>
-
             </div>
-
         </div>
 
     </div>
