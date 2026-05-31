@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<section class="py-5">
+
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold text-info">
+            UNIDAD IV
+        </h1>
+        <p class="lead text-secondary fw-semibold">
+            Arquitectura de los Microcontroladores
+        </p>
+    </div>
+
+    <div class="accordion accordion-flush" id="accordionUnidad4">
+
+        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed bg-dark text-info fw-bold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#tema4-1">
+                    4.1. Arquitectura de los Microcontroladores
+                </button>
+            </h2>
+            <div id="tema4-1" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad4">
+                <div class="accordion-body">
+                    <p class="fs-5 text-secondary text-justify">
+                        La arquitectura de los microcontroladores comprende la organización interna de los componentes que permiten ejecutar instrucciones, procesar datos y controlar dispositivos electrónicos. A diferencia de los microprocesadores convencionales, los microcontroladores integran en un solo circuito elementos como la unidad de procesamiento, memoria y periféricos de entrada y salida. Esta integración reduce el tamaño, el consumo energético y el costo de los sistemas electrónicos. Gracias a estas características, los microcontroladores son ampliamente utilizados en aplicaciones de automatización, control industrial y dispositivos inteligentes. Su estudio resulta fundamental para comprender el funcionamiento de los sistemas embebidos modernos.
+                    </p>
+                    <img src="{% static 'img/unidad4/contro.jpg' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed bg-dark text-primary fw-bold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#tema4-1-1">
+                    4.1.1. Diferentes Tipos de Microcontroladores
+                </button>
+            </h2>
+            <div id="tema4-1-1" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad4">
+                <div class="accordion-body">
+                    <p class="fs-5 text-secondary text-justify mb-4">
+                        Los microcontroladores pueden clasificarse según su arquitectura, capacidad de memoria, aplicaciones y forma de integración con otros componentes del sistema. Cada tipo ha sido diseñado para satisfacer necesidades específicas relacionadas con el procesamiento de datos y el control de dispositivos electrónicos. Algunos modelos están orientados a sistemas compactos con recursos limitados, mientras que otros permiten expandir sus capacidades mediante componentes externos. Esta diversidad ofrece soluciones adaptadas a distintos entornos tecnológicos. Por ello, la selección adecuada del microcontrolador depende de los requerimientos particulares de cada proyecto.
+                    </p>
+
+                    <h4 class="text-info fw-bold mt-4">4.1.1.1. Microcontroladores Embebidos</h4>
+                    <p class="fs-5 text-secondary text-justify">
+                        Los microcontroladores embebidos son dispositivos diseñados para formar parte de un sistema electrónico específico, ejecutando tareas concretas de manera autónoma. Generalmente se encuentran integrados en productos de uso cotidiano como electrodomésticos, vehículos, equipos médicos y sistemas de automatización. Su principal característica es la capacidad de operar con recursos limitados y bajo consumo energético. Además, suelen estar optimizados para cumplir funciones determinadas con alta confiabilidad y eficiencia. Debido a estas ventajas, constituyen la base de numerosos sistemas inteligentes utilizados en la actualidad.
+                    </p>
+                    <img src="{% static 'img/unidad4/embebidos.jpg' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
+
+
+                    <h4 class="text-success fw-bold mt-4">4.1.1.2. Microcontroladores con Memoria Externa</h4>
+                    <p class="fs-5 text-secondary text-justify">
+                        Los microcontroladores con memoria externa son aquellos que permiten ampliar su capacidad de almacenamiento mediante dispositivos adicionales conectados al sistema. Esta característica resulta especialmente útil en aplicaciones que requieren manejar grandes volúmenes de datos o ejecutar programas de mayor complejidad. La utilización de memoria externa proporciona mayor flexibilidad en el diseño de sistemas electrónicos avanzados. Sin embargo, también implica una mayor complejidad en la comunicación entre los componentes del sistema. A pesar de ello, su empleo es frecuente en aplicaciones industriales y sistemas de procesamiento especializados.
+                    </p>
+                    <img src="{% static 'img/unidad4/externa.jpg' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed bg-dark text-success fw-bold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#tema4-1-2">
+                    4.1.2. Arquitectura de Microcontroladores
+                </button>
+            </h2>
+            <div id="tema4-1-2" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad4">
+                <div class="accordion-body">
+                    <p class="fs-5 text-secondary text-justify mb-4">
+                        La arquitectura de los microcontroladores define la forma en que sus componentes internos se organizan y colaboran para ejecutar instrucciones y procesar información. Esta estructura incluye elementos como la unidad central de procesamiento, memoria, temporizadores, puertos de entrada y salida, convertidores analógicos-digitales y módulos de comunicación. El diseño arquitectónico influye directamente en el rendimiento, la eficiencia energética y las capacidades funcionales del dispositivo. Asimismo, determina la manera en que el programador interactúa con los recursos disponibles. Por esta razón, el conocimiento de la arquitectura es esencial para el desarrollo de aplicaciones embebidas.
+                    </p>
+
+                    <h4 class="text-warning fw-bold mt-4">4.1.2.1. Harvard vs Von Neumann</h4>
+                    <p class="fs-5 text-secondary text-justify mb-3">
+                        Las arquitecturas Harvard y Von Neumann representan dos enfoques diferentes para la organización de la memoria dentro de los sistemas digitales. En la arquitectura Von Neumann, los datos y las instrucciones comparten un mismo espacio de memoria y utilizan los mismos buses para su transferencia. Por el contrario, la arquitectura Harvard dispone de memorias y buses independientes para datos e instrucciones, permitiendo accesos simultáneos y mayor velocidad de procesamiento. Esta diferencia proporciona ventajas significativas en aplicaciones donde el rendimiento es un factor crítico. Actualmente, muchos microcontroladores modernos emplean variantes de la arquitectura Harvard debido a su eficiencia operativa.
+                    </p>
+
+                    <div class="table-responsive my-4">
+                        <table class="table table-dark table-striped table-bordered border-secondary align-middle text-center">
+                            <thead>
+                                <tr class="text-warning border-secondary">
+                                    <th>Característica</th>
+                                    <th>Harvard</th>
+                                    <th>Von Neumann</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="fw-bold text-start text-light">Memoria</td>
+                                    <td>Separada para datos e instrucciones</td>
+                                    <td>Compartida</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold text-start text-light">Buses</td>
+                                    <td>Independientes</td>
+                                    <td>Compartidos</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold text-start text-light">Velocidad</td>
+                                    <td>Mayor</td>
+                                    <td>Menor</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold text-start text-light">Complejidad</td>
+                                    <td>Más compleja</td>
+                                    <td>Más simple</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    <img src="{% static 'img/unidad4/vs.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto" style="max-width: 700px; height: auto;">
+
+                    </div>
+
+                    <h4 class="text-danger fw-bold mt-4">4.1.2.2. CISC vs RISC</h4>
+                    <p class="fs-5 text-secondary text-justify mb-3">
+                        Las arquitecturas CISC (Complex Instruction Set Computer) y RISC (Reduced Instruction Set Computer) representan dos filosofías distintas en el diseño de procesadores y microcontroladores. La arquitectura CISC se caracteriza por disponer de un amplio conjunto de instrucciones complejas capaces de realizar múltiples operaciones en una sola instrucción. En contraste, la arquitectura RISC utiliza un conjunto reducido de instrucciones simples optimizadas para ejecutarse de manera rápida y eficiente. Esta simplicidad facilita la implementación de técnicas avanzadas de procesamiento y mejora el rendimiento general del sistema. Como resultado, numerosos microcontroladores modernos adoptan principios RISC para lograr una mayor velocidad y eficiencia energética.
+                    </p>
+
+                    <div class="table-responsive my-4">
+                        <table class="table table-dark table-striped table-bordered border-secondary align-middle text-center">
+                            <thead>
+                                <tr class="text-danger border-secondary">
+                                    <th>Característica</th>
+                                    <th>CISC</th>
+                                    <th>RISC</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="fw-bold text-start text-light">Instrucciones</td>
+                                    <td>Complejas y numerosas</td>
+                                    <td>Simples y reducidas</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold text-start text-light">Ciclos por instrucción</td>
+                                    <td>Varios</td>
+                                    <td>Generalmente uno</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold text-start text-light">Hardware</td>
+                                    <td>Más complejo</td>
+                                    <td>Más simple</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold text-start text-light">Rendimiento</td>
+                                    <td>Menor eficiencia energética</td>
+                                    <td>Mayor eficiencia energética</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <img src="{% static 'img/unidad4/ris.jpg' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto" style="max-width: 700px; height: auto;">
+                        
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

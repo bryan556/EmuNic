@@ -24,3 +24,6 @@ def arduino(request):
 
 def rp2040(request):
     return render(request, 'rp2040.html')
+
+def emu(request):
+    return render(request,'Emu.html')

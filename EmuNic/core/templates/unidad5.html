@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<section class="py-5">
+
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold text-info">
+            UNIDAD V
+        </h1>
+        <p class="lead text-secondary fw-semibold">
+            Programadores del Microcontrolador
+        </p>
+    </div>
+
+    <div class="accordion accordion-flush" id="accordionUnidad5">
+
+        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed bg-dark text-info fw-bold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#tema5-1">
+                    5.1. Repertorio de Instrucciones
+                </button>
+            </h2>
+            <div id="tema5-1" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad5">
+                <div class="accordion-body">
+                    <p class="fs-5 text-secondary text-justify mb-4">
+                        El repertorio de instrucciones corresponde al conjunto de operaciones que un microcontrolador es capaz de ejecutar directamente mediante su unidad central de procesamiento. Estas instrucciones constituyen el lenguaje básico que permite controlar el hardware y realizar diversas tareas de procesamiento de información. Cada arquitectura dispone de un repertorio específico diseñado para optimizar el rendimiento y la eficiencia del sistema. Las instrucciones pueden clasificarse según la función que desempeñan, como transferencia de datos, operaciones aritméticas, control de flujo y manipulación de bits. Su conocimiento es fundamental para desarrollar programas eficientes en lenguaje ensamblador.
+                    </p>
+
+                    <h4 class="text-info fw-bold mt-4">5.1.1. Instrucciones de Transferencia de Datos</h4>
+                    <p class="fs-5 text-secondary text-justify">
+                        Las instrucciones de transferencia de datos permiten mover información entre registros, memoria y dispositivos de entrada o salida. Estas operaciones son esenciales para el funcionamiento de cualquier programa, ya que facilitan el acceso y almacenamiento de los datos necesarios para la ejecución de tareas. Entre las acciones más comunes se encuentran la carga, copia y almacenamiento de valores. Además, estas instrucciones contribuyen a la organización eficiente de la información dentro del sistema. Su correcta utilización mejora significativamente el rendimiento de las aplicaciones desarrolladas.
+                    </p>
+
+                    <h4 class="text-primary fw-bold mt-4">5.1.2. Instrucciones Aritméticas y Lógicas</h4>
+                    <p class="fs-5 text-secondary text-justify">
+                        Las instrucciones aritméticas y lógicas son responsables de realizar cálculos matemáticos y operaciones de comparación sobre los datos procesados por el microcontrolador. Entre las operaciones aritméticas más comunes se encuentran la suma, resta, multiplicación e incremento de valores. Por otra parte, las operaciones lógicas incluyen comparaciones, negaciones y combinaciones mediante operadores booleanos. Estas instrucciones permiten implementar algoritmos capaces de tomar decisiones y procesar información de manera eficiente. Debido a su importancia, constituyen uno de los grupos más utilizados dentro de la programación de sistemas digitales.
+                    </p>
+
+                    <h4 class="text-success fw-bold mt-4">5.1.3. Control de Flujo de Programa</h4>
+                    <p class="fs-5 text-secondary text-justify mb-3">
+                        El control de flujo de programa comprende las instrucciones encargadas de modificar la secuencia normal de ejecución de un conjunto de instrucciones. Gracias a estos mecanismos, es posible implementar estructuras de decisión, ciclos repetitivos y llamadas a subrutinas. Estas herramientas permiten desarrollar programas dinámicos capaces de responder a diferentes condiciones durante su ejecución. Asimismo, contribuyen a optimizar el uso de recursos y mejorar la organización del código. Su aplicación es indispensable en prácticamente cualquier software desarrollado para microcontroladores.
+                    </p>
+
+                    <h5 class="text-warning fw-bold ps-3 mt-3">5.1.3.1. Salto Incondicional</h5>
+                    <p class="fs-5 text-secondary text-justify ps-3">
+                        El salto incondicional es una instrucción que transfiere el control de ejecución hacia una dirección específica del programa sin evaluar ninguna condición previa. Su principal función consiste en alterar el flujo normal de las instrucciones para continuar la ejecución en otra sección del código. Este mecanismo es ampliamente utilizado en la implementación de ciclos, menús y rutinas de control. Además, permite reorganizar la ejecución de programas complejos de manera eficiente. Su simplicidad lo convierte en una herramienta fundamental dentro del lenguaje ensamblador.
+                    </p>
+
+                    <h5 class="text-danger fw-bold ps-3 mt-3">5.1.3.2. Salto Condicionado</h5>
+                    <p class="fs-5 text-secondary text-justify ps-3">
+                        El salto condicionado es una instrucción que modifies el flujo de ejecución únicamente cuando se cumple una condición previamente establecida. Generalmente, esta condición se determina mediante el resultado de comparaciones o el estado de determinados indicadores del procesador. Este tipo de instrucción resulta esencial para implementar estructuras de decisión similares a las empleadas en lenguajes de alto nivel. Gracias a su flexibilidad, permite desarrollar programas capaces de adaptarse a diferentes situaciones. Su utilización adecuada mejora la eficiencia y funcionalidad de las aplicaciones.
+                    </p>
+
+                    <h4 class="text-warning fw-bold mt-4">5.1.4. Instrucciones de Bits</h4>
+                    <p class="fs-5 text-secondary text-justify">
+                        Las instrucciones de bits permiten manipular individualmente los bits que conforman un dato almacenado en memoria o registros internos. Estas operaciones incluyen establecer, borrar, invertir y comprobar el estado de determinados bits según las necesidades de la aplicación. Su utilización es especialmente importante en sistemas embebidos donde el control directo del hardware requiere acceder a señales específicas. Además, permiten optimizar el uso de la memoria y mejorar el rendimiento del sistema. Por ello, constituyen una herramienta indispensable en la programación de microcontroladores.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed bg-dark text-primary fw-bold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#tema5-2">
+                    5.2. Fundamentos del Lenguaje Ensamblador
+                </button>
+            </h2>
+            <div id="tema5-2" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad5">
+                <div class="accordion-body">
+                    <p class="fs-5 text-secondary text-justify mb-4">
+                        El lenguaje ensamblador es un lenguaje de programación de bajo nivel que permite controlar directamente los recursos internos del microcontrolador. Cada instrucción escrita en ensamblador tiene una correspondencia directa con una instrucción ejecutada por el hardware. Esta característica proporciona un elevado grado de control sobre el funcionamiento del sistema y permite optimizar el uso de memoria y procesamiento. Aunque requiere un conocimiento detallado de la arquitectura utilizada, sigue siendo una herramienta importante en aplicaciones de tiempo real y sistemas embebidos. Su estudio contribuye a comprender el funcionamiento interno de los dispositivos electrónicos programables.
+                    </p>
+
+                    <h4 class="text-info fw-bold mt-4">5.2.1. Expresiones, Operaciones y Operadores</h4>
+                    <p class="fs-5 text-secondary text-justify">
+                        Las expresiones en lenguaje ensamblador son combinaciones de valores, constantes y operadores utilizadas para realizar cálculos o determinar direcciones de memoria. Los operadores permiten efectuar operaciones aritméticas, lógicas y relacionales necesarias durante el proceso de programación. Estas herramientas facilitan la construcción de instrucciones más flexibles y adaptables a diferentes necesidades. Asimismo, contribuyen a mejorar la claridad y organización del código fuente. Su comprensión resulta esencial para desarrollar programas funcionales y eficientes.
+                    </p>
+
+                    <h4 class="text-success fw-bold mt-4">5.2.2. Directivas</h4>
+                    <p class="fs-5 text-secondary text-justify">
+                        Las directivas son instrucciones especiales dirigidas al ensamblador y no al microcontrolador durante la ejecución del programa. Su función principal consiste en controlar el proceso de ensamblaje, definir segmentos de memoria, declarar variables y establecer configuraciones específicas. Estas instrucciones permiten organizar adecuadamente el código fuente y facilitar su mantenimiento. Además, proporcionan mecanismos para optimizar la estructura del programa antes de su conversión a lenguaje máquina. Por esta razón, las directivas forman parte fundamental del desarrollo de aplicaciones en ensamblador.
+                    </p>
+
+                    <h4 class="text-warning fw-bold mt-4">5.2.3. Macroinstrucciones</h4>
+                    <p class="fs-5 text-secondary text-justify">
+                        Las macroinstrucciones son secuencias de instrucciones agrupadas bajo un identificador único que pueden reutilizarse múltiples veces dentro de un programa. Este mecanismo permite simplificar tareas repetitivas y reducir la cantidad de código escrito por el programador. Durante el proceso de ensamblaje, el ensamblador sustituye automáticamente la llamada a la macro por el conjunto completo de instrucciones que la componen. Esta característica mejora la productividad y disminuye la probabilidad de errores. Además, favorece la legibilidad y mantenimiento del código fuente.
+                    </p>
+
+                    <h4 class="text-danger fw-bold mt-4">5.2.4. Subrutinas</h4>
+                    <p class="fs-5 text-secondary text-justify">
+                        Las subrutinas son bloques de código diseñados para ejecutar tareas específicas que pueden ser invocadas desde diferentes partes de un programa. Su principal objetivo es promover la reutilización del código y facilitar la organización de aplicaciones complejas. Cuando una subrutina es llamada, el flujo de ejecución se transfiere temporalmente a dicha sección y posteriormente retorna al punto de origen. Esta metodología mejora la modularidad y simplifica las labores de mantenimiento. Por ello, las subrutinas constituyen una herramienta fundamental en la programación estructurada.
+                    </p>
+
+                    <h4 class="text-info fw-bold mt-4">5.2.5. Organización de un Programa en Lenguaje Ensamblador</h4>
+                    <p class="fs-5 text-secondary text-justify">
+                        La organización de un programa en lenguaje ensamblador implica la distribución adecuada de las diferentes secciones que conforman el código fuente. Generalmente, estas incluyen áreas destinadas a la declaración de constantes, variables, segmentos de datos y bloques de instrucciones ejecutables. Una estructura bien definida facilita la comprensión, depuración y mantenimiento del programa. Además, permite aprovechar de manera eficiente los recursos disponibles en el microcontrolador. Por esta razón, la planificación de la organización del código constituye una etapa esencial del proceso de desarrollo.
+                    </p>
+
+                    <h4 class="text-success fw-bold mt-4">5.2.6. Los Sistemas Informáticos MPLAB y PROTEUS</h4>
+                    <p class="fs-5 text-secondary text-justify">
+                        MPLAB y PROTEUS son herramientas ampliamente utilizadas en el desarrollo y simulación de aplicaciones basadas en microcontroladores. MPLAB proporciona un entorno integrado de desarrollo que permite escribir, compilar, depurar y programar dispositivos fabricados por Microchip. 
+                    </p>
+                        <img src="{% static 'img/unidad5/mplab.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto" style="max-width: 200px; height: auto;">
+
+
+                    <p class="fs-5 text-secondary text-justify">
+                        Por su parte, PROTEUS ofrece capacidades de simulación electrónica que permiten verificar el funcionamiento de circuitos y programas antes de su implementación física. La combinación de ambas plataformas facilita el diseño, prueba y validación de proyectos electrónicos. Gracias a estas herramientas, los desarrolladores pueden reducir costos y mejorar la eficiencia durante el proceso de creación de sistemas embebidos.
+                    </p>
+                        <img src="{% static 'img/unidad5/Proteus.jpg' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto " style="max-width: 200px; height: auto;">
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

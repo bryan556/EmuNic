@@ -10,5 +10,7 @@ urlpatterns = [
     path('unidad5/',views.unidad5,name='unidad5'),
     path('arduino/',views.arduino,name='arduino'),
     path('rp2040/',views.rp2040,name='rp2040'),
+    path('emu/',views.emu,name='emu'),
+
 
 ]
