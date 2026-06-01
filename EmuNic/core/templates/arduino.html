@@ -36,32 +36,33 @@
             </div>
         </div>  
         
-<div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
-        <h2 class="accordion-header">
-            <button class="accordion-button collapsed bg-dark text-info fw-bold"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#tema2">
-                    2. Características principales
-            </button>
+        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed bg-dark text-info fw-bold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#tema2">
+                        2. Características principales
+                </button>
             </h2>
-        <div id="tema2" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
-            <div class="accordion-body">
+            <div id="tema2" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
+                <div class="accordion-body">
 
-                <ul class="fs-5 text-secondary text-justify">
-                    <li>Microcontrolador: ATmega328P</li>
-                    <li>ATmega16U2 en lugar de 8U2 como convertidor de USB a serie.</li>
-                    <li>Voltaje de operación: 5V</li>
-                    <li>Velocidad de reloj: 16 MHz</li>
-                    <li>Memoria: 32 KB Flash (0.5 KB usados por el bootloader), 2 KB SRAM y 1 KB EEPROM</li>
-                    <li>Pines digitales: 14 (de los cuales 6 proporcionan salida PWM)</li>
-                    <li>Pines analógicos: 6</li>
-                    <li>Interfaces de comunicación: 1 UART (puerto serie), 1 SPI y 1 I2C</li>
-                    <li>Conector de alimentación: Jack estándar para adaptador de corriente</li>
-                       
-                </ul>
+                    <ul class="fs-5 text-secondary text-justify">
+                        <li>Microcontrolador: ATmega328P</li>
+                        <li>ATmega16U2 en lugar de 8U2 como convertidor de USB a serie.</li>
+                        <li>Voltaje de operación: 5V</li>
+                        <li>Velocidad de reloj: 16 MHz</li>
+                        <li>Memoria: 32 KB Flash (0.5 KB usados por el bootloader), 2 KB SRAM y 1 KB EEPROM</li>
+                        <li>Pines digitales: 14 (de los cuales 6 proporcionan salida PWM)</li>
+                        <li>Pines analógicos: 6</li>
+                        <li>Interfaces de comunicación: 1 UART (puerto serie), 1 SPI y 1 I2C</li>
+                        <li>Conector de alimentación: Jack estándar para adaptador de corriente</li>
+                        
+                    </ul>
 
-            </div>
+                </div>
+            </div>    
         </div>
         
         <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
@@ -92,11 +93,160 @@
                     
                 </div>
             </div>
+        </div>
+        
+        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed bg-dark text-info fw-bold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#tema4">
+                    4. Simulando Arduino
+                </button>
+            </h2>
+            <div id="tema4" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
+                <div class="accordion-body">
+                    <h5>Tinkercad</h5>
+                    <p class="fs-5 text-secondary text-justify">
+                        Tinkercad es una aplicación web gratuita y en línea creada por Autodesk, diseñada para enseñar los fundamentos del modelado 3D, la electrónica y la programación. Destaca por su interfaz visual e intuitiva de tipo "arrastrar y soltar", haciéndola ideal para principiantes, estudiantes y aficionados al mundo maker.
+                    </p>
+
+                    <p class="fs-5 text-secondary text-justify">
+                        Tinkercad nos ayudará a simular circuitos con Arduino, donde nos ofrece una gran variedad de componentes electrónicos, desde sensores,motores,diodos, resistencia y otros más.
+                        La ventaja de usar tinkercad es que es gratis y facil de usar a comparacion de otros simuladores de escritorio que no lo son y muy complejos de usar y poco intuitivos.
+                    </p>
+                    <h5>Pasos para usar tinkercad:</h5>
+                    <p class="fs-5 text-secondary text-justify"> 1. Visita la pagina:<a href="https://www.tinkercad.com/">https://www.tinkercad.com/</a> </p>
+
+                    <p class="fs-5 text-secondary text-justify"> 2. Dar al boton de registrar:</p>
+
+                    <img src="{% static 'img/arduino/registro.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
+
+                    <p class="fs-5 text-secondary text-justify"> 3. Dar click en crear una cuenta personal</p>
+
+                    <img src="{% static 'img/arduino/personal.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
+
+                    <p class="fs-5 text-secondary text-justify"> 4. Usar cualquier opcion de correo en la web y seguir con el registro en la web</p>
+
+                    <img src="{% static 'img/arduino/google.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
+
+                    <p class="fs-5 text-secondary text-justify"> 5. Terminado el registro podremos crear desde modelos 3d. codigos de bloques y circuitos</p>
+
+                    <img src="{% static 'img/arduino/circuitos.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
+
+                    <p class="fs-5 text-secondary text-justify"> 6. Si damos click en crear circuito, nos ofreceran un espacio de trabajo con todos los componentes que querramos usar</p>
+
+                    <img src="{% static 'img/arduino/crear.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
+  
+                </div>
+            </div>
+        </div>
+        
+        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed bg-dark text-info fw-bold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#tema5">
+                    5. Primer circuito de Arduino en Tinkercad
+                </button>
+            </h2>
+            <div id="tema5" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
+                <div class="accordion-body">
+                    <h5>Circuito de control de led</h5>
+                    <p class="fs-5 text-secondary text-justify">
+                        Intentemos crear un circuito sencillo en tinkercad, donde usaremos los siguientes componentes:
+                    </p>
+
+                    <ul class="fs-5 text-secondary text-justify">
+                        <li>Placa arduino</li>
+                        <li>Proboard</li>
+                        <li>led </li>
+                        <li>resistencia</li>
+                    </ul>
+
+                    <p class="fs-5 text-secondary text-justify">En la parte derecha tendremos todos los componentes necesario donde solo es necesario arrastrar y soltar cada uno. Conectamos El GND al negativo de la protoboard y luego al negativo de la led, usamos el pin 7 y lo conectamos al positivo de la led con la resistencia.</p>
+                    <img src="{% static 'img/arduino/led.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
+                    <p class="fs-5 text-secondary text-justify"> Usamos la opcion de codigo y texto para programar el arduino con la logica que tendra nuestro circuito. El siguiente codigo encendera y apagará la led roja por 1 segundo.</p>
+
+                    <img src="{% static 'img/arduino/code1.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
+
+                    <p class="fs-5 text-secondary text-justify">Si damos en el boton de "iniciar simulacion" empezará a ejecutarse el codigo y la led se apagará y encenderá cada segundo.</p>
+                    <img src="{% static 'img/arduino/sim1.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
+                </div>
+            </div>
+        </div>
+        
+        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed bg-dark text-info fw-bold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#tema6">
+                    6. Uso de potenciometro + Led
+                </button>
+            </h2>
+            <div id="tema6" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
+                <div class="accordion-body">
+                    <p class="fs-5 text-secondary text-justify">
+                        Para este circuito vamos a necesitar lo siguiente:
+                    </p>
+
+                    <ul class="fs-5 text-secondary text-justify">
+                        <li>Arduino</li>
+                        <li>protoboard</li>
+                        <li>Led</li>
+                        <li>resistencia</li>
+                        <li>potenciometro</li>
+
+                    </ul>
+                    <p class="fs-5 text-secondary text-justify">Seguir el diagrama con el codigo en cuestion, haciendo uso del pin 13 y A0</p>
+                    <img src="{% static 'img/arduino/2.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
+
+                    <p class="fs-5 text-secondary text-justify">Si iniciamos la simulacion y empezamos a dar giros al potenciometro, se daran cuenta que la led baja el brillo</p>
+
+                    <img src="{% static 'img/arduino/2.1.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
+                </div>
+            </div>
+        </div>
+        
+        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed bg-dark text-info fw-bold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#tema7">
+                    7. Sensor de temperatura + motor DC
+                </button>
+            </h2>
+            <div id="tema7" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
+                <div class="accordion-body">
+                    <p class="fs-5 text-secondary text-justify">
+                        Para este circuito vamos a necesitar lo siguiente:
+                    </p>
+
+                    <ul class="fs-5 text-secondary text-justify">
+                        <li>Arduino</li>
+                        <li>protoboard</li>
+                        <li>Motor DC</li>
+                        <li>Sensor TPM</li>
+                    </ul>
+                    <p class="fs-5 text-secondary text-justify">Seguir el diagrama con el codigo en cuestion, haciendo uso del pin 3 y A0</p>
+                    <img src="{% static 'img/arduino/3.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
+
+                    <p class="fs-5 text-secondary text-justify">Este es el codigo que usaremos para obtener la temperatura y controlar el motor dc</p>
+
+                    <img src="{% static 'img/arduino/3.1.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
+
+                    <p class="fs-5 text-secondary text-justify">Si damos al boton de iniciar simulacion. veremos que el motor se activa de inmediato, tambien podemos hacer click en el sensor TPM para controlar la temperatura comodamente, si la vamos cambiando nos daremos cuenta que el motor podra apagarse o girar mas rapido</p>
+
+                    <img src="{% static 'img/arduino/3.2.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
+                </div>
+            </div>
         </div>        
+        
 
     </div>
-
-
 
 </section>
 {% endblock %}
