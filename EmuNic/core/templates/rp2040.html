@@ -220,6 +220,33 @@
         </div>        
         
 
+        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed bg-dark text-info fw-bold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#tema8">
+                    8. Visualizador de la placa RP2040 zero
+                </button>
+            </h2>
+            <div id="tema8" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
+                <div class="accordion-body">
+                    <p class="fs-5 text-secondary text-justify">
+                        Presentamos la placa RP2040 zero en un modelo 3D para que pueda visualizarse a detalle lo pequeña y compacta que puede llegar a ser, ideal para proyecto donde se necesita poco espacio.
+                    </p>
+                    <div class="d-flex justify-content-center">
+                        <model-viewer 
+                        src="{% static 'modelos/rp2040.glb' %}"
+                        style="width: 100%; height: 500px;"  
+                        alt="Descripción de tu modelo 3D" 
+                        auto-rotate 
+                        camera-controls>
+                        </model-viewer>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
 
