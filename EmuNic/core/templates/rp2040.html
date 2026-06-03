@@ -108,7 +108,117 @@
                     </div>
                 </div>
             </div>
+        </div>
+        
+        
+       <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed bg-dark text-info fw-bold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#tema5">
+                    5. Ejemplo: Control de led
+                </button>
+            </h2>
+            <div id="tema5" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
+                <div class="accordion-body">
+                    <p class="fs-5 text-secondary text-justify">
+                        Para este ejemplo, presentamos un circuito sencillo para el control de un diodo led.
+                    </p>
+                    <p class="fs-5 text-secondary text-justify">
+                        La imagen presentada es el codigo que usaremos en thonny IDE para el control de la led. Donde podemos usar F5 para ejecutar el codigo, CTRL + S para guardar el codigo en la placa o la computadora.
+                    </p>
+                    <img src="{% static 'img/rp2040/1.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto" style="max-width: 400px; height: auto;">
+                    <p class="fs-5 text-secondary text-justify">
+                        La conexion es sencilla, usando el PIN 0 que va a la resistencia de 1k ohm , para el control de la led y el GND de la placa al negativo de la led.
+                    </p>
+                    <img src="{% static 'img/rp2040/1.1.jpeg' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto" style="max-width: 700px; height: auto;">
+                    <p class="fs-5 text-secondary text-justify">
+                        A continuación, presentamos un video de la demostracion del control del led.
+                    </p>
+                    <div class="d-flex justify-content-center">
+                        <video width="640" height="360" controls>
+                        <source src="{% static 'img/rp2040/1.2.mp4' %}" type="video/mp4">
+                        Tu navegador no soporta el elemento de video.
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </div>
+                
+        
+       <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed bg-dark text-info fw-bold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#tema6">
+                    6. Ejemplo: Uso de potenciometro + Led
+                </button>
+            </h2>
+            <div id="tema6" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
+                <div class="accordion-body">
+                    <p class="fs-5 text-secondary text-justify">
+                        Para este ejemplo, presentamos un circuito donde haremos uso de un protenciometro, resistencia de 1k ohm y un diodo led. Este ejemplo nos ayudará a comprender a como funcionar un potenciometro y controlar el brillo de la led.
+                    </p>
+                    <p class="fs-5 text-secondary text-justify">
+                        La imagen presentada es el codigo que usaremos en thonny IDE para el control del brillo de la led con el potenciometro. Donde podemos usar F5 para ejecutar el codigo, CTRL + S para guardar el codigo en la placa o la computadora.
+                    </p>
+                    <img src="{% static 'img/rp2040/2.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto" style="max-width: 400px; height: auto;">
+                    <p class="fs-5 text-secondary text-justify">
+                        La conexion es sencilla, usando el PIN 0 en modo PWM para el brillo de la led con una resistencia y usamos el PIN 26 para controlar los valores del potenciometro, usamos GND y 3.3V al potenciometro. 
+                    </p>
+                    <img src="{% static 'img/rp2040/2.1.jpeg' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto" style="max-width: 700px; height: auto;">
+                    <p class="fs-5 text-secondary text-justify">
+                        A continuación, presentamos un video de la demostracion del control del led.
+                    </p>
+                    <div class="d-flex justify-content-center">
+                        <video width="640" height="360" controls>
+                        <source src="{% static 'img/rp2040/2.2.mp4' %}" type="video/mp4">
+                        Tu navegador no soporta el elemento de video.
+                        </video>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+
+       <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed bg-dark text-info fw-bold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#tema7">
+                    7. Ejemplo: Control de un buzzer activo
+                </button>
+            </h2>
+            <div id="tema7" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
+                <div class="accordion-body">
+                    <p class="fs-5 text-secondary text-justify">
+                        Para este ejemplo, presentamos un circuito donde haremos uso de un buzzer activo,
+                        la cual mandaremos una señal de tiempo para que se active y apague en momento
+                        determinado. Solo es necesario usar un buzzer activo.
+                    </p>
+                    <p class="fs-5 text-secondary text-justify">
+                        La imagen presentada es el codigo que usaremos en thonny IDE para el control del buzzer activo. Donde podemos usar F5 para ejecutar el codigo, CTRL + S para guardar el codigo en la placa o la computadora.
+                    </p>
+                    <img src="{% static 'img/rp2040/3.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto" style="max-width: 400px; height: auto;">
+                    <p class="fs-5 text-secondary text-justify">
+                        La conexion es sencilla, podemos usar cualquier PIN digital, usaremos el PIN 26 que corresponde al positivo y GND al negativo del buzzer.
+                    </p>
+                    <img src="{% static 'img/rp2040/3.1.jpeg' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto" style="max-width: 700px; height: auto;">
+                    <p class="fs-5 text-secondary text-justify">
+                        A continuación, presentamos un video de la demostracion del control del buzzer activo.
+                    </p>
+                    <div class="d-flex justify-content-center">
+                        <video width="640" height="360" controls>
+                        <source src="{% static 'img/rp2040/3.2.mp4' %}" type="video/mp4">
+                        Tu navegador no soporta el elemento de video.
+                        </video>
+                    </div>                    
+                </div>
+            </div>
         </div>        
+        
 
     </div>
 
