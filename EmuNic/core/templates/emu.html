@@ -140,7 +140,7 @@
             <div id="tema3" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad2">
                 <div class="accordion-body">
                     <p class="fs-5 text-secondary text-justify">
-                        El software incorpora múltiples módulos integrados en una sola aplicación que asisten al estudiante de ingeniería en informática, incluyendo un completo editor de código, un ensamblador, un emulador y un depurador. El editor de código ofrece características avanzadas como resaltado de sintaxis, numeración de líneas detallada, plantillas de programas predefinidas y un sistema de autocompletado básico para agilizar la escritura. Por su parte, el ensamblador se encarga de convertir de forma eficiente el código en Assembly a lenguaje máquina comprensible por el hardware computacional. La interfaz gráfica se compone principalmente de paneles interactivos dedicados a monitorear los registros generales, las banderas de estado, la memoria del sistema y la pila de datos. Una característica muy famosa y destacada de EMU8086 es su capacidad para mostrar de forma visual cómo trabaja internamente la Unidad Aritmético-Lógica (ALU).
+                        El software incorpora múltiples módulos integrados en una sola aplicación que asisten al estudiante de ingeniería en informática, incluyendo un completo editor de código, un ensamblador, un emulador y un depurador. El editor de código ofrece características avanzadas como resaltado de sintaxis, numeración de líneas detallada, plantillas de programas predefinidas y un sistema de autocompletado básico para agilizar la escritura. Por su parte, el ensamblador se encarga de convertir de forma eficiente el código en Assembly a lenguaje máquina comprensible por el hardware computacional. La interfaz gráfica se compone principalmente de paneles interactivos dedicados a monitorear los registros generales, las banderas de estado, la memoria del sistema y la pila de datos. Una विशेषता muy famosa y destacada de EMU8086 es su capacidad para mostrar de forma visual cómo trabaja internamente la Unidad Aritmético-Lógica (ALU).
                     </p>
 
                     <h4 class="text-warning mt-4 fw-bold">3.1. Funciones del Depurador (Debugger)</h4>
@@ -220,65 +220,65 @@
                 <div class="accordion-body bg-dark rounded-bottom">
                     
                     <div class="mb-5 p-4 bg-black video-box border border-secondary">
-                        <h4 class="text-info fw-bold mb-3">Ejemplo 1: Leer un carácter del teclado</h4>
+                        <h4 class="text-info fw-bold mb-3">Ejemplo 1: Hola Mundo en Ensamblador</h4>
                         <p class="fs-5 text-secondary text-justify">
-                            Este ejemplo permite capturar una tecla presionada por el usuario mediante una interrupción de DOS. El programa configura el registro AH para utilizar el servicio de lectura de teclado y posteriormente ejecuta la interrupción correspondiente. Cuando el usuario presiona una tecla, el carácter ingresado queda almacenado en el registro AL. Este ejercicio es importante porque introduce el concepto de entrada de datos por parte del usuario. Además, permite comprender cómo interactúa un programa con los dispositivos de entrada.
+                            Este programa clásico muestra cómo desplegar una cadena de texto en la pantalla utilizando las funciones del sistema DOS. El script define una cadena de caracteres terminada en el símbolo '$' dentro del segmento de datos. Posteriormente, carga la dirección de dicho mensaje en el registro DX, configura el registro AH con el servicio 09h (impresión de cadena) e invoca la interrupción INT 21h. Este ejercicio es la piedra angular para comprender la estructura básica de un archivo fuente `.asm`, la segmentación inicial y la salida estándar de datos.
                         </p>
                         <div class="ratio ratio-16x9 mt-3 shadow rounded overflow-hidden border border-secondary">
                             <video controls class="bg-dark">
-                                <source src="{% static 'img/emu/ejemplo1.mp4' %}" type="video/mp4">
+                                <source src="{% static 'img/emu/1.mp4' %}" type="video/mp4">
                                 Tu navegador no soporta la reproducción de video.
                             </video>
                         </div>
                     </div>
 
                     <div class="mb-5 p-4 bg-black video-box border border-secondary">
-                        <h4 class="text-info fw-bold mb-3">Ejemplo 2: Contador simple</h4>
+                        <h4 class="text-info fw-bold mb-3">Ejemplo 2: Sumar dos números</h4>
                         <p class="fs-5 text-secondary text-justify">
-                            Este programa utiliza la instrucción INC para incrementar el valor de un registro varias veces. Inicialmente el registro CX se carga con un valor de cero y posteriormente se incrementa en varias ocasiones. Cada ejecución de INC aumenta el contenido del registro en una unidad. Al finalizar el programa, el valor acumulado puede observarse directamente en CX. Este ejercicio ayuda a comprender cómo funcionan los contadores y cómo se modifican los registros durante la ejecución de un programa.
+                            Este ejemplo ilustra cómo realizar operaciones aritméticas básicas cargando valores directos en los registros internos del procesador 8086. El programa utiliza la instrucción `MOV` para asignar un primer número al registro AL (o AX) y luego emplea la instrucción `ADD` para sumar un segundo operando numérico. El resultado se almacena automáticamente en el registro de destino primario. A través de este ejercicio, se analiza el comportamiento elemental de la Unidad Aritmético-Lógica (ALU) y cómo se alteran los bits del registro de banderas de estado.
                         </p>
                         <div class="ratio ratio-16x9 mt-3 shadow rounded overflow-hidden border border-secondary">
                             <video controls class="bg-dark">
-                                <source src="{% static 'img/emu/ejemplo2.mp4' %}" type="video/mp4">
+                                <source src="{% static 'img/emu/2.mp4' %}" type="video/mp4">
                                 Tu navegador no soporta la reproducción de video.
                             </video>
                         </div>
                     </div>
 
                     <div class="mb-5 p-4 bg-black video-box border border-secondary">
-                        <h4 class="text-info fw-bold mb-3">Ejemplo 3: Multiplicación de dos números</h4>
+                        <h4 class="text-info fw-bold mb-3">Ejemplo 3: Restar dos números</h4>
                         <p class="fs-5 text-secondary text-justify">
-                            Este programa realiza una multiplicación utilizando los registros del procesador 8086. Primero se almacenan dos valores en los registros AX y BX. Luego se utiliza la instrucción MUL para multiplicar ambos números y guardar el resultado. La multiplicación es una de las operaciones aritméticas fundamentales en programación de bajo nivel. Al finalizar la ejecución, el resultado puede observarse en los registros correspondientes. Este ejemplo ayuda a comprender cómo el procesador realiza cálculos matemáticos básicos.
+                            Este programa demuestra el proceso de sustracción digital en bajo nivel utilizando la instrucción `SUB`. De manera similar a la suma, se inicializa un registro contenedor con el valor del minuendo y luego se resta el sustraendo. Es un ejercicio fundamental en la práctica de laboratorio ya que permite observar escenarios críticos como los resultados negativos o desbordamientos, analizando directamente el encendido y apagado de la bandera de acarreo (`Carry Flag - CF`) y la bandera de signo (`Sign Flag - SF`).
                         </p>
                         <div class="ratio ratio-16x9 mt-3 shadow rounded overflow-hidden border border-secondary">
                             <video controls class="bg-dark">
-                                <source src="{% static 'img/emu/ejemplo3.mp4' %}" type="video/mp4">
+                                <source src="{% static 'img/emu/3.mp4' %}" type="video/mp4">
                                 Tu navegador no soporta la reproducción de video.
                             </video>
                         </div>
                     </div>
 
                     <div class="mb-5 p-4 bg-black video-box border border-secondary">
-                        <h4 class="text-info fw-bold mb-3">Ejemplo 4: Comparar dos números</h4>
+                        <h4 class="text-info fw-bold mb-3">Ejemplo 4: Contador interactivo por ciclos</h4>
                         <p class="fs-5 text-secondary text-justify">
-                            Este programa permite comparar dos valores almacenados en registros utilizando la instrucción CMP. La comparación no modifica los datos, sino que actualiza las banderas del procesador según el resultado obtenido. Estas banderas pueden utilizarse posteriormente para tomar decisiones dentro del programa. Comprender el funcionamiento de las comparaciones es importante para desarrollar estructuras condicionales. Este ejemplo introduce el uso de las banderas y el control del flujo de ejecución.
+                            Este programa implementa una estructura de control iterativa mediante bucles en lenguaje ensamblador. El registro `CX` se inicializa como el contador del tamaño del ciclo y, mediante el uso repetitivo de instrucciones de incremento `INC` o el comando estructurado `LOOP`, el programa actualiza el valor de manera secuencial. Es idóneo para comprender cómo el procesador maneja las etiquetas de salto, el control de flujo condicionado por registros y la automatización de tareas repetitivas en memoria.
                         </p>
                         <div class="ratio ratio-16x9 mt-3 shadow rounded overflow-hidden border border-secondary">
                             <video controls class="bg-dark">
-                                <source src="{% static 'img/emu/ejemplo4.mp4' %}" type="video/mp4">
+                                <source src="{% static 'img/emu/4.mp4' %}" type="video/mp4">
                                 Tu navegador no soporta la reproducción de video.
                             </video>
                         </div>
                     </div>
 
                     <div class="mb-5 p-4 bg-black video-box border border-secondary">
-                        <h4 class="text-info fw-bold mb-3">Ejemplo 5: Intercambiar valores entre registros</h4>
+                        <h4 class="text-info fw-bold mb-3">Ejemplo 5: Verificar si un número es Par o Impar</h4>
                         <p class="fs-5 text-secondary text-justify">
-                            Este ejemplo muestra cómo intercambiar los valores almacenados en dos registros utilizando la instrucción XCHG. Inicialmente cada registro contiene un valor diferente. Después de ejecutar la instrucción, ambos valores se intercambian automáticamente sin necesidad de utilizar una variable auxiliar. Esta operación es muy útil en diversos algoritmos y procesos de ordenamiento. Además, permite conocer una de las instrucciones especiales que ofrece el conjunto de instrucciones del procesador 8086.
+                            Este avanzado algoritmo realiza una evaluación lógica evaluando el bit menos significativo de un número numérico, o dividiendo el valor entre 2 mediante la instrucción `DIV`. Posteriormente, el programa analiza el residuo guardado en el registro `AH` empleando una instrucción de comparación `CMP`. Si el residuo es cero, salta a una sección que imprime el mensaje "Es Par", de lo contrario continúa para imprimir "Es Impar". Introduce los conceptos de saltos condicionales complejos (`JE`, `JNE`) basados en la bandera de cero (`ZF`).
                         </p>
                         <div class="ratio ratio-16x9 mt-3 shadow rounded overflow-hidden border border-secondary">
                             <video controls class="bg-dark">
-                                <source src="{% static 'img/emu/ejemplo5.mp4' %}" type="video/mp4">
+                                <source src="{% static 'img/emu/5.mp4' %}" type="video/mp4">
                                 Tu navegador no soporta la reproducción de video.
                             </video>
                         </div>
