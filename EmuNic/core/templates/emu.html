@@ -1,0 +1,358 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<style>
+    /* Contenedor principal del título con posición relativa para el canvas */
+    .hero-animation-bg {
+        background: #000000;
+        border-radius: 16px;
+        padding: 3rem 2rem;
+        border: 1px solid rgba(0, 180, 216, 0.25);
+        box-shadow: 0 0 30px rgba(0, 180, 216, 0.15);
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Ajuste del canvas para que quede exactamente de fondo */
+    #emuCanvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        opacity: 0.35; /* Controla qué tan brillante se ve el código de fondo */
+    }
+
+    /* Asegura que el texto quede por encima del canvas animado */
+    .hero-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    /* Efecto de pulso de luz sincronizado en el texto principal */
+    @keyframes textPulse {
+        0%, 100% { text-shadow: 0 0 10px rgba(0, 180, 216, 0.6); }
+        50% { text-shadow: 0 0 25px rgba(0, 180, 216, 0.9), 0 0 40px rgba(0, 180, 216, 0.4); }
+    }
+
+    .pulsing-text {
+        animation: textPulse 3s infinite ease-in-out;
+    }
+
+    /* Efecto de luz azul y bordes redondeados para las tarjetas del acordeón */
+    .custom-accordion-item {
+        border: 1px solid rgba(0, 180, 216, 0.2) !important;
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        border-radius: 12px !important;
+        overflow: hidden;
+    }
+
+    /* Animación e iluminación cuando el mouse pasa por encima del cuadro */
+    .custom-accordion-item:hover {
+        transform: translateY(-4px);
+        border-color: #00b4d8 !important;
+        box-shadow: 0 8px 25px rgba(0, 180, 216, 0.35);
+    }
+
+    /* Suavizado para los botones internos del acordeón */
+    .accordion-button {
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Animación sutil para los contenedores de los ejemplos de video */
+    .video-box {
+        transition: all 0.3s ease;
+        border-radius: 10px;
+    }
+    .video-box:hover {
+        border-color: #00b4d8 !important;
+        box-shadow: 0 4px 15px rgba(0, 180, 216, 0.2);
+    }
+</style>
+
+<section class="py-5">
+
+    <div class="text-center mb-5 hero-animation-bg">
+        <canvas id="emuCanvas"></canvas>
+        
+        <div class="hero-content">
+            <h1 class="display-4 fw-bold text-info pulsing-text m-0">
+                EMU8086
+            </h1>
+            <p class="lead text-secondary fw-semibold mt-2 mb-0">
+                Entorno de Desarrollo y Simulación con EMU8086
+            </p>
+        </div>
+    </div>
+
+    <div class="accordion accordion-flush" id="accordionUnidad2">
+
+        <div class="accordion-item bg-black text-light mb-3 custom-accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed bg-dark text-info fw-bold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#tema1">
+                    1. Introducción al Entorno de Desarrollo EMU8086
+                </button>
+            </h2>
+            <div id="tema1" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad2">
+                <div class="accordion-body">
+                    <p class="fs-5 text-secondary text-justify">
+                        EMU8086 es un entorno de desarrollo integrado y emulador diseñado específicamente para aprender y practicar programación en lenguaje ensamblador utilizando el microprocesador Intel 8086. Este software permite escribir, ensamblar y ejecutar programas de manera muy sencilla, facilitando la comprensión directa de los conceptos fundamentales de la arquitectura de computadoras. Gracias a sus herramientas integradas, los estudiantes pueden observar detalladamente el funcionamiento interno de los registros y el comportamiento de la memoria principal en tiempo real. Su interfaz amigable y didáctica simplifica el proceso de aprendizaje de la estructura operativa de bajo nivel sin requerir hardware físico real. Por estas razones, es ampliamente utilizado en laboratorios y cursos universitarios relacionados con sistemas digitales, microprocesadores e ingeniería informática.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item bg-black text-light mb-3 custom-accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed bg-dark text-primary fw-bold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#tema2">
+                    2. Arquitectura del Intel 8086 e Historia
+                </button>
+            </h2>
+            <div id="tema2" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad2">
+                <div class="accordion-body">
+                    <p class="fs-5 text-secondary text-justify">
+                        El microprocesador Intel 8086 fue un dispositivo de 16 bits lanzado originalmente por Intel en el año 1978, marcando el inicio formal de la célebre arquitectura x86 actual. Esta arquitectura base se mantiene vigente en la gran mayoría de las computadoras personales, servidores y estaciones de trabajo modernos que utilizamos en nuestro día a día. EMU8086 fue desarrollado precisamente para proporcionar una plataforma educativa interactiva que permitiera estudiar esta legendaria arquitectura de hardware de manera totalmente virtual y segura. A través de la emulación digital, los usuarios ejecutan instrucciones en lenguaje máquina y analizan las respuestas lógicas del procesador al mismo instante de su procesamiento. El propósito fundamental de esta suite de software es servir como una herramienta indispensable de enseñanza, experimentación teórica y práctica académica especializada.
+                    </p>
+                    <img src="{% static 'img/emu/OIP.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item bg-black text-light mb-3 custom-accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed bg-dark text-success fw-bold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#tema3">
+                    3. Características del Sistema e Interfaz Gráfica
+                </button>
+            </h2>
+            <div id="tema3" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad2">
+                <div class="accordion-body">
+                    <p class="fs-5 text-secondary text-justify">
+                        El software incorpora múltiples módulos integrados en una sola aplicación que asisten al estudiante de ingeniería en informática, incluyendo un completo editor de código, un ensamblador, un emulador y un depurador. El editor de código ofrece características avanzadas como resaltado de sintaxis, numeración de líneas detallada, plantillas de programas predefinidas y un sistema de autocompletado básico para agilizar la escritura. Por su parte, el ensamblador se encarga de convertir de forma eficiente el código en Assembly a lenguaje máquina comprensible por el hardware computacional. La interfaz gráfica se compone principalmente de paneles interactivos dedicados a monitorear los registros generales, las banderas de estado, la memoria del sistema y la pila de datos. Una característica muy famosa y destacada de EMU8086 es su capacidad para mostrar de forma visual cómo trabaja internamente la Unidad Aritmético-Lógica (ALU).
+                    </p>
+
+                    <h4 class="text-warning mt-4 fw-bold">3.1. Funciones del Depurador (Debugger)</h4>
+                    <p class="fs-5 text-secondary text-justify">
+                        El depurador integrado permite ejecutar las instrucciones del programa paso a paso para analizar minuciosamente el impacto de cada comando sobre el microprocesador simulado. Esta herramienta brinda la oportunidad única de observar los cambios inmediatos en los registros internos, evaluar el mapa de memoria y revisar el comportamiento de la pila. Asimismo, el estudiante puede analizar detalladamente el estado lógico de las banderas (FLAGS) y diagnosticar de manera precisa cualquier error de lógica o desbordamiento de datos. Gracias a esta simulación controlada, se logra entender a fondo la dinámica de la CPU y la manipulación de datos a nivel hardware.
+                    </p>
+
+                    <h4 class="text-warning mt-4 fw-bold">3.2. Ventajas y Limitaciones Educativas</h4>
+                    <p class="fs-5 text-secondary text-justify">
+                        La principal ventaja de EMU8086 es su facilidad de aprendizaje junto con la capacidad de mostrar el procesamiento y los registros en tiempo real mediante tutoriales didácticos guiados. Al ser un emulador puro, elimina completamente la necesidad de poseer hardware real o tarjetas de desarrollo costosas durante los semestres de estudio básico inicial. No obstante, al tratarse de un software antiguo, presenta ciertas desventajas como problemas de compatibilidad en sistemas operativos modernos de la gama Windows 11. Además, su diseño clásico está orientado exclusivamente al ámbito académico y educativo, por lo que no representa la complejidad de microprocesadores actuales multihilo modernos.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item bg-black text-light mb-3 custom-accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed bg-dark text-warning fw-bold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#tema4">
+                    4. Registros del Procesador y Segmentación de Memoria
+                </button>
+            </h2>
+            <div id="tema4" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad2">
+                <div class="accordion-body">
+                    <p class="fs-5 text-secondary text-justify">
+                        Los registros son pequeñas áreas de almacenamiento de alta velocidad ubicadas dentro de la CPU que desempeñan un papel fundamental en la ejecución de tareas lógicas. El procesador 8086 cuenta con registros de propósito general (AX, BX, CX, DX) para operaciones matemáticas, y registros de segmento (CS, DS, SS, ES) para la organización de la memoria. Adicionalmente, implementa registros índice y punteros de control (SI, DI, SP, BP) junto a registros críticos de estado como el Instruction Pointer (IP) y las banderas (FLAGS). Para gestionar el almacenamiento temporal de datos, la plataforma utiliza el manejo del Stack o pila, la cual opera bajo el estricto principio estructurado LIFO. Comprender matemáticamente y operar estos registros internos es un requisito indispensable para programar correctamente en lenguaje ensamblador y estructurar software de bajo nivel.
+                    </p>
+
+                    <h4 class="text-info fw-bold">4.1. Cálculo de Direccionamiento Físico</h4>
+                    <p class="fs-5 text-secondary text-justify">
+                        La arquitectura del Intel 8086 utiliza un método específico de segmentación de memoria para poder direccionar una cantidad mayor de posiciones utilizando registros estándar de 16 bits. El direccionamiento físico final dentro del mapa de memoria se calcula de manera obligatoria aplicando una fórmula matemática que involucra los valores de segmento y de offset. La ecuación establece explícitamente que la Dirección Física es igual al valor guardado en el registro de Segmento multiplicado por 16, más el desplazamiento del Offset. Por ejemplo, si el registro DS almacena 1000h y el Offset contiene 0020h, la dirección física resultante calculada de forma exacta será la posición de memoria 10020h.
+                    </p>
+
+                    <h4 class="text-success mt-4 fw-bold">4.2. Uso de Banderas de Estado (FLAGS)</h4>
+                    <p class="fs-5 text-secondary text-justify">
+                        El procesador de Intel utiliza el registro especial FLAGS para albergar diversas banderas cuyos estados lógicos indican directamente los resultados obtenidos tras ejecutar operaciones aritméticas o comparaciones. Entre las banderas mapeadas en el sistema se encuentran Carry (CF), Zero (ZF), Sign (SF), Overflow (OF), Parity (PF) y Auxiliary Carry (AF), cada una con un propósito determinado. Estas banderas cambian de valor automáticamente según el flujo del programa; por ejemplo, al restar un valor de sí mismo, el resultado lógico es cero. En este escenario específico, la bandera de cero (ZF) se establece de inmediato con un valor de 1, reflejando fielmente la condición del sistema.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item bg-black text-light mb-3 custom-accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed bg-dark text-danger fw-bold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#tema5">
+                    5. Repertorio de Instrucciones e Interrupciones del Sistema
+                </button>
+            </h2>
+            <div id="tema5" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad2">
+                <div class="accordion-body">
+                    <p class="fs-5 text-secondary text-justify">
+                        Las instrucciones en lenguaje ensamblador son comandos directos que ordenan al procesador las operaciones de bajo nivel que debe efectuar durante el ciclo de ejecución del programa. El repertorio incluye instrucciones clásicas de transferencia de datos como MOV, operaciones aritméticas estándar como ADD, SUB, INC, DEC, MUL, DIV, y herramientas de comparación lógica como CMP. Asimismo, incorpora instrucciones de saltos condicionales e incondicionales (JMP, JE, JNE, JG, JL) que facilitan la codificación de estructuras complejas de decisión y ciclos de repetición. El software emulador permite codificar desde sencillas rutinas de sumas de registros matemáticos hasta avanzados scripts que hacen uso de interrupciones de los servicios de DOS. El aprendizaje práctico de este conjunto de instrucciones capacita al estudiante universitario para asimilar en su totalidad cómo trabaja la lógica interna computacional.
+                    </p>
+
+                    <h4 class="text-info fw-bold">5.1. Implementación de Interrupciones del Sistema</h4>
+                    <p class="fs-5 text-secondary text-justify">
+                        Las interrupciones de software representan llamadas esenciales a servicios del sistema y funciones de la BIOS que interactúan directamente con los componentes periféricos de entrada y salida. En el entorno de EMU8086, las interrupciones más utilizadas en los laboratorios son la INT 10h para video, INT 16h para teclado e INT 21h para DOS. Por ejemplo, al cargar un subservicio específico en el registro AH y ejecutar un llamado de interrupción, el sistema operativo realiza tareas automatizadas complejas de inmediato. Un caso típico es usar el servicio 01h con la INT 21h, lo cual detiene el hilo de ejecución para leer un carácter desde el teclado físico.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item bg-black text-light mb-3 custom-accordion-item" style="border-color: rgba(0, 180, 216, 0.4) !important;">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed bg-info text-dark fw-bold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#temaEjemplos">
+                    ¡VER EJEMPLOS DE SIMULACIÓN EN EMU8086! (5 Videos)
+                </button>
+            </h2>
+            <div id="temaEjemplos" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad2">
+                <div class="accordion-body bg-dark rounded-bottom">
+                    
+                    <div class="mb-5 p-4 bg-black video-box border border-secondary">
+                        <h4 class="text-info fw-bold mb-3">Ejemplo 1: Leer un carácter del teclado</h4>
+                        <p class="fs-5 text-secondary text-justify">
+                            Este ejemplo permite capturar una tecla presionada por el usuario mediante una interrupción de DOS. El programa configura el registro AH para utilizar el servicio de lectura de teclado y posteriormente ejecuta la interrupción correspondiente. Cuando el usuario presiona una tecla, el carácter ingresado queda almacenado en el registro AL. Este ejercicio es importante porque introduce el concepto de entrada de datos por parte del usuario. Además, permite comprender cómo interactúa un programa con los dispositivos de entrada.
+                        </p>
+                        <div class="ratio ratio-16x9 mt-3 shadow rounded overflow-hidden border border-secondary">
+                            <video controls class="bg-dark">
+                                <source src="{% static 'img/emu/ejemplo1.mp4' %}" type="video/mp4">
+                                Tu navegador no soporta la reproducción de video.
+                            </video>
+                        </div>
+                    </div>
+
+                    <div class="mb-5 p-4 bg-black video-box border border-secondary">
+                        <h4 class="text-info fw-bold mb-3">Ejemplo 2: Contador simple</h4>
+                        <p class="fs-5 text-secondary text-justify">
+                            Este programa utiliza la instrucción INC para incrementar el valor de un registro varias veces. Inicialmente el registro CX se carga con un valor de cero y posteriormente se incrementa en varias ocasiones. Cada ejecución de INC aumenta el contenido del registro en una unidad. Al finalizar el programa, el valor acumulado puede observarse directamente en CX. Este ejercicio ayuda a comprender cómo funcionan los contadores y cómo se modifican los registros durante la ejecución de un programa.
+                        </p>
+                        <div class="ratio ratio-16x9 mt-3 shadow rounded overflow-hidden border border-secondary">
+                            <video controls class="bg-dark">
+                                <source src="{% static 'img/emu/ejemplo2.mp4' %}" type="video/mp4">
+                                Tu navegador no soporta la reproducción de video.
+                            </video>
+                        </div>
+                    </div>
+
+                    <div class="mb-5 p-4 bg-black video-box border border-secondary">
+                        <h4 class="text-info fw-bold mb-3">Ejemplo 3: Multiplicación de dos números</h4>
+                        <p class="fs-5 text-secondary text-justify">
+                            Este programa realiza una multiplicación utilizando los registros del procesador 8086. Primero se almacenan dos valores en los registros AX y BX. Luego se utiliza la instrucción MUL para multiplicar ambos números y guardar el resultado. La multiplicación es una de las operaciones aritméticas fundamentales en programación de bajo nivel. Al finalizar la ejecución, el resultado puede observarse en los registros correspondientes. Este ejemplo ayuda a comprender cómo el procesador realiza cálculos matemáticos básicos.
+                        </p>
+                        <div class="ratio ratio-16x9 mt-3 shadow rounded overflow-hidden border border-secondary">
+                            <video controls class="bg-dark">
+                                <source src="{% static 'img/emu/ejemplo3.mp4' %}" type="video/mp4">
+                                Tu navegador no soporta la reproducción de video.
+                            </video>
+                        </div>
+                    </div>
+
+                    <div class="mb-5 p-4 bg-black video-box border border-secondary">
+                        <h4 class="text-info fw-bold mb-3">Ejemplo 4: Comparar dos números</h4>
+                        <p class="fs-5 text-secondary text-justify">
+                            Este programa permite comparar dos valores almacenados en registros utilizando la instrucción CMP. La comparación no modifica los datos, sino que actualiza las banderas del procesador según el resultado obtenido. Estas banderas pueden utilizarse posteriormente para tomar decisiones dentro del programa. Comprender el funcionamiento de las comparaciones es importante para desarrollar estructuras condicionales. Este ejemplo introduce el uso de las banderas y el control del flujo de ejecución.
+                        </p>
+                        <div class="ratio ratio-16x9 mt-3 shadow rounded overflow-hidden border border-secondary">
+                            <video controls class="bg-dark">
+                                <source src="{% static 'img/emu/ejemplo4.mp4' %}" type="video/mp4">
+                                Tu navegador no soporta la reproducción de video.
+                            </video>
+                        </div>
+                    </div>
+
+                    <div class="mb-5 p-4 bg-black video-box border border-secondary">
+                        <h4 class="text-info fw-bold mb-3">Ejemplo 5: Intercambiar valores entre registros</h4>
+                        <p class="fs-5 text-secondary text-justify">
+                            Este ejemplo muestra cómo intercambiar los valores almacenados en dos registros utilizando la instrucción XCHG. Inicialmente cada registro contiene un valor diferente. Después de ejecutar la instrucción, ambos valores se intercambian automáticamente sin necesidad de utilizar una variable auxiliar. Esta operación es muy útil en diversos algoritmos y procesos de ordenamiento. Además, permite conocer una de las instrucciones especiales que ofrece el conjunto de instrucciones del procesador 8086.
+                        </p>
+                        <div class="ratio ratio-16x9 mt-3 shadow rounded overflow-hidden border border-secondary">
+                            <video controls class="bg-dark">
+                                <source src="{% static 'img/emu/ejemplo5.mp4' %}" type="video/mp4">
+                                Tu navegador no soporta la reproducción de video.
+                            </video>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+<script>
+    const canvas = document.getElementById('emuCanvas');
+    const ctx = canvas.getContext('2d');
+    const container = canvas.parentElement;
+
+    // Ajustar el tamaño del lienzo al tamaño real de la tarjeta contenedora
+    function resizeCanvas() {
+        canvas.width = container.offsetWidth;
+        canvas.height = container.offsetHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Repertorio de código e instrucciones reales del EMU8086 / Intel 8086
+    const emuCodes = [
+        "MOV AX, 4C00h", "INT 21h", "MOV DS, AX", "ADD AX, BX", 
+        "SUB CX, DX", "CMP AX, 0", "JE label1", "JMP start", 
+        "INC SI", "DEC DI", "LOOP ciclo", "XCHG AL, AH", 
+        "MUL BL", "DIV CL", "INT 10h", "INT 16h", 
+        "ORG 100h", "CODE SEGMENT", "DATA SEGMENT", "RET"
+    ];
+
+    const fontSize = 11; // Tamaño de la letra del código flotante
+    const columns = Math.floor(canvas.width / 90); // Espaciado entre columnas de texto
+    
+    // Inicializar la posición Y de cada columna de forma aleatoria
+    const drops = [];
+    for (let i = 0; i < columns; i++) {
+        drops[i] = Math.random() * -100;
+    }
+
+    // Dibujar la animación cuadro por cuadro
+    function draw() {
+        // Fondo negro semitransparente para dejar el rastro difuminado (trail)
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Color cian/azul neón para el texto de Assembly
+        ctx.fillStyle = 'rgba(0, 180, 216, 0.75)';
+        ctx.font = fontSize + 'px Courier New, monospace';
+
+        for (let i = 0; i < drops.length; i++) {
+            // Seleccionar una instrucción aleatoria del repertorio 8086
+            const text = emuCodes[Math.floor(Math.random() * emuCodes.length)];
+            const x = i * 95 + 5;
+            const y = drops[i] * fontSize;
+
+            ctx.fillText(text, x, y);
+
+            // Si el código sale de la pantalla, reiniciarlo arriba con retraso aleatorio
+            if (y > canvas.height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+
+            // Velocidad de caída
+            drops[i] += 0.4;
+        }
+    }
+
+    // Ejecutar la animación a ~40 cuadros por segundo
+    setInterval(draw, 25);
+</script>
+
+{% endblock %}

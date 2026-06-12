@@ -4,174 +4,508 @@
 
 {% block content %}
 
-<section class="py-5">
+<style>
+    /* El canvas ahora ocupa TODA la pantalla de fondo */
+    #binaryCanvasU4 {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 0; /* Queda al fondo de todo */
+        opacity: 0.15; /* Opacidad sutil para no estorbar la lectura del contenido */
+        pointer-events: none; /* Evita que interfiera con los clics en los botones */
+    }
 
-    <div class="text-center mb-5">
-        <h1 class="display-4 fw-bold text-info">
-            UNIDAD IV
-        </h1>
-        <p class="lead text-secondary fw-semibold">
-            Arquitectura de los Microcontroladores
-        </p>
-    </div>
+    /* Aseguramos que todo el contenido se renderice por encima del canvas de fondo */
+    .main-content-wrapper {
+        position: relative;
+        z-index: 1;
+    }
 
-    <div class="accordion accordion-flush" id="accordionUnidad4">
+    /* Contenedor del título con diseño de interfaz tecnológica limpia */
+    .hero-animation-bg {
+        background: rgba(0, 0, 0, 0.6);
+        border-radius: 16px;
+        padding: 3rem 2rem;
+        border: 1px solid rgba(0, 180, 216, 0.25);
+        box-shadow: 0 0 30px rgba(0, 180, 216, 0.15);
+        backdrop-filter: blur(4px); /* Suaviza el fondo donde pasa el código */
+    }
 
-        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
-            <h2 class="accordion-header">
-                <button class="accordion-button collapsed bg-dark text-info fw-bold"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#tema4-1">
-                    4.1. Arquitectura de los Microcontroladores
-                </button>
-            </h2>
-            <div id="tema4-1" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad4">
-                <div class="accordion-body">
-                    <p class="fs-5 text-secondary text-justify">
-                        La arquitectura de los microcontroladores comprende la organización interna de los componentes que permiten ejecutar instrucciones, procesar datos y controlar dispositivos electrónicos. A diferencia de los microprocesadores convencionales, los microcontroladores integran en un solo circuito elementos como la unidad de procesamiento, memoria y periféricos de entrada y salida. Esta integración reduce el tamaño, el consumo energético y el costo de los sistemas electrónicos. Gracias a estas características, los microcontroladores son ampliamente utilizados en aplicaciones de automatización, control industrial y dispositivos inteligentes. Su estudio resulta fundamental para comprender el funcionamiento de los sistemas embebidos modernos.
-                    </p>
-                    <img src="{% static 'img/unidad4/contro.jpg' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
+    /* Efecto de pulso de luz sincronizado en el texto principal */
+    @keyframes textPulse {
+        0%, 100% { text-shadow: 0 0 10px rgba(0, 180, 216, 0.6); }
+        50% { text-shadow: 0 0 25px rgba(0, 180, 216, 0.9), 0 0 40px rgba(0, 180, 216, 0.4); }
+    }
 
-                </div>
+    .pulsing-text {
+        animation: textPulse 3s infinite ease-in-out;
+    }
+
+    /* Efecto de luz azul y bordes redondeados para las tarjetas del acordeón */
+    .custom-accordion-item {
+        border: 1px solid rgba(0, 180, 216, 0.2) !important;
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        border-radius: 12px !important;
+        overflow: hidden;
+        background-color: rgba(0, 0, 0, 0.8) !important; /* Un toque de transparencia */
+        backdrop-filter: blur(2px);
+    }
+
+    /* Animación e iluminación cuando el mouse pasa por encima de la tarjeta o test */
+    .custom-accordion-item:hover {
+        transform: translateY(-4px);
+        border-color: #00b4d8 !important;
+        box-shadow: 0 8px 25px rgba(0, 180, 216, 0.35);
+    }
+
+    /* Suavizado para los botones internos del acordeón */
+    .accordion-button {
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Efecto de luz azul para los bloques de preguntas individuales al pasar el mouse */
+    .quiz-box {
+        transition: all 0.3s ease;
+        border-radius: 10px;
+    }
+    .quiz-box:hover {
+        border-color: #00b4d8 !important;
+        box-shadow: 0 4px 15px rgba(0, 180, 216, 0.15);
+    }
+</style>
+
+<canvas id="binaryCanvasU4"></canvas>
+
+<div class="main-content-wrapper">
+    <section class="py-5">
+
+        <div class="text-center mb-5 hero-animation-bg">
+            <div class="hero-content">
+                <h1 class="display-4 fw-bold text-info pulsing-text m-0">
+                    UNIDAD IV
+                </h1>
+                <p class="lead text-secondary fw-semibold mt-2 mb-0">
+                    Arquitectura de los Microcontroladores
+                </p>
             </div>
         </div>
 
-        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
-            <h2 class="accordion-header">
-                <button class="accordion-button collapsed bg-dark text-primary fw-bold"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#tema4-1-1">
-                    4.1.1. Diferentes Tipos de Microcontroladores
-                </button>
-            </h2>
-            <div id="tema4-1-1" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad4">
-                <div class="accordion-body">
-                    <p class="fs-5 text-secondary text-justify mb-4">
-                        Los microcontroladores pueden clasificarse según su arquitectura, capacidad de memoria, aplicaciones y forma de integración con otros componentes del sistema. Cada tipo ha sido diseñado para satisfacer necesidades específicas relacionadas con el procesamiento de datos y el control de dispositivos electrónicos. Algunos modelos están orientados a sistemas compactos con recursos limitados, mientras que otros permiten expandir sus capacidades mediante componentes externos. Esta diversidad ofrece soluciones adaptadas a distintos entornos tecnológicos. Por ello, la selección adecuada del microcontrolador depende de los requerimientos particulares de cada proyecto.
-                    </p>
+        <div class="accordion accordion-flush" id="accordionUnidad4">
 
-                    <h4 class="text-info fw-bold mt-4">4.1.1.1. Microcontroladores Embebidos</h4>
-                    <p class="fs-5 text-secondary text-justify">
-                        Los microcontroladores embebidos son dispositivos diseñados para formar parte de un sistema electrónico específico, ejecutando tareas concretas de manera autónoma. Generalmente se encuentran integrados en productos de uso cotidiano como electrodomésticos, vehículos, equipos médicos y sistemas de automatización. Su principal característica es la capacidad de operar con recursos limitados y bajo consumo energético. Además, suelen estar optimizados para cumplir funciones determinadas con alta confiabilidad y eficiencia. Debido a estas ventajas, constituyen la base de numerosos sistemas inteligentes utilizados en la actualidad.
-                    </p>
-                    <img src="{% static 'img/unidad4/embebidos.jpg' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
-
-
-                    <h4 class="text-success fw-bold mt-4">4.1.1.2. Microcontroladores con Memoria Externa</h4>
-                    <p class="fs-5 text-secondary text-justify">
-                        Los microcontroladores con memoria externa son aquellos que permiten ampliar su capacidad de almacenamiento mediante dispositivos adicionales conectados al sistema. Esta característica resulta especialmente útil en aplicaciones que requieren manejar grandes volúmenes de datos o ejecutar programas de mayor complejidad. La utilización de memoria externa proporciona mayor flexibilidad en el diseño de sistemas electrónicos avanzados. Sin embargo, también implica una mayor complejidad en la comunicación entre los componentes del sistema. A pesar de ello, su empleo es frecuente en aplicaciones industriales y sistemas de procesamiento especializados.
-                    </p>
-                    <img src="{% static 'img/unidad4/externa.jpg' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
-
+            <div class="accordion-item bg-black text-light mb-3 custom-accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed bg-dark text-info fw-bold"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#tema4-1">
+                        4.1. Arquitectura de los Microcontroladores
+                    </button>
+                </h2>
+                <div id="tema4-1" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad4">
+                    <div class="accordion-body">
+                        <p class="fs-5 text-secondary text-justify">
+                            La arquitectura de los microcontroladores comprende la organización interna de los componentes que permiten ejecutar instrucciones, procesar datos y controlar dispositivos electrónicos. A diferencia de los microprocesadores convencionales, los microcontroladores integran en un solo circuito elementos como la unidad de procesamiento, memoria y periféricos de entrada y salida. Esta integración reduce el tamaño, el consumo energético y el costo de los sistemas electrónicos. Gracias a estas características, los microcontroladores son ampliamente utilizados en aplicaciones de automatización, control industrial y dispositivos inteligentes. Su estudio resulta fundamental para comprender el funcionamiento de los sistemas embebidos modernos.
+                        </p>
+                        <img src="{% static 'img/unidad4/contro.jpg' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
-            <h2 class="accordion-header">
-                <button class="accordion-button collapsed bg-dark text-success fw-bold"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#tema4-1-2">
-                    4.1.2. Arquitectura de Microcontroladores
-                </button>
-            </h2>
-            <div id="tema4-1-2" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad4">
-                <div class="accordion-body">
-                    <p class="fs-5 text-secondary text-justify mb-4">
-                        La arquitectura de los microcontroladores define la forma en que sus componentes internos se organizan y colaboran para ejecutar instrucciones y procesar información. Esta estructura incluye elementos como la unidad central de procesamiento, memoria, temporizadores, puertos de entrada y salida, convertidores analógicos-digitales y módulos de comunicación. El diseño arquitectónico influye directamente en el rendimiento, la eficiencia energética y las capacidades funcionales del dispositivo. Asimismo, determina la manera en que el programador interactúa con los recursos disponibles. Por esta razón, el conocimiento de la arquitectura es esencial para el desarrollo de aplicaciones embebidas.
-                    </p>
+            <div class="accordion-item bg-black text-light mb-3 custom-accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed bg-dark text-primary fw-bold"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#tema4-1-1">
+                        4.1.1. Different Tipos de Microcontroladores
+                    </button>
+                </h2>
+                <div id="tema4-1-1" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad4">
+                    <div class="accordion-body">
+                        <p class="fs-5 text-secondary text-justify mb-4">
+                            Los microcontroladores pueden clasificarse según su arquitectura, capacidad de memoria, aplicaciones y forma de integración con otros componentes del sistema. Cada tipo ha sido diseñado para satisfacer necesidades específicas relacionadas con el procesamiento de datos y el control de dispositivos electrónicos. Algunos modelos están orientados a sistemas compactos con recursos limitados, mientras que otros permiten expandir sus capacidades mediante componentes externos. Esta diversidad ofrece soluciones adaptadas a distintos entornos tecnológicos. Por ello, la selección adecuada del microcontrolador depende de los requerimientos particulares de cada proyecto.
+                        </p>
 
-                    <h4 class="text-warning fw-bold mt-4">4.1.2.1. Harvard vs Von Neumann</h4>
-                    <p class="fs-5 text-secondary text-justify mb-3">
-                        Las arquitecturas Harvard y Von Neumann representan dos enfoques diferentes para la organización de la memoria dentro de los sistemas digitales. En la arquitectura Von Neumann, los datos y las instrucciones comparten un mismo espacio de memoria y utilizan los mismos buses para su transferencia. Por el contrario, la arquitectura Harvard dispone de memorias y buses independientes para datos e instrucciones, permitiendo accesos simultáneos y mayor velocidad de procesamiento. Esta diferencia proporciona ventajas significativas en aplicaciones donde el rendimiento es un factor crítico. Actualmente, muchos microcontroladores modernos emplean variantes de la arquitectura Harvard debido a su eficiencia operativa.
-                    </p>
+                        <h4 class="text-info fw-bold mt-4">4.1.1.1. Microcontroladores Embebidos</h4>
+                        <p class="fs-5 text-secondary text-justify">
+                            Los microcontroladores embebidos son dispositivos diseñados para formar parte de un sistema electrónico específico, ejecutando tareas concretas de manera autónoma. Generalmente se encuentran integrados en productos de uso cotidiano como electrodomésticos, vehículos, equipos médicos y sistemas de automatización. Su principal característica es la capacidad de operar con recursos limitados y bajo consumo energético. Además, suelen estar optimizados para cumplir funciones determinadas con alta confiabilidad y eficiencia. Debido a estas ventajas, constituyen la base de numerosos sistemas inteligentes utilizados en la actualidad.
+                        </p>
+                        <img src="{% static 'img/unidad4/embebidos.jpg' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
 
-                    <div class="table-responsive my-4">
-                        <table class="table table-dark table-striped table-bordered border-secondary align-middle text-center">
-                            <thead>
-                                <tr class="text-warning border-secondary">
-                                    <th>Característica</th>
-                                    <th>Harvard</th>
-                                    <th>Von Neumann</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="fw-bold text-start text-light">Memoria</td>
-                                    <td>Separada para datos e instrucciones</td>
-                                    <td>Compartida</td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-bold text-start text-light">Buses</td>
-                                    <td>Independientes</td>
-                                    <td>Compartidos</td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-bold text-start text-light">Velocidad</td>
-                                    <td>Mayor</td>
-                                    <td>Menor</td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-bold text-start text-light">Complejidad</td>
-                                    <td>Más compleja</td>
-                                    <td>Más simple</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    <img src="{% static 'img/unidad4/vs.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto" style="max-width: 700px; height: auto;">
+                        <h4 class="text-success fw-bold mt-4">4.1.1.2. Microcontroladores con Memoria Externa</h4>
+                        <p class="fs-5 text-secondary text-justify">
+                            Los microcontroladores con memoria externa son aquellos que permiten ampliar su capacidad de almacenamiento mediante dispositivos adicionales conectados al sistema. Esta característica resulta especialmente útil en aplicaciones que requieren manejar grandes volúmenes de datos o ejecutar programas de mayor complejidad. La utilización de memoria externa proporciona mayor flexibilidad en el diseño de sistemas electrónicos avanzados. Sin embargo, también implica una mayor complejidad en la comunicación entre los componentes del sistema. A pesar de ello, su empleo es frecuente en aplicaciones industriales y sistemas de procesamiento especializados.
+                        </p>
+                        <img src="{% static 'img/unidad4/externa.jpg' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item bg-black text-light mb-3 custom-accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed bg-dark text-success fw-bold"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#tema4-1-2">
+                        4.1.2. Arquitectura de Microcontroladores
+                    </button>
+                </h2>
+                <div id="tema4-1-2" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad4">
+                    <div class="accordion-body">
+                        <p class="fs-5 text-secondary text-justify mb-4">
+                            La arquitectura de los microcontroladores define la forma en que sus componentes internos se organizan y colaboran para ejecutar instrucciones y procesar información. Esta estructura incluye elementos como la unidad central de procesamiento, memoria, temporizadores, puertos de entrada y salida, convertidores analógicos-digitales y módulos de comunicación. El diseño arquitectónico influye directamente en el rendimiento, la eficiencia energética y las capacidades funcionales del dispositivo. Asimismo, determina la manera en que el programador interactúa con los recursos disponibles. Por esta razón, el conocimiento de la arquitectura es esencial para el desarrollo de aplicaciones embebidas.
+                        </p>
+
+                        <h4 class="text-warning fw-bold mt-4">4.1.2.1. Harvard vs Von Neumann</h4>
+                        <p class="fs-5 text-secondary text-justify mb-3">
+                            Las arquitecturas Harvard y Von Neumann representan dos enfoques diferentes para la organización de la memoria dentro de los sistemas digitales. En la arquitectura Von Neumann, los datos y las instrucciones comparten un mismo espacio de memoria y utilizan los mismos buses para su transferencia. Por el contrario, la arquitectura Harvard dispone de memorias y buses independientes para datos e instrucciones, permitiendo accesos simultáneos y mayor velocidad de procesamiento. Esta diferencia proporciona ventajas significativas en aplicaciones donde el rendimiento es un factor crítico. Actualmente, muchos microcontroladores modernos emplean variantes de la arquitectura Harvard debido a su eficiencia operativa.
+                        </p>
+
+                        <div class="table-responsive my-4">
+                            <table class="table table-dark table-striped table-bordered border-secondary align-middle text-center">
+                                <thead>
+                                    <tr class="text-warning border-secondary">
+                                        <th>Característica</th>
+                                        <th>Harvard</th>
+                                        <th>Von Neumann</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="fw-bold text-start text-light">Memoria</td>
+                                        <td>Separada para datos e instrucciones</td>
+                                        <td>Compartida</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold text-start text-light">Buses</td>
+                                        <td>Independientes</td>
+                                        <td>Compartidos</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold text-start text-light">Velocidad</td>
+                                        <td>Mayor</td>
+                                        <td>Menor</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold text-start text-light">Complejidad</td>
+                                        <td>Más compleja</td>
+                                        <td>Más simple</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <img src="{% static 'img/unidad4/vs.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto" style="max-width: 700px; height: auto;">
+                        </div>
+
+                        <h4 class="text-danger fw-bold mt-4">4.1.2.2. CISC vs RISC</h4>
+                        <p class="fs-5 text-secondary text-justify mb-3">
+                            Las arquitecturas CISC (Complex Instruction Set Computer) y RISC (Reduced Instruction Set Computer) representan dos filosofías distintas en el diseño de procesadores y microcontroladores. La arquitectura CISC se caracteriza por disponer de un amplio conjunto de instrucciones complejas capaces de realizar múltiples operaciones en una sola instrucción. En contraste, la arquitectura RISC utiliza un conjunto reducido de instrucciones simples optimizadas para ejecutarse de manera rápida y eficiente. Esta simplicidad facilita la implementación de técnicas avanzadas de procesamiento y mejora el rendimiento general del sistema. Como resultado, numerosos microcontroladores modernos adoptan principios RISC para lograr una mayor velocidad y eficiencia energética.
+                        </p>
+
+                        <div class="table-responsive my-4">
+                            <table class="table table-dark table-striped table-bordered border-secondary align-middle text-center">
+                                <thead>
+                                    <tr class="text-danger border-secondary">
+                                        <th>Característica</th>
+                                        <th>CISC</th>
+                                        <th>RISC</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="fw-bold text-start text-light">Instrucciones</td>
+                                        <td>Complejas y numerosas</td>
+                                        <td>Simples y reducidas</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold text-start text-light">Ciclos por instrucción</td>
+                                        <td>Varios</td>
+                                        <td>Generalmente uno</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold text-start text-light">Hardware</td>
+                                        <td>Más complejo</td>
+                                        <td>Más simple</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold text-start text-light">Rendimiento</td>
+                                        <td>Menor eficiencia energética</td>
+                                        <td>Mayor eficiencia energética</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <img src="{% static 'img/unidad4/ris.jpg' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto" style="max-width: 700px; height: auto;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item bg-black text-light mb-3 custom-accordion-item" style="border-color: rgba(0, 180, 216, 0.4) !important;">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed bg-info text-dark fw-bold"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#temaTestUnidad4">
+                        ¡REALIZAR TEST DE EVALUACIÓN! (10 Preguntas)
+                    </button>
+                </h2>
+                <div id="temaTestUnidad4" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad4">
+                    <div class="accordion-body bg-dark rounded-bottom">
+                        <form id="quizFormUnidad4">
+                            
+                            <div class="mb-4 p-3 bg-black quiz-box border border-secondary">
+                                <p class="fw-bold text-info">1. ¿Cuál es la diferencia de integración fundamental entre un microcontrolador y un microprocesador convencional?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u4_q1" value="correct" id="u4_q1_a">
+                                    <label class="form-check-label text-secondary" for="u4_q1_a">El microcontrolador integra la CPU, la memoria y los periféricos de entrada y salida en un único circuito.</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u4_q1" value="wrong" id="u4_q1_b">
+                                    <label class="form-check-label text-secondary" for="u4_q1_b">El microcontrolador delega toda la gestión de memoria y periféricos a tarjetas expansoras externas.</label>
+                                }
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="u4_q1" value="wrong" id="u4_q1_c">
+                                    <label class="form-check-label text-secondary" for="u4_q1_c">El microcontrolador prescinde de los módulos de temporización para reducir costes lógicos.</label>
+                                </div>
+                            </div>
+
+                            <div class="mb-4 p-3 bg-black quiz-box border border-secondary">
+                                <p class="fw-bold text-info">2. ¿Qué ventajas directas aporta la arquitectura integrada del microcontrolador a los sistemas electrónicos?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u4_q2" value="wrong" id="u4_q2_a">
+                                    <label class="form-check-label text-secondary" for="u4_q2_a">Incrementar la complejidad de los circuitos integrados de soporte y el consumo de corriente.</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u4_q2" value="correct" id="u4_q2_b">
+                                    <label class="form-check-label text-secondary" for="u4_q2_b">Reducir notablemente el tamaño, el consumo energético y el costo del sistema global.</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="u4_q2" value="wrong" id="u4_q2_c">
+                                    <label class="form-check-label text-secondary" for="u4_q2_c">Eliminar por completo la necesidad de codificar algoritmos lógicos en ensamblador.</label>
+                                </div>
+                            </div>
+
+                            <div class="mb-4 p-3 bg-black quiz-box border border-secondary">
+                                <p class="fw-bold text-info">3. ¿Cuál es la characteristic operativa principal de los microcontroladores embebidos?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u4_q3" value="correct" id="u4_q3_a">
+                                    <label class="form-check-label text-secondary" for="u4_q3_a">Operar de forma autónoma con recursos limitados y bajo consumo de energía en un producto específico.</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u4_q3" value="wrong" id="u4_q3_b">
+                                    <label class="form-check-label text-secondary" for="u4_q3_b">Requerir memorias secundarias de gran escala conectadas en red inalámbrica en todo momento.</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="u4_q3" value="wrong" id="u4_q3_c">
+                                    <label class="form-check-label text-secondary" for="u4_q3_c">Ejecutar múltiples sistemas operativos gráficos simultáneos para servidores empresariales.</label>
+                                </div>
+                            </div>
+
+                            <div class="mb-4 p-3 bg-black quiz-box border border-secondary">
+                                <p class="fw-bold text-info">4. ¿En qué escenario técnico resulta ventajoso emplear un microcontrolador con memoria externa?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u4_q4" value="wrong" id="u4_q4_a">
+                                    <label class="form-check-label text-secondary" for="u4_q4_a">Cuando se busca simplificar al máximo las pistas de comunicación y reducir los pines físicos del chip.</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u4_q4" value="correct" id="u4_q4_b">
+                                    <label class="form-check-label text-secondary" for="u4_q4_b">En aplicaciones avanzadas que manejan grandes volúmenes de datos o ejecutan programas de mayor complejidad.</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="u4_q4" value="wrong" id="u4_q4_c">
+                                    <label class="form-check-label text-secondary" for="u4_q4_c">Únicamente cuando se requiera reducir el costo total de fabricación de un electrodoméstico simple.</label>
+                                </div>
+                            </div>
+
+                            <div class="mb-4 p-3 bg-black quiz-box border border-secondary">
+                                <p class="fw-bold text-info">5. ¿Cómo se organiza el espacio de memoria y los buses en la arquitectura Von Neumann?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u4_q5" value="wrong" id="u4_q5_a">
+                                    <label class="form-check-label text-secondary" for="u4_q5_a">Dispone de espacios y canales de buses completamente independientes y aislados para datos y código.</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u4_q5" value="correct" id="u4_q5_b">
+                                    <label class="form-check-label text-secondary" for="u4_q5_b">Los datos y las instrucciones comparten un mismo espacio de memoria y utilizan los mismos buses.</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="u4_q5" value="wrong" id="u4_q5_c">
+                                    <label class="form-check-label text-secondary" for="u4_q5_c">Elimina el uso de buses lógicos para transferir la información de manera directa a la CPU.</label>
+                                </div>
+                            </div>
+
+                            <div class="mb-4 p-3 bg-black quiz-box border border-secondary">
+                                <p class="fw-bold text-info">6. ¿Qué beneficio crucial ofrece la arquitectura Harvard en comparación con Von Neumann?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u4_q6" value="correct" id="u4_q6_a">
+                                    <label class="form-check-label text-secondary" for="u4_q6_a">Permite accesos simultáneos a datos e instrucciones por sus buses independientes, logrando mayor velocidad.</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u4_q6" value="wrong" id="u4_q6_b">
+                                    <label class="form-check-label text-secondary" for="u4_q6_b">Simplifica radicalmente el diseño del hardware reduciendo el número total de buses internos.</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="u4_q6" value="wrong" id="u4_q6_c">
+                                    <label class="form-check-label text-secondary" for="u4_q6_c">Permite unificar los segmentos de código y datos en una memoria RAM compartida más simple.</label>
+                                </div>
+                            </div>
+
+                            <div class="mb-4 p-3 bg-black quiz-box border border-secondary">
+                                <p class="fw-bold text-info">7. ¿Cuál es el postulado o filosofía de diseño elemental de la arquitectura CISC?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u4_q7" value="wrong" id="u4_q7_a">
+                                    <label class="form-check-label text-secondary" for="u4_q7_a">Emplear directivas simples optimizadas para ejecutarse estrictamente en un único ciclo de reloj.</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u4_q7" value="correct" id="u4_q7_b">
+                                    <label class="form-check-label text-secondary" for="u4_q7_b">Disponer de un amplio conjunto de instrucciones complejas capaces de realizar múltiples operaciones en una sola línea.</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="u4_q7" value="wrong" id="u4_q7_c">
+                                    <label class="form-check-label text-secondary" for="u4_q7_c">Prescindir del hardware complejo para delegar todas las tareas matemáticas al compilador del software.</label>
+                                </div>
+                            </div>
+
+                            <div class="mb-4 p-3 bg-black quiz-box border border-secondary">
+                                <p class="fw-bold text-info">8. ¿Qué características distinguen a las instrucciones dentro de la arquitectura RISC?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u4_q8" value="wrong" id="u4_q8_a">
+                                    <label class="form-check-label text-secondary" for="u4_q8_a">Son numerosas, de longitud variable y toman múltiples ciclos de reloj por ejecución.</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u4_q8" value="wrong" id="u4_q8_b">
+                                    <label class="form-check-label text-secondary" for="u4_q8_b">Son complejas y se combinan directamente en un mismo canal con los segmentos de la memoria ROM.</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="u4_q8" value="correct" id="u4_q8_c">
+                                    <label class="form-check-label text-secondary" for="u4_q8_c">Son simples, reducidas y están optimizadas para ejecutarse generalmente en un único ciclo de reloj.</label>
+                                </div>
+                            </div>
+
+                            <div class="mb-4 p-3 bg-black quiz-box border border-secondary">
+                                <p class="fw-bold text-info">9. Según la tabla comparativa de Harvard vs Von Neumann, ¿cuál de los modelos presenta una mayor complejidad estructural en hardware?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u4_q9" value="correct" id="u4_q9_a">
+                                    <label class="form-check-label text-secondary" for="u4_q9_a">La arquitectura Harvard.</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u4_q9" value="wrong" id="u4_q9_b">
+                                    <label class="form-check-label text-secondary" for="u4_q9_b">La arquitectura Von Neumann.</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="u4_q9" value="wrong" id="u4_q9_c">
+                                    <label class="form-check-label text-secondary" for="u4_q9_c">Ambos modelos exhiben exactamente el mismo nivel de simplicidad operativa en sus buses.</label>
+                                </div>
+                            </div>
+
+                            <div class="mb-4 p-3 bg-black quiz-box border border-secondary">
+                                <p class="fw-bold text-info">10. ¿Por qué razón muchos microcontroladores modernos adoptan principios arquitectónicos RISC?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u4_q10" value="wrong" id="u4_q10_a">
+                                    <label class="form-check-label text-secondary" for="u4_q10_a">Para emular instrucciones complejas de procesamiento de servidores x86 antiguos.</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u4_q10" value="correct" id="u4_q10_b">
+                                    <label class="form-check-label text-secondary" for="u4_q10_b">Para maximizar la velocidad de procesamiento del sistema y lograr una mayor eficiencia energética.</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="u4_q10" value="wrong" id="u4_q10_c">
+                                    <label class="form-check-label text-secondary" for="u4_q10_c">Para forzar al hardware a operar exclusivamente mediante memorias compartidas.</label>
+                                </div>
+                            </div>
+
+                            <button type="button" class="btn btn-info fw-bold w-100 py-2 mt-2" onclick="evaluarQuizUnidad4()">
+                                Calcular Calificación
+                            </button>
+                        </form>
+
+                        <div id="resultadoQuizUnidad4" class="mt-4 p-3 rounded bg-black border border-info text-center d-none">
+                            <h4 class="fw-bold text-warning" id="scoreTextUnidad4"></h4>
+                            <p class="fs-5 text-light mb-0" id="feedbackTextUnidad4"></p>
+                        </div>
 
                     </div>
-
-                    <h4 class="text-danger fw-bold mt-4">4.1.2.2. CISC vs RISC</h4>
-                    <p class="fs-5 text-secondary text-justify mb-3">
-                        Las arquitecturas CISC (Complex Instruction Set Computer) y RISC (Reduced Instruction Set Computer) representan dos filosofías distintas en el diseño de procesadores y microcontroladores. La arquitectura CISC se caracteriza por disponer de un amplio conjunto de instrucciones complejas capaces de realizar múltiples operaciones en una sola instrucción. En contraste, la arquitectura RISC utiliza un conjunto reducido de instrucciones simples optimizadas para ejecutarse de manera rápida y eficiente. Esta simplicidad facilita la implementación de técnicas avanzadas de procesamiento y mejora el rendimiento general del sistema. Como resultado, numerosos microcontroladores modernos adoptan principios RISC para lograr una mayor velocidad y eficiencia energética.
-                    </p>
-
-                    <div class="table-responsive my-4">
-                        <table class="table table-dark table-striped table-bordered border-secondary align-middle text-center">
-                            <thead>
-                                <tr class="text-danger border-secondary">
-                                    <th>Característica</th>
-                                    <th>CISC</th>
-                                    <th>RISC</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="fw-bold text-start text-light">Instrucciones</td>
-                                    <td>Complejas y numerosas</td>
-                                    <td>Simples y reducidas</td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-bold text-start text-light">Ciclos por instrucción</td>
-                                    <td>Varios</td>
-                                    <td>Generalmente uno</td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-bold text-start text-light">Hardware</td>
-                                    <td>Más complejo</td>
-                                    <td>Más simple</td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-bold text-start text-light">Rendimiento</td>
-                                    <td>Menor eficiencia energética</td>
-                                    <td>Mayor eficiencia energética</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <img src="{% static 'img/unidad4/ris.jpg' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto" style="max-width: 700px; height: auto;">
-                        
-                    </div>
-
                 </div>
             </div>
+
         </div>
 
-    </div>
+    </section>
+</div>
 
-</section>
+<script>
+    const canvasU4 = document.getElementById('binaryCanvasU4');
+    const ctxU4 = canvasU4.getContext('2d');
+
+    function resizeCanvasU4() {
+        canvasU4.width = window.innerWidth;
+        canvasU4.height = window.innerHeight;
+    }
+    resizeCanvasU4();
+    window.addEventListener('resize', resizeCanvasU4);
+
+    const binaryCharsU4 = ["0", "1"];
+    const fontSizeU4 = 14;
+    const columnsU4 = Math.floor(canvasU4.width / 20);
+    
+    const dropsU4 = [];
+    for (let i = 0; i < columnsU4; i++) {
+        dropsU4[i] = Math.random() * -100;
+    }
+
+    function drawU4() {
+        ctxU4.fillStyle = 'rgba(0, 0, 0, 0.08)';
+        ctxU4.fillRect(0, 0, canvasU4.width, canvasU4.height);
+
+        ctxU4.fillStyle = 'rgba(0, 180, 216, 0.7)';
+        ctxU4.font = 'bold ' + fontSizeU4 + 'px Courier New, monospace';
+
+        for (let i = 0; i < dropsU4.length; i++) {
+            const text = binaryCharsU4[Math.floor(Math.random() * binaryCharsU4.length)];
+            const x = i * 20;
+            const y = dropsU4[i] * fontSizeU4;
+
+            ctxU4.fillText(text, x, y);
+
+            if (y > canvasU4.height && Math.random() > 0.975) {
+                dropsU4[i] = 0;
+            }
+            dropsU4[i] += 0.5;
+        }
+    }
+
+    setInterval(drawU4, 30);
+</script>
+
+<script>
+function evaluarQuizUnidad4() {
+    const totalPreguntas = 10;
+    let correctas = 0;
+    
+    for (let i = 1; i <= totalPreguntas; i++) {
+        const opcionSeleccionada = document.querySelector(`input[name="u4_q${i}"]:checked`);
+        if (opcionSeleccionada && opcionSeleccionada.value === "correct") {
+            correctas++;
+        }
+    }
+    
+    const contenedorResultado = document.getElementById("resultadoQuizUnidad4");
+    const scoreText = document.getElementById("scoreTextUnidad4");
+    const feedbackText = document.getElementById("feedbackTextUnidad4");
+    
+    contenedorResultado.classList.remove("d-none");
+    
+    let notaFinal = (correctas / totalPreguntas) * 100;
+    scoreText.innerText = `Resultado: ${correctas} / ${totalPreguntas} correctas (${notaFinal}%)`;
+    
+    if (notaFinal >= 70) {
+        feedbackText.innerText = "¡Excellent! Has dominado los conceptos de integración de microcontroladores y las arquitecturas Harvard/RISC.";
+        feedbackText.className = "fs-5 text-success mb-0";
+    } else {
+        feedbackText.innerText = "Buen intento. Te sugiero revisar las tablas comparativas de buses e instrucciones (Harvard vs Von Neumann / RISC vs CISC) antes de reevaluar.";
+        feedbackText.className = "fs-5 text-danger mb-0";
+    }
+}
+</script>
 
 {% endblock %}

@@ -4,20 +4,84 @@
 
 {% block content %}
 
+<style>
+    /* Contenedor principal del título con posición relativa para el canvas */
+    .hero-animation-bg {
+        background: #000000;
+        border-radius: 16px;
+        padding: 3rem 2rem;
+        border: 1px solid rgba(0, 180, 216, 0.25);
+        box-shadow: 0 0 30px rgba(0, 180, 216, 0.15);
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Ajuste del canvas para la lluvia de código MicroPython de fondo */
+    #rpCanvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        opacity: 0.35; /* Controla la intensidad de brillo del código */
+    }
+
+    /* Asegura que el texto quede visible por encima del canvas animado */
+    .hero-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    /* Efecto de pulso de luz sincronizado en el texto principal */
+    @keyframes textPulse {
+        0%, 100% { text-shadow: 0 0 10px rgba(0, 180, 216, 0.6); }
+        50% { text-shadow: 0 0 25px rgba(0, 180, 216, 0.9), 0 0 40px rgba(0, 180, 216, 0.4); }
+    }
+
+    .pulsing-text {
+        animation: textPulse 3s infinite ease-in-out;
+    }
+
+    /* Efecto de luz azul y bordes redondeados para las tarjetas del acordeón */
+    .custom-accordion-item {
+        border: 1px solid rgba(0, 180, 216, 0.2) !important;
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        border-radius: 12px !important;
+        overflow: hidden;
+    }
+
+    /* Animación e iluminación cuando el mouse pasa por encima de la tarjeta */
+    .custom-accordion-item:hover {
+        transform: translateY(-4px);
+        border-color: #00b4d8 !important;
+        box-shadow: 0 8px 25px rgba(0, 180, 216, 0.35);
+    }
+
+    /* Suavizado para los botones internos del acordeón */
+    .accordion-button {
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+</style>
+
 <section class="py-5">
 
-    <div class="text-center mb-5">
-        <h1 class="display-4 fw-bold text-info">
-            RP2040 zero
-        </h1>
-        <p class="lead text-secondary fw-semibold">
-            Aprende sobre RP2040 zero (Thony IDE)
-        </p>
+    <div class="text-center mb-5 hero-animation-bg">
+        <canvas id="rpCanvas"></canvas>
+        
+        <div class="hero-content">
+            <h1 class="display-4 fw-bold text-info pulsing-text m-0">
+                RP2040 zero
+            </h1>
+            <p class="lead text-secondary fw-semibold mt-2 mb-0">
+                Aprende sobre RP2040 zero (Thonny IDE)
+            </p>
+        </div>
     </div>
 
     <div class="accordion accordion-flush" id="RP2040">
 
-        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
+        <div class="accordion-item bg-black text-light mb-3 custom-accordion-item">
             <h2 class="accordion-header">
                 <button class="accordion-button collapsed bg-dark text-info fw-bold"
                         type="button"
@@ -26,7 +90,7 @@
                     1. ¿Qué es RP2040 Zero?
                 </button>
             </h2>
-            <div id="tema1" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
+            <div id="tema1" class="accordion-collapse collapse" data-bs-parent="#RP2040">
                 <div class="accordion-body">
                     <p class="fs-5 text-secondary text-justify">
                         El RP2040 Zero es una placa de desarrollo de microcontrolador diminuta y de bajo costo. Utiliza el chip RP2040 (el mismo de la Raspberry Pi Pico) pero en un formato súper compacto diseñado para integrarse fácilmente en proyectos electrónicos con restricciones de espacio.
@@ -36,7 +100,7 @@
             </div>
         </div>
         
-        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
+        <div class="accordion-item bg-black text-light mb-3 custom-accordion-item">
             <h2 class="accordion-header">
                 <button class="accordion-button collapsed bg-dark text-info fw-bold"
                         type="button"
@@ -45,22 +109,20 @@
                     2. Características principales
                 </button>
             </h2>
-            <div id="tema2" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
+            <div id="tema2" class="accordion-collapse collapse" data-bs-parent="#RP2040">
                 <div class="accordion-body">
-
                     <ul class="fs-5 text-secondary text-justify">
                         <li>Potencia: Procesador ARM Cortex-M0+ de doble núcleo a 133 MHz.</li>
                         <li>Memoria: 264 KB de SRAM y 2 MB de memoria Flash integrada.</li>
                         <li>Conectividad: Puerto USB Tipo-C y compatible con USB 1.1 (dispositivo y host).</li>
                         <li>Pines: Cuenta con múltiples pines GPIO multifunción (incluyendo SPI, I2C, UART, PWM y ADC).</li>
-                        Extras: Frecuentemente incluye un LED RGB integrado y bordes almenados (castellated holes) que permiten soldarla directamente sobre otras placas base. 
+                        <li>Extras: Frecuentemente incluye un LED RGB integrado y bordes almenados (castellated holes) que permiten soldarla directamente sobre otras placas base.</li> 
                     </ul>
-
                 </div>
             </div>
         </div>
         
-        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
+        <div class="accordion-item bg-black text-light mb-3 custom-accordion-item">
             <h2 class="accordion-header">
                 <button class="accordion-button collapsed bg-dark text-info fw-bold"
                         type="button"
@@ -69,7 +131,7 @@
                     3. ¿Para qué se utiliza?
                 </button>
             </h2>
-            <div id="tema3" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
+            <div id="tema3" class="accordion-collapse collapse" data-bs-parent="#RP2040">
                 <div class="accordion-body">
                     <p class="fs-5 text-secondary text-justify">
                         El RP2040 Zero es una placa de desarrollo ultracompacta impulsada por el chip oficial Raspberry Pi RP2040. Es una versión miniatura y mejorada de la clásica Raspberry Pi Pico, diseñada para proyectos de electrónica, automatización e Internet de las Cosas (IoT) donde el espacio es muy reducido.
@@ -81,37 +143,35 @@
                         <li>Iluminación y Robótica: Controlar tiras de luces LED inteligentes y motores paso a paso.</li>
                         <li>Educación y prototipado: Aprender programación y electrónica usando lenguajes como C/C++ o MicroPython.</li>
                     </ul>
-                    
                 </div>
             </div>
         </div>
 
-        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
+        <div class="accordion-item bg-black text-light mb-3 custom-accordion-item">
             <h2 class="accordion-header">
                 <button class="accordion-button collapsed bg-dark text-info fw-bold"
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#tema4">
-                    4. ¿Como usar la RP2040 zero?
+                    4. ¿Cómo usar la RP2040 zero?
                 </button>
             </h2>
-            <div id="tema4" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
+            <div id="tema4" class="accordion-collapse collapse" data-bs-parent="#RP2040">
                 <div class="accordion-body">
                     <p class="fs-5 text-secondary text-justify">
                         Para usar la placa RP2040 Zero (un microcontrolador miniatura basado en el chip RP2040 de Raspberry Pi), solo necesitas conectarla a tu computadora mediante un cable USB-C y programarla en MicroPython o C/C++. Su puerto USB integrado permite programarla directamente mediante "arrastrar y soltar".
                     </p>
                     <p class="fs-5 text-secondary text-justify">
-                        A continuación se presenta un video tutorial de 5 minutos, donde se aborda de manera detalla la forma mas sencilla de usar la RP2040 zero con la instalacion de Thonny IDE:
+                        A continuación se presenta un video tutorial de 5 minutos, donde se aborda de manera detallada la forma más sencilla de usar la RP2040 zero con la instalación de Thonny IDE:
                     </p>
-                    <div class="d-flex justify-content-center">
+                    <div class="d-flex justify-content-center my-4">
                         <iframe width="560" height="315" src="https://www.youtube.com/embed/f5xXkBVM2Rc?si=hwxWGnbpTeI_exup" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        
-       <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
+        </div>        
+
+        <div class="accordion-item bg-black text-light mb-3 custom-accordion-item">
             <h2 class="accordion-header">
                 <button class="accordion-button collapsed bg-dark text-info fw-bold"
                         type="button"
@@ -120,7 +180,7 @@
                     5. Ejemplo: Control de led
                 </button>
             </h2>
-            <div id="tema5" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
+            <div id="tema5" class="accordion-collapse collapse" data-bs-parent="#RP2040">
                 <div class="accordion-body">
                     <p class="fs-5 text-secondary text-justify">
                         Para este ejemplo, presentamos un circuito sencillo para el control de un diodo led.
@@ -129,25 +189,24 @@
                         La imagen presentada es el codigo que usaremos en thonny IDE para el control de la led. Donde podemos usar F5 para ejecutar el codigo, CTRL + S para guardar el codigo en la placa o la computadora.
                     </p>
                     <img src="{% static 'img/rp2040/1.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto" style="max-width: 400px; height: auto;">
-                    <p class="fs-5 text-secondary text-justify">
+                    <p class="fs-5 text-secondary text-justify mt-4">
                         La conexion es sencilla, usando el PIN 0 que va a la resistencia de 1k ohm , para el control de la led y el GND de la placa al negativo de la led.
                     </p>
                     <img src="{% static 'img/rp2040/1.1.jpeg' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto" style="max-width: 700px; height: auto;">
-                    <p class="fs-5 text-secondary text-justify">
+                    <p class="fs-5 text-secondary text-justify mt-4">
                         A continuación, presentamos un video de la demostracion del control del led.
                     </p>
-                    <div class="d-flex justify-content-center">
+                    <div class="d-flex justify-content-center my-4">
                         <video width="640" height="360" controls>
-                        <source src="{% static 'img/rp2040/1.2.mp4' %}" type="video/mp4">
-                        Tu navegador no soporta el elemento de video.
+                            <source src="{% static 'img/rp2040/1.2.mp4' %}" type="video/mp4">
+                            Tu navegador no soporta el elemento de video.
                         </video>
                     </div>
                 </div>
             </div>
         </div>
-                
-        
-       <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
+
+        <div class="accordion-item bg-black text-light mb-3 custom-accordion-item">
             <h2 class="accordion-header">
                 <button class="accordion-button collapsed bg-dark text-info fw-bold"
                         type="button"
@@ -156,7 +215,7 @@
                     6. Ejemplo: Uso de potenciometro + Led
                 </button>
             </h2>
-            <div id="tema6" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
+            <div id="tema6" class="accordion-collapse collapse" data-bs-parent="#RP2040">
                 <div class="accordion-body">
                     <p class="fs-5 text-secondary text-justify">
                         Para este ejemplo, presentamos un circuito donde haremos uso de un protenciometro, resistencia de 1k ohm y un diodo led. Este ejemplo nos ayudará a comprender a como funcionar un potenciometro y controlar el brillo de la led.
@@ -165,24 +224,24 @@
                         La imagen presentada es el codigo que usaremos en thonny IDE para el control del brillo de la led con el potenciometro. Donde podemos usar F5 para ejecutar el codigo, CTRL + S para guardar el codigo en la placa o la computadora.
                     </p>
                     <img src="{% static 'img/rp2040/2.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto" style="max-width: 400px; height: auto;">
-                    <p class="fs-5 text-secondary text-justify">
+                    <p class="fs-5 text-secondary text-justify mt-4">
                         La conexion es sencilla, usando el PIN 0 en modo PWM para el brillo de la led con una resistencia y usamos el PIN 26 para controlar los valores del potenciometro, usamos GND y 3.3V al potenciometro. 
                     </p>
                     <img src="{% static 'img/rp2040/2.1.jpeg' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto" style="max-width: 700px; height: auto;">
-                    <p class="fs-5 text-secondary text-justify">
+                    <p class="fs-5 text-secondary text-justify mt-4">
                         A continuación, presentamos un video de la demostracion del control del led.
                     </p>
-                    <div class="d-flex justify-content-center">
+                    <div class="d-flex justify-content-center my-4">
                         <video width="640" height="360" controls>
-                        <source src="{% static 'img/rp2040/2.2.mp4' %}" type="video/mp4">
-                        Tu navegador no soporta el elemento de video.
+                            <source src="{% static 'img/rp2040/2.2.mp4' %}" type="video/mp4">
+                            Tu navegador no soporta el elemento de video.
                         </video>
                     </div>                    
                 </div>
             </div>
         </div>
 
-       <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
+        <div class="accordion-item bg-black text-light mb-3 custom-accordion-item">
             <h2 class="accordion-header">
                 <button class="accordion-button collapsed bg-dark text-info fw-bold"
                         type="button"
@@ -191,36 +250,33 @@
                     7. Ejemplo: Control de un buzzer activo
                 </button>
             </h2>
-            <div id="tema7" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
+            <div id="tema7" class="accordion-collapse collapse" data-bs-parent="#RP2040">
                 <div class="accordion-body">
                     <p class="fs-5 text-secondary text-justify">
-                        Para este ejemplo, presentamos un circuito donde haremos uso de un buzzer activo,
-                        la cual mandaremos una señal de tiempo para que se active y apague en momento
-                        determinado. Solo es necesario usar un buzzer activo.
+                        Para este ejemplo, presentamos un circuito donde haremos uso de un buzzer activo, la cual mandaremos una señal de tiempo para que se active y apague en momento determinado. Solo es necesario usar un buzzer activo.
                     </p>
                     <p class="fs-5 text-secondary text-justify">
                         La imagen presentada es el codigo que usaremos en thonny IDE para el control del buzzer activo. Donde podemos usar F5 para ejecutar el codigo, CTRL + S para guardar el codigo en la placa o la computadora.
                     </p>
                     <img src="{% static 'img/rp2040/3.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto" style="max-width: 400px; height: auto;">
-                    <p class="fs-5 text-secondary text-justify">
-                        La conexion es sencilla, podemos usar cualquier PIN digital, usaremos el PIN 26 que corresponde al positivo y GND al negativo del buzzer.
+                    <p class="fs-5 text-secondary text-justify mt-4">
+                        La conexion es sencilla, podemos usar cualquier PIN digital, usaremos el PIN 26 que corresponds al positivo y GND al negativo del buzzer.
                     </p>
                     <img src="{% static 'img/rp2040/3.1.jpeg' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto" style="max-width: 700px; height: auto;">
-                    <p class="fs-5 text-secondary text-justify">
+                    <p class="fs-5 text-secondary text-justify mt-4">
                         A continuación, presentamos un video de la demostracion del control del buzzer activo.
                     </p>
-                    <div class="d-flex justify-content-center">
+                    <div class="d-flex justify-content-center my-4">
                         <video width="640" height="360" controls>
-                        <source src="{% static 'img/rp2040/3.2.mp4' %}" type="video/mp4">
-                        Tu navegador no soporta el elemento de video.
+                            <source src="{% static 'img/rp2040/3.2.mp4' %}" type="video/mp4">
+                            Tu navegador no soporta el elemento de video.
                         </video>
                     </div>                    
                 </div>
             </div>
         </div>        
         
-
-        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
+        <div class="accordion-item bg-black text-light mb-3 custom-accordion-item">
             <h2 class="accordion-header">
                 <button class="accordion-button collapsed bg-dark text-info fw-bold"
                         type="button"
@@ -229,18 +285,18 @@
                     8. Visualizador de la placa RP2040 zero
                 </button>
             </h2>
-            <div id="tema8" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
+            <div id="tema8" class="accordion-collapse collapse" data-bs-parent="#RP2040">
                 <div class="accordion-body">
                     <p class="fs-5 text-secondary text-justify">
                         Presentamos la placa RP2040 zero en un modelo 3D para que pueda visualizarse a detalle lo pequeña y compacta que puede llegar a ser, ideal para proyecto donde se necesita poco espacio.
                     </p>
-                    <div class="d-flex justify-content-center">
+                    <div class="d-flex justify-content-center my-4">
                         <model-viewer 
-                        src="{% static 'modelos/rp2040.glb' %}"
-                        style="width: 100%; height: 500px;"  
-                        alt="Descripción de tu modelo 3D" 
-                        auto-rotate 
-                        camera-controls>
+                            src="{% static 'modelos/rp2040.glb' %}"
+                            style="width: 100%; height: 500px;"  
+                            alt="Descripción de tu modelo 3D" 
+                            auto-rotate 
+                            camera-controls>
                         </model-viewer>
                     </div>
                 </div>
@@ -249,7 +305,66 @@
 
     </div>
 
-
-
 </section>
+
+<script>
+    const canvas = document.getElementById('rpCanvas');
+    const ctx = canvas.getContext('2d');
+    const container = canvas.parentElement;
+
+    // Redimensionar canvas dinámicamente
+    function resizeCanvas() {
+        canvas.width = container.offsetWidth;
+        canvas.height = container.offsetHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Instrucciones y fragmentos de código reales en MicroPython para la RP2040
+    const pythonCodes = [
+        "import machine", "from machine import Pin, PWM, ADC", "import time", 
+        "led = Pin(25, Pin.OUT)", "led.value(1)", "time.sleep(0.5)", 
+        "led.toggle()", "import neopixel", "np = neopixel.NeoPixel(Pin(16), 1)", 
+        "np[0] = (0, 180, 216)", "np.write()", "pwm = PWM(Pin(15))", 
+        "pwm.freq(1000)", "pwm.duty_u16(32768)", "adc = ADC(Pin(26))", 
+        "val = adc.read_u16()", "while True:", "  print('RP2040 OK')", 
+        "i2c = machine.I2C(0)", "spi = machine.SPI(1)"
+    ];
+
+    const fontSize = 11;
+    const columns = Math.floor(canvas.width / 110); // Espaciado adaptado al tamaño del texto
+    
+    const drops = [];
+    for (let i = 0; i < columns; i++) {
+        drops[i] = Math.random() * -80;
+    }
+
+    function draw() {
+        // Estilo de rastro sutil
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Color cian característico de los IDEs avanzados
+        ctx.fillStyle = 'rgba(0, 180, 216, 0.75)';
+        ctx.font = fontSize + 'px Consolas, Monaco, monospace';
+
+        for (let i = 0; i < drops.length; i++) {
+            const text = pythonCodes[Math.floor(Math.random() * pythonCodes.length)];
+            const x = i * 115 + 5;
+            const y = drops[i] * fontSize;
+
+            ctx.fillText(text, x, y);
+
+            if (y > canvas.height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+
+            // Velocidad constante y controlada de caída
+            drops[i] += 0.35;
+        }
+    }
+
+    setInterval(draw, 25);
+</script>
+
 {% endblock %}

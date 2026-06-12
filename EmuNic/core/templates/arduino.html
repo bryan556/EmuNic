@@ -4,300 +4,345 @@
 
 {% block content %}
 
-<section class="py-5">
+<style>
+    /* El canvas ahora ocupa TODA la pantalla de fondo */
+    #binaryCanvasArduino {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 0; /* Queda al fondo de todo */
+        opacity: 0.15; /* Opacidad sutil para no estorbar la lectura del contenido */
+        pointer-events: none; /* Evita que interfiera con los clics en los botones */
+    }
 
-    <div class="text-center mb-5">
-        <h1 class="display-4 fw-bold text-info">
-            Arduino
-        </h1>
-        <p class="lead text-secondary fw-semibold">
-            Aprende sobre arduino con tinkercad
-        </p>
-    </div>
+    /* Aseguramos que todo el contenido se renderice por encima del canvas de fondo */
+    .main-content-wrapper {
+        position: relative;
+        z-index: 1;
+    }
 
-    <div class="accordion accordion-flush" id="arduino">
+    /* Contenedor del título con diseño de interfaz tecnológica limpia */
+    .hero-animation-bg {
+        background: rgba(0, 0, 0, 0.6);
+        border-radius: 16px;
+        padding: 3rem 2rem;
+        border: 1px solid rgba(0, 180, 216, 0.25);
+        box-shadow: 0 0 30px rgba(0, 180, 216, 0.15);
+        backdrop-filter: blur(4px); /* Suaviza el fondo donde pasa el código */
+    }
 
-        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
-            <h2 class="accordion-header">
-                <button class="accordion-button collapsed bg-dark text-info fw-bold"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#tema1">
-                    1. ¿Qué es Arduino?
-                </button>
-            </h2>
-            <div id="tema1" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
-                <div class="accordion-body">
-                    <p class="fs-5 text-secondary text-justify">
-                        Arduino es una plataforma de desarrollo de hardware y software libre. Consiste en una pequeña placa con un microcontrolador (un chip que funciona como un pequeño cerebro) y un entorno de programación. Permite conectar el mundo físico con el digital, facilitando la creación de proyectos de electrónica y robótica sin necesidad de conocimientos técnicos avanzados.
-                    </p>
-                    <img src="{% static 'img/arduino.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
-                </div>
+    /* Efecto de pulso de luz sincronizado en el texto principal */
+    @keyframes textPulse {
+        0%, 100% { text-shadow: 0 0 10px rgba(0, 180, 216, 0.6); }
+        50% { text-shadow: 0 0 25px rgba(0, 180, 216, 0.9), 0 0 40px rgba(0, 180, 216, 0.4); }
+    }
+
+    .pulsing-text {
+        animation: textPulse 3s infinite ease-in-out;
+    }
+
+    /* Efecto de luz azul y bordes redondeados para las tarjetas del acordeón */
+    .custom-accordion-item {
+        border: 1px solid rgba(0, 180, 216, 0.2) !important;
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        border-radius: 12px !important;
+        overflow: hidden;
+        background-color: rgba(0, 0, 0, 0.8) !important; /* Un toque de transparencia */
+        backdrop-filter: blur(2px);
+    }
+
+    /* Animación e iluminación cuando el mouse pasa por encima de la tarjeta */
+    .custom-accordion-item:hover {
+        transform: translateY(-4px);
+        border-color: #00b4d8 !important;
+        box-shadow: 0 8px 25px rgba(0, 180, 216, 0.35);
+    }
+
+    /* Suavizado para los botones internos del acordeón */
+    .accordion-button {
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+</style>
+
+<canvas id="binaryCanvasArduino"></canvas>
+
+<div class="main-content-wrapper">
+    <section class="py-5">
+
+        <div class="text-center mb-5 hero-animation-bg">
+            <div class="hero-content">
+                <h1 class="display-4 fw-bold text-info pulsing-text m-0">
+                    Arduino
+                </h1>
+                <p class="lead text-secondary fw-semibold mt-2 mb-0">
+                    Aprende sobre Arduino con Tinkercad
+                </p>
             </div>
-        </div>  
-        
-        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
-            <h2 class="accordion-header">
-                <button class="accordion-button collapsed bg-dark text-info fw-bold"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#tema2">
+        </div>
+
+        <div class="accordion accordion-flush" id="arduino">
+
+            <div class="accordion-item bg-black text-light mb-3 custom-accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed bg-dark text-info fw-bold"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#tema1">
+                        1. ¿Qué es Arduino?
+                    </button>
+                </h2>
+                <div id="tema1" class="accordion-collapse collapse" data-bs-parent="#arduino">
+                    <div class="accordion-body">
+                        <p class="fs-5 text-secondary text-justify">
+                            Arduino es una plataforma de desarrollo de hardware y software libre. Consiste en una pequeña placa con un microcontrolador (un chip que funciona como un pequeño cerebro) y un entorno de programación. Permite conectar el mundo físico con el digital, facilitando la creación de proyectos de electrónica y robótica sin necesidad de conocimientos técnicos avanzados.
+                        </p>
+                        <img src="{% static 'img/arduino.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
+                    </div>
+                </div>
+            </div>  
+            
+            <div class="accordion-item bg-black text-light mb-3 custom-accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed bg-dark text-info fw-bold"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#tema2">
                         2. Características principales
-                </button>
-            </h2>
-            <div id="tema2" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
-                <div class="accordion-body">
-
-                    <ul class="fs-5 text-secondary text-justify">
-                        <li>Microcontrolador: ATmega328P</li>
-                        <li>ATmega16U2 en lugar de 8U2 como convertidor de USB a serie.</li>
-                        <li>Voltaje de operación: 5V</li>
-                        <li>Velocidad de reloj: 16 MHz</li>
-                        <li>Memoria: 32 KB Flash (0.5 KB usados por el bootloader), 2 KB SRAM y 1 KB EEPROM</li>
-                        <li>Pines digitales: 14 (de los cuales 6 proporcionan salida PWM)</li>
-                        <li>Pines analógicos: 6</li>
-                        <li>Interfaces de comunicación: 1 UART (puerto serie), 1 SPI y 1 I2C</li>
-                        <li>Conector de alimentación: Jack estándar para adaptador de corriente</li>
-                        
-                    </ul>
-
-                </div>
-            </div>    
-        </div>
-        
-        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
-            <h2 class="accordion-header">
-                <button class="accordion-button collapsed bg-dark text-info fw-bold"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#tema3">
-                    3. ¿Para qué sirve?
-                </button>
-            </h2>
-            <div id="tema3" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
-                <div class="accordion-body">
-                    <p class="fs-5 text-secondary text-justify">
-                        El Arduino UNO R3 es una placa de desarrollo y microcontrolador. Su función principal es servir como "cerebro" para proyectos electrónicos, permitiéndote conectar sensores para leer el entorno y controlar actuadores (como luces, pantallas y motores) mediante código.
-                    </p>
-
-                    <p class="fs-5 text-secondary text-justify">
-                        ¿Qué puedes hacer con él?
-                    </p>
-
-                    <ul class="fs-5 text-secondary text-justify">
-                        <li>Robótica: Controlar robots pequeños, vehículos a control remoto o brazos mecánicos.</li>
-                        <li>Domótica: Crear sistemas de riego automatizados, alarmas de seguridad o control de iluminación.</li>
-                        <li>Automatización: Leer sensores (temperatura, humedad, ultrasonido) y mostrar los datos en pantallas LCD.</li>
-                        <li>Internet de las Cosas (IoT): Conectarlo a internet mediante módulos adicionales para monitorear datos a distancia.</li>
-                    </ul>
-                    
-                </div>
+                    </button>
+                </h2>
+                <div id="tema2" class="accordion-collapse collapse" data-bs-parent="#arduino">
+                    <div class="accordion-body">
+                        <ul class="fs-5 text-secondary text-justify">
+                            <li>Microcontrolador: ATmega328P</li>
+                            <li>ATmega16U2 en lugar de 8U2 como convertidor de USB a serie.</li>
+                            <li>Voltaje de operación: 5V</li>
+                            <li>Velocidad de reloj: 16 MHz</li>
+                            <li>Memoria: 32 KB Flash (0.5 KB usados por el bootloader), 2 KB SRAM y 1 KB EEPROM</li>
+                            <li>Pines digitales: 14 (de los cuales 6 proporcionan salida PWM)</li>
+                            <li>Pines analógicos: 6</li>
+                            <li>Interfaces de comunicación: 1 UART (puerto serie), 1 SPI y 1 I2C</li>
+                            <li>Conector de alimentación: Jack estándar para adaptador de corriente</li>
+                        </ul>
+                    </div>
+                </div>    
             </div>
-        </div>
-        
-        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
-            <h2 class="accordion-header">
-                <button class="accordion-button collapsed bg-dark text-info fw-bold"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#tema4">
-                    4. Simulando Arduino
-                </button>
-            </h2>
-            <div id="tema4" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
-                <div class="accordion-body">
-                    <h5>Tinkercad</h5>
-                    <p class="fs-5 text-secondary text-justify">
-                        Tinkercad es una aplicación web gratuita y en línea creada por Autodesk, diseñada para enseñar los fundamentos del modelado 3D, la electrónica y la programación. Destaca por su interfaz visual e intuitiva de tipo "arrastrar y soltar", haciéndola ideal para principiantes, estudiantes y aficionados al mundo maker.
-                    </p>
-
-                    <p class="fs-5 text-secondary text-justify">
-                        Tinkercad nos ayudará a simular circuitos con Arduino, donde nos ofrece una gran variedad de componentes electrónicos, desde sensores,motores,diodos, resistencia y otros más.
-                        La ventaja de usar tinkercad es que es gratis y facil de usar a comparacion de otros simuladores de escritorio que no lo son y muy complejos de usar y poco intuitivos.
-                    </p>
-                    <h5>Pasos para usar tinkercad:</h5>
-                    <p class="fs-5 text-secondary text-justify"> 1. Visita la pagina:<a href="https://www.tinkercad.com/">https://www.tinkercad.com/</a> </p>
-
-                    <p class="fs-5 text-secondary text-justify"> 2. Dar al boton de registrar:</p>
-
-                    <img src="{% static 'img/arduino/registro.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
-
-                    <p class="fs-5 text-secondary text-justify"> 3. Dar click en crear una cuenta personal</p>
-
-                    <img src="{% static 'img/arduino/personal.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
-
-                    <p class="fs-5 text-secondary text-justify"> 4. Usar cualquier opcion de correo en la web y seguir con el registro en la web</p>
-
-                    <img src="{% static 'img/arduino/google.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
-
-                    <p class="fs-5 text-secondary text-justify"> 5. Terminado el registro podremos crear desde modelos 3d. codigos de bloques y circuitos</p>
-
-                    <img src="{% static 'img/arduino/circuitos.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
-
-                    <p class="fs-5 text-secondary text-justify"> 6. Si damos click en crear circuito, nos ofreceran un espacio de trabajo con todos los componentes que querramos usar</p>
-
-                    <img src="{% static 'img/arduino/crear.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
-  
-                </div>
-            </div>
-        </div>
-        
-        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
-            <h2 class="accordion-header">
-                <button class="accordion-button collapsed bg-dark text-info fw-bold"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#tema5">
-                    5. Primer circuito de Arduino en Tinkercad
-                </button>
-            </h2>
-            <div id="tema5" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
-                <div class="accordion-body">
-                    <h5>Circuito de control de led</h5>
-                    <p class="fs-5 text-secondary text-justify">
-                        Intentemos crear un circuito sencillo en tinkercad, donde usaremos los siguientes componentes:
-                    </p>
-
-                    <ul class="fs-5 text-secondary text-justify">
-                        <li>Placa arduino</li>
-                        <li>Proboard</li>
-                        <li>led </li>
-                        <li>resistencia</li>
-                    </ul>
-
-                    <p class="fs-5 text-secondary text-justify">En la parte derecha tendremos todos los componentes necesario donde solo es necesario arrastrar y soltar cada uno. Conectamos El GND al negativo de la protoboard y luego al negativo de la led, usamos el pin 7 y lo conectamos al positivo de la led con la resistencia.</p>
-                    <img src="{% static 'img/arduino/led.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
-                    <p class="fs-5 text-secondary text-justify"> Usamos la opcion de codigo y texto para programar el arduino con la logica que tendra nuestro circuito. El siguiente codigo encendera y apagará la led roja por 1 segundo.</p>
-
-                    <img src="{% static 'img/arduino/code1.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
-
-                    <p class="fs-5 text-secondary text-justify">Si damos en el boton de "iniciar simulacion" empezará a ejecutarse el codigo y la led se apagará y encenderá cada segundo.</p>
-                    <img src="{% static 'img/arduino/sim1.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
-                    <p class="fs-5 text-secondary text-justify">Tutorial demostrativo para recrearlo</p>
-
-                    <div class="d-flex justify-content-center">
-                        <video width="640" height="360" controls>
-                        <source src="{% static 'img/arduino/1.mp4' %}" type="video/mp4">
-                        Tu navegador no soporta el elemento de video.
-                        </video>
-                    </div> 
-                </div>
-            </div>
-        </div>
-        
-        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
-            <h2 class="accordion-header">
-                <button class="accordion-button collapsed bg-dark text-info fw-bold"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#tema6">
-                    6. Uso de potenciometro + Led
-                </button>
-            </h2>
-            <div id="tema6" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
-                <div class="accordion-body">
-                    <p class="fs-5 text-secondary text-justify">
-                        Para este circuito vamos a necesitar lo siguiente:
-                    </p>
-
-                    <ul class="fs-5 text-secondary text-justify">
-                        <li>Arduino</li>
-                        <li>protoboard</li>
-                        <li>Led</li>
-                        <li>resistencia</li>
-                        <li>potenciometro</li>
-
-                    </ul>
-                    <p class="fs-5 text-secondary text-justify">Seguir el diagrama con el codigo en cuestion, haciendo uso del pin 13 y A0</p>
-                    <img src="{% static 'img/arduino/2.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
-
-                    <p class="fs-5 text-secondary text-justify">Si iniciamos la simulacion y empezamos a dar giros al potenciometro, se daran cuenta que la led baja el brillo</p>
-
-                    <img src="{% static 'img/arduino/2.1.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
-                    <p class="fs-5 text-secondary text-justify">Tutorial demostrativo para recrearlo</p>
-                    <div class="d-flex justify-content-center">
-                        <video width="640" height="360" controls>
-                        <source src="{% static 'img/arduino/2.mp4' %}" type="video/mp4">
-                        Tu navegador no soporta el elemento de video.
-                        </video>
-                    </div>  
-                </div>
-            </div>
-        </div>
-        
-        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
-            <h2 class="accordion-header">
-                <button class="accordion-button collapsed bg-dark text-info fw-bold"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#tema7">
-                    7. Sensor de temperatura + motor DC
-                </button>
-            </h2>
-            <div id="tema7" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
-                <div class="accordion-body">
-                    <p class="fs-5 text-secondary text-justify">
-                        Para este circuito vamos a necesitar lo siguiente:
-                    </p>
-
-                    <ul class="fs-5 text-secondary text-justify">
-                        <li>Arduino</li>
-                        <li>protoboard</li>
-                        <li>Motor DC</li>
-                        <li>Sensor TPM</li>
-                    </ul>
-                    <p class="fs-5 text-secondary text-justify">Seguir el diagrama con el codigo en cuestion, haciendo uso del pin 3 y A0</p>
-                    <img src="{% static 'img/arduino/3.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
-
-                    <p class="fs-5 text-secondary text-justify">Este es el codigo que usaremos para obtener la temperatura y controlar el motor dc</p>
-
-                    <img src="{% static 'img/arduino/3.1.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
-
-                    <p class="fs-5 text-secondary text-justify">Si damos al boton de iniciar simulacion. veremos que el motor se activa de inmediato, tambien podemos hacer click en el sensor TPM para controlar la temperatura comodamente, si la vamos cambiando nos daremos cuenta que el motor podra apagarse o girar mas rapido</p>
-
-                    <img src="{% static 'img/arduino/3.2.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
-                    <p class="fs-5 text-secondary text-justify">Tutorial demostrativo para recrearlo</p>
-
-                    <div class="d-flex justify-content-center">
-                        <video width="640" height="360" controls>
-                        <source src="{% static 'img/arduino/3.mp4' %}" type="video/mp4">
-                        Tu navegador no soporta el elemento de video.
-                        </video>
-                    </div>                    
-                </div>
-            </div>
-        </div>        
-
-        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
-            <h2 class="accordion-header">
-                <button class="accordion-button collapsed bg-dark text-info fw-bold"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#tema8">
-                    8. Visualizador de la placa Arduino R3
-                </button>
-            </h2>
-            <div id="tema8" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
-                <div class="accordion-body">
-                    <p class="fs-5 text-secondary text-justify">
-                        Presentamos la placa Arduino R3 en un modelo 3D para que pueda visualizarse a detalle algunos componetes. Aunque no es tan compacta es perfecta para proyecto grandes donde el control,
-                        la eficiencia y manejo de componentes complejos  son lo mas importantes. Perfecta para cicuitos complejos y de gran magnitud por su alto control en motores, drives y sensores.
-                    </p>
-                    <div class="d-flex justify-content-center">
-                        <model-viewer 
-                        src="{% static 'modelos/arduino.glb' %}"
-                        style="width: 100%; height: 500px;"  
-                        alt="Descripción de tu modelo 3D" 
-                        auto-rotate 
-                        camera-controls>
-                        </model-viewer>
+            
+            <div class="accordion-item bg-black text-light mb-3 custom-accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed bg-dark text-info fw-bold"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#tema3">
+                        3. ¿Para qué sirve?
+                    </button>
+                </h2>
+                <div id="tema3" class="accordion-collapse collapse" data-bs-parent="#arduino">
+                    <div class="accordion-body">
+                        <p class="fs-5 text-secondary text-justify">
+                            El Arduino UNO R3 es una placa de desarrollo y microcontrolador. Su función principal es servir como "cerebro" para proyectos electrónicos, permitiéndote conectar sensores para leer el entorno y controlar actuadores (como luces, pantallas y motores) mediante código.
+                        </p>
+                        <p class="fs-5 text-secondary text-justify">
+                            ¿Qué puedes hacer con él?
+                        </p>
+                        <ul class="fs-5 text-secondary text-justify">
+                            <li>Robótica: Controlar robots pequeños, vehículos a control remoto o brazos mecánicos.</li>
+                            <li>Domótica: Crear sistemas de riego automatizados, alarmas de seguridad o control de iluminación.</li>
+                            <li>Automatización: Leer sensores (temperatura, humedad, ultrasonido) y mostrar los datos en pantallas LCD.</li>
+                            <li>Internet de las Cosas (IoT): Conectarlo a internet mediante módulos adicionales para monitorear datos a distancia.</li>
+                        </ul>
                     </div>
                 </div>
             </div>
+            
+            <div class="accordion-item bg-black text-light mb-3 custom-accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed bg-dark text-info fw-bold"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#tema4">
+                        4. Simulando Arduino
+                    </button>
+                </h2>
+                <div id="tema4" class="accordion-collapse collapse" data-bs-parent="#arduino">
+                    <div class="accordion-body">
+                        <h5 class="text-warning fw-bold mb-3">Tinkercad</h5>
+                        <p class="fs-5 text-secondary text-justify">
+                            Tinkercad es una aplicación web gratuita y en línea creada por Autodesk, diseñada para enseñar los fundamentos del modelado 3D, la electrónica y la programación. Destaca por su interfaz visual e intuitiva de tipo "arrastrar y soltar", haciéndola ideal para principiantes, estudiantes y aficionados al mundo maker.
+                        </p>
+                        <p class="fs-5 text-secondary text-justify">
+                            Tinkercad nos ayudará a simular circuitos con Arduino, donde nos ofrece una gran variedad de componentes electrónicos, desde sensores, motores, diodos, resistencia y otros más.
+                            La ventaja de usar Tinkercad es que es gratis y fácil de usar a comparación de otros simuladores de escritorio que no lo son y muy complejos de usar y poco intuitivos.
+                        </p>
+                        <h5 class="text-warning fw-bold mt-4 mb-3">Pasos para usar Tinkercad:</h5>
+                        
+                        <p class="fs-5 text-secondary text-justify"> 1. Visita la página: <a href="https://www.tinkercad.com/" target="_blank">https://www.tinkercad.com/</a> </p>
+                        <p class="fs-5 text-secondary text-justify"> 2. Dar al botón de registrar:</p>
+                        <img src="{% static 'img/arduino/registro.png' %}" class="img-fluid rounded shadow mt-2 mb-4 d-block mx-auto">
+
+                        <p class="fs-5 text-secondary text-justify"> 3. Dar click en crear una cuenta personal</p>
+                        <img src="{% static 'img/arduino/personal.png' %}" class="img-fluid rounded shadow mt-2 mb-4 d-block mx-auto">
+
+                        <p class="fs-5 text-secondary text-justify"> 4. Usar cualquier opción de correo en la web y seguir con el registro en la web</p>
+                        <img src="{% static 'img/arduino/google.png' %}" class="img-fluid rounded shadow mt-2 mb-4 d-block mx-auto">
+
+                        <p class="fs-5 text-secondary text-justify"> 5. Terminado el registro podremos crear desde modelos 3d, códigos de bloques y circuitos</p>
+                        <img src="{% static 'img/arduino/circuitos.png' %}" class="img-fluid rounded shadow mt-2 mb-4 d-block mx-auto">
+
+                        <p class="fs-5 text-secondary text-justify"> 6. Si damos click en crear circuito, nos ofrecerán un espacio de trabajo con todos los componentes que querramos usar</p>
+                        <img src="{% static 'img/arduino/crear.png' %}" class="img-fluid rounded shadow mt-2 d-block mx-auto">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item bg-black text-light mb-3 custom-accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed bg-dark text-info fw-bold"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#tema5">
+                        5. Primer circuito de Arduino en Tinkercad
+                    </button>
+                </h2>
+                <div id="tema5" class="accordion-collapse collapse" data-bs-parent="#arduino">
+                    <div class="accordion-body">
+                        <h5 class="text-warning fw-bold mb-3">Circuito de control de led</h5>
+                        <p class="fs-5 text-secondary text-justify">
+                            Intentemos crear un circuito sencillo en Tinkercad, donde usaremos los siguientes componentes:
+                        </p>
+                        <ul class="fs-5 text-secondary text-justify">
+                            <li>Placa Arduino</li>
+                            <li>Protoboard</li>
+                            <li>LED</li>
+                            <li>Resistencia</li>
+                        </ul>
+                        <p class="fs-5 text-secondary text-justify">En la parte derecha tendremos todos los componentes necesarios donde solo es necesario arrastrar y soltar cada uno. Conectamos El GND al negativo de la protoboard y luego al negativo de la led, usamos el pin 7 y lo conectamos al positivo de la led con la resistencia.</p>
+                        <img src="{% static 'img/arduino/led.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
+                        
+                        <p class="fs-5 text-secondary text-justify mt-4"> Usamos la opción de código y texto para programar el Arduino con la lógica que tendrá nuestro circuito. El siguiente código encenderá y apagará la led roja por 1 segundo.</p>
+                        <img src="{% static 'img/arduino/code1.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
+
+                        <p class="fs-5 text-secondary text-justify mt-4">Si damos en el botón de "iniciar simulación" empezará a ejecutarse el código y la led se apagará y encenderá cada segundo.</p>
+                        <img src="{% static 'img/arduino/sim1.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
+                        
+                        <p class="fs-5 text-secondary text-justify mt-4">Tutorial demostrativo para recrearlo</p>
+                        <div class="d-flex justify-content-center">
+                            <video width="640" height="360" controls>
+                                <source src="{% static 'img/arduino/1.mp4' %}" type="video/mp4">
+                                Tu navegador no soporta el elemento de video.
+                            </video>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item bg-black text-light mb-3 custom-accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed bg-dark text-info fw-bold"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#tema6">
+                        6. Uso de potenciómetro + Led
+                    </button>
+                </h2>
+                <div id="tema6" class="accordion-collapse collapse" data-bs-parent="#arduino">
+                    <div class="accordion-body">
+                        <p class="fs-5 text-secondary text-justify">
+                            Para este circuito vamos a necesitar lo siguiente:
+                        </p>
+                        <ul class="fs-5 text-secondary text-justify">
+                            <li>Arduino</li>
+                            <li>Protoboard</li>
+                            <li>LED</li>
+                            <li>Resistencia</li>
+                            <li>Potenciómetro</li>
+                        </ul>
+                        <p class="fs-5 text-secondary text-justify">Seguir el diagrama con el código en cuestión, haciendo uso del pin 13 y A0</p>
+                        <img src="{% static 'img/arduino/2.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
+
+                        <p class="fs-5 text-secondary text-justify mt-4">Si iniciamos la simulación y empezamos a dar giros al potenciómetro, se darán cuenta que la led baja el brillo</p>
+                        <img src="{% static 'img/arduino/2.1.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
+                        
+                        <p class="fs-5 text-secondary text-justify mt-4">Tutorial demostrativo para recrearlo</p>
+                        <div class="d-flex justify-content-center">
+                            <video width="640" height="360" controls>
+                                <source src="{% static 'img/arduino/2.mp4' %}" type="video/mp4">
+                                Tu navegador no soporta el elemento de video.
+                            </video>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item bg-black text-light mb-3 custom-accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed bg-dark text-info fw-bold"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#tema7">
+                        7. Sensor de temperatura + motor DC
+                    </button>
+                </h2>
+                <div id="tema7" class="accordion-collapse collapse" data-bs-parent="#arduino">
+                    <div class="accordion-body">
+                        <p class="fs-5 text-secondary text-justify">
+                            Para este circuito vamos a necesitar lo siguiente:
+                        </p>
+                        <ul class="fs-5 text-secondary text-justify">
+                            <li>Arduino</li>
+                            <li>Protoboard</li>
+                            <li>Motor DC</li>
+                            <li>Sensor TMP</li>
+                        </ul>
+                        <p class="fs-5 text-secondary text-justify">Seguir el diagrama con el código en cuestión, haciendo uso del pin 3 y A0</p>
+                        <img src="{% static 'img/arduino/3.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
+
+                        <p class="fs-5 text-secondary text-justify mt-4">Este es el código que usaremos para obtener la temperatura y controlar el motor dc</p>
+                        <img src="{% static 'img/arduino/3.1.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
+
+                        <p class="fs-5 text-secondary text-justify mt-4">Si damos al botón de iniciar simulación, veremos que el motor se activa de inmediato, también podemos hacer click en el sensor TMP para controlar la temperatura cómodamente, si la vamos cambiando nos daremos cuenta que el motor podrá apagarse o girar más rápido</p>
+                        <img src="{% static 'img/arduino/3.2.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
+                        
+                        <p class="fs-5 text-secondary text-justify mt-4">Tutorial demostrativo para recrearlo</p>
+                        <div class="d-flex justify-content-center">
+                            <video width="640" height="360" controls>
+                                <source src="{% static 'img/arduino/3.mp4' %}" type="video/mp4">
+                                Tu navegador no soporta el elemento de video.
+                            </video>
+                        </div>                    
+                    </div>
+                </div>
+            </div>        
+
+            <div class="accordion-item bg-black text-light mb-3 custom-accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed bg-dark text-info fw-bold"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#tema8">
+                        8. Visualizador de la placa Arduino R3
+                    </button>
+                </h2>
+                <div id="tema8" class="accordion-collapse collapse" data-bs-parent="#arduino">
+                    <div class="accordion-body">
+                        <p class="fs-5 text-secondary text-justify">
+                            Presentamos la placa Arduino R3 en un modelo 3D para que pueda visualizarse a detalle algunos componentes. Aunque no es tan compacta es perfecta para proyectos grandes donde el control, la eficiencia y manejo de componentes complejos son lo más importante. Perfecta para circuitos complejos y de gran magnitud por su alto control en motores, drivers y sensores.
+                        </p>
+                        <div class="d-flex justify-content-center">
+                            <model-viewer 
+                                src="{% static 'modelos/arduino.glb' %}"
+                                style="width: 100%; height: 500px;"  
+                                alt="Descripción de tu modelo 3D" 
+                                auto-rotate 
+                                camera-controls>
+                            </model-viewer>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-        
-
-    </div>
-
-</section>
+    </section>
+</div>
 {% endblock %}

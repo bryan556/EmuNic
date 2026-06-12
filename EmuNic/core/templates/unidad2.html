@@ -4,136 +4,474 @@
 
 {% block content %}
 
-<section class="py-5">
+<style>
+    /* El canvas ahora ocupa TODA la pantalla de fondo */
+    #binaryCanvasU2 {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 0; /* Queda al fondo de todo */
+        opacity: 0.15; /* Opacidad sutil para no estorbar la lectura del contenido */
+        pointer-events: none; /* Evita que interfiera con los clics en los botones */
+    }
 
-    <div class="text-center mb-5">
-        <h1 class="display-4 fw-bold text-info">
-            UNIDAD II
-        </h1>
-        <p class="lead text-secondary fw-semibold">
-            Arquitectura del Microprocesador
-        </p>
-    </div>
+    /* Aseguramos que todo el contenido se renderice por encima del canvas de fondo */
+    .main-content-wrapper {
+        position: relative;
+        z-index: 1;
+    }
 
-    <div class="accordion accordion-flush" id="accordionUnidad2">
+    /* Contenedor del título con diseño de interfaz tecnológica limpia */
+    .hero-animation-bg {
+        background: rgba(0, 0, 0, 0.6);
+        border-radius: 16px;
+        padding: 3rem 2rem;
+        border: 1px solid rgba(0, 180, 216, 0.25);
+        box-shadow: 0 0 30px rgba(0, 180, 216, 0.15);
+        backdrop-filter: blur(4px); /* Suaviza el fondo donde pasa el código */
+    }
 
-        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
-            <h2 class="accordion-header">
-                <button class="accordion-button collapsed bg-dark text-info fw-bold"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#tema2-1">
-                    2.1. Arquitectura del Microprocesador
-                </button>
-            </h2>
-            <div id="tema2-1" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad2">
-                <div class="accordion-body">
-                    <p class="fs-5 text-secondary text-justify">
-                        La arquitectura del microprocesador corresponde a la estructura interna y al conjunto de componentes que permiten la ejecución de instrucciones y el procesamiento de datos dentro de un sistema computacional. Esta arquitectura define la manera en que interactúan las unidades funcionales, los registros, las memorias y los buses de comunicación. Además, establece las reglas mediante las cuales el procesador interpreta y ejecuta los programas almacenados en memoria[cite: 65]. Gracias a esta organización, el microprocesador puede realizar operaciones aritméticas, lógicas y de control de forma eficiente, constituyendo la base fundamental para el funcionamiento de cualquier computadora moderna[cite: 66, 67].
-                    </p>
-                    <img src="{% static 'img/unidad2/microP.jpg' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
+    /* Efecto de pulso de luz sincronizado en el texto principal */
+    @keyframes textPulse {
+        0%, 100% { text-shadow: 0 0 10px rgba(0, 180, 216, 0.6); }
+        50% { text-shadow: 0 0 25px rgba(0, 180, 216, 0.9), 0 0 40px rgba(0, 180, 216, 0.4); }
+    }
 
-                </div>
+    .pulsing-text {
+        animation: textPulse 3s infinite ease-in-out;
+    }
+
+    /* Efecto de luz azul y bordes redondeados para las tarjetas del acordeón */
+    .custom-accordion-item {
+        border: 1px solid rgba(0, 180, 216, 0.2) !important;
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        border-radius: 12px !important;
+        overflow: hidden;
+        background-color: rgba(0, 0, 0, 0.8) !important; /* Un toque de transparencia */
+        backdrop-filter: blur(2px);
+    }
+
+    /* Animación e iluminación cuando el mouse pasa por encima de la tarjeta o test */
+    .custom-accordion-item:hover {
+        transform: translateY(-4px);
+        border-color: #00b4d8 !important;
+        box-shadow: 0 8px 25px rgba(0, 180, 216, 0.35);
+    }
+
+    /* Suavizado para los botones internos del acordeón */
+    .accordion-button {
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Efecto de luz azul para los bloques de preguntas individuales al pasar el mouse */
+    .quiz-box {
+        transition: all 0.3s ease;
+        border-radius: 10px;
+    }
+    .quiz-box:hover {
+        border-color: #00b4d8 !important;
+        box-shadow: 0 4px 15px rgba(0, 180, 216, 0.15);
+    }
+</style>
+
+<canvas id="binaryCanvasU2"></canvas>
+
+<div class="main-content-wrapper">
+    <section class="py-5">
+
+        <div class="text-center mb-5 hero-animation-bg">
+            <div class="hero-content">
+                <h1 class="display-4 fw-bold text-info pulsing-text m-0">
+                    UNIDAD II
+                </h1>
+                <p class="lead text-secondary fw-semibold mt-2 mb-0">
+                    Arquitectura del Microprocesador
+                </p>
             </div>
         </div>
 
-        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
-            <h2 class="accordion-header">
-                <button class="accordion-button collapsed bg-dark text-primary fw-bold"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#tema2-1-1">
-                    2.1.1. Arquitectura Von Neumann
-                </button>
-            </h2>
-            <div id="tema2-1-1" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad2">
-                <div class="accordion-body">
-                    <p class="fs-5 text-secondary text-justify">
-                        La arquitectura Von Neumann es un modelo de diseño computacional propuesto por el matemático John Von Neumann en 1945[cite: 69]. Su característica principal consiste en almacenar tanto los datos como las instrucciones en una misma memoria, permitiendo que el procesador acceda a ambos recursos mediante un sistema común de comunicación[cite: 69]. Este enfoque simplificó considerablemente el diseño de los primeros computadores y continúa siendo la base de muchos sistemas actuales[cite: 70]. El modelo está compuesto por la unidad de control, la unidad aritmético-lógica, la memoria principal y los dispositivos de entrada y salida, permitiendo el desarrollo de sistemas programables más flexibles y eficientes[cite: 71, 72].
-                    </p>
-                    <img src="{% static 'img/unidad2/von.jpg' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto" style="max-width: 500px; height: auto;">
+        <div class="accordion accordion-flush" id="accordionUnidad2">
 
+            <div class="accordion-item bg-black text-light mb-3 custom-accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed bg-dark text-info fw-bold"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#tema2-1">
+                        2.1. Arquitectura del Microprocesador
+                    </button>
+                </h2>
+                <div id="tema2-1" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad2">
+                    <div class="accordion-body">
+                        <p class="fs-5 text-secondary text-justify">
+                            La arquitectura del microprocesador corresponde a la estructura interna y al conjunto de componentes que permiten la ejecución de instrucciones y el procesamiento de datos dentro de un sistema computacional. Esta arquitectura define la manera en que interactúan las unidades funcionales, los registros, las memorias y los buses de comunicación. Además, establece las reglas mediante las cuales el procesador interpreta y ejecuta los programas almacenados en memoria. Gracias a esta organización, el microprocesador puede realizar operaciones aritméticas, lógicas y de control de forma eficiente, constituyendo la base fundamental para el funcionamiento de cualquier computadora moderna.
+                        </p>
+                        <img src="{% static 'img/unidad2/microP.jpg' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
-            <h2 class="accordion-header">
-                <button class="accordion-button collapsed bg-dark text-success fw-bold"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#tema2-1-2">
-                    2.1.2. Diagrama de Bloques
-                </button>
-            </h2>
-            <div id="tema2-1-2" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad2">
-                <div class="accordion-body">
-                    <p class="fs-5 text-secondary text-justify">
-                        El diagrama de bloques del microprocesador es una representación gráfica que muestra la organización y relación entre sus componentes principales. Generalmente incluye la unidad de control, la unidad aritmético-lógica (ALU), los registros internos, los buses de datos, direcciones y control, así como las conexiones hacia la memoria y los dispositivos externos. Este esquema facilita la comprensión del flujo de información dentro del sistema y permite visualizar cómo se ejecutan las instrucciones. Además, constituye una herramienta fundamental para el estudio, diseño y análisis de arquitecturas de procesamiento, siendo de uso común en entornos académicos e ingeniería.
-                    </p>
-                    <img src="{% static 'img/unidad2/procesador.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
+            <div class="accordion-item bg-black text-light mb-3 custom-accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed bg-dark text-primary fw-bold"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#tema2-1-1">
+                        2.1.1. Arquitectura Von Neumann
+                    </button>
+                </h2>
+                <div id="tema2-1-1" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad2">
+                    <div class="accordion-body">
+                        <p class="fs-5 text-secondary text-justify">
+                            La arquitectura Von Neumann es un modelo de diseño computacional propuesto por el matemático John Von Neumann en 1945. Su característica principal consiste en almacenar tanto los datos como las instrucciones en una misma memoria, permitir que el procesador acceda a ambos recursos mediante un sistema común de comunicación. Este enfoque simplificó considerablemente el diseño de los primeros computadores y continúa siendo la base de muchos sistemas actuales. El modelo está compuesto por la unidad de control, la unidad aritmético-lógica, la memoria principal y los dispositivos de entrada y salida, permitiendo el desarrollo de sistemas programables más flexibles y eficientes.
+                        </p>
+                        <img src="{% static 'img/unidad2/von.jpg' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto" style="max-width: 500px; height: auto;">
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
-            <h2 class="accordion-header">
-                <button class="accordion-button collapsed bg-dark text-warning fw-bold"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#tema2-1-3">
-                    2.1.3. Organización Externa del Microprocesador (Terminales)
-                </button>
-            </h2>
-            <div id="tema2-1-3" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad2">
-                <div class="accordion-body">
-                    <p class="fs-5 text-secondary text-justify">
-                        La organización externa del microprocesador está determinada por el conjunto de terminales o pines que permiten su comunicación con los demás componentes del sistema[cite: 80]. Estas terminales se clasifican generalmente en líneas de datos, direcciones, control, alimentación eléctrica y señales especiales[cite: 81]. Mediante ellas se establece el intercambio de información con la memoria, los periféricos y otros circuitos integrados[cite: 82]. Cada terminal cumple una función específica que garantiza la correcta transferencia de señales y la sincronización de las operaciones[cite: 83]. Por esta razón, el conocimiento de la distribución y función de los pines resulta esencial para el diseño e implementación de sistemas basados en microprocesadores[cite: 84].
-                    </p>
+            <div class="accordion-item bg-black text-light mb-3 custom-accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed bg-dark text-success fw-bold"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#tema2-1-2">
+                        2.1.2. Diagrama de Bloques
+                    </button>
+                </h2>
+                <div id="tema2-1-2" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad2">
+                    <div class="accordion-body">
+                        <p class="fs-5 text-secondary text-justify">
+                            El diagrama de bloques del microprocesador es una representación gráfica que muestra la organización y relación entre sus componentes principales. Generalmente incluye la unidad de control, la unidad aritmético-lógica (ALU), los registros internos, los buses de datos, direcciones y control, así como las conexiones hacia la memoria y los dispositivos externos. Este esquema facilita la comprensión del flujo de información dentro del sistema y permite visualizar cómo se ejecutan las instrucciones. Además, constituye una herramienta fundamental para el estudio, diseño y análisis de arquitecturas de procesamiento, siendo de uso común en entornos académicos e ingeniería.
+                        </p>
+                        <img src="{% static 'img/unidad2/procesador.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
-            <h2 class="accordion-header">
-                <button class="accordion-button collapsed bg-dark text-danger fw-bold"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#tema2-2">
-                    2.2. Conexión del Microprocesador con Dispositivos
-                </button>
-            </h2>
-            <div id="tema2-2" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad2">
-                <div class="accordion-body">
-                    <p class="fs-5 text-secondary text-justify">
-                        La conexión del microprocesador con los dispositivos externos permite la interacción entre la unidad central de procesamiento y los distintos elementos que conforman el sistema informático[cite: 86]. Esta comunicación se realiza a través de buses y circuitos especializados que facilitan el intercambio de datos, direcciones y señales de control[cite: 87]. Gracias a estos mecanismos, el procesador puede acceder a información almacenada, controlar dispositivos periféricos y responder a eventos externos[cite: 88]. La eficiencia de estas conexiones influye directamente en el rendimiento general del sistema, convirtiéndolo en un aspecto fundamental dentro de la arquitectura de computadoras[cite: 89, 90].
-                    </p>
-
-                    <h4 class="text-info mt-4 fw-bold">2.2.1. Memoria</h4>
-                    <p class="fs-5 text-secondary text-justify">
-                        La memoria constituye uno de los elementos más importantes conectados al microprocesador, ya que almacena tanto las instrucciones de los programas como los datos necesarios para su ejecución[cite: 92]. El procesador accede continuamente a la memoria mediante el bus de direcciones para localizar información específica y el bus de datos para transferirla[cite: 93]. Existen diferentes tipos de memoria, entre ellas la RAM, utilizada para almacenamiento temporal, y la ROM, destinada a conservar información permanente[cite: 94]. La velocidad y capacidad de la memoria tienen un impacto significativo en el desempeño global, por lo que su gestión eficiente es esencial para optimizar las operaciones computacionales[cite: 95, 96].
-                    </p>
-
-                    <h4 class="text-success mt-4 fw-bold">2.2.2. Periféricos</h4>
-                    <p class="fs-5 text-secondary text-justify">
-                        Los periféricos son dispositivos externos que permiten la interacción entre el usuario y el sistema computacional, así como la comunicación con otros equipos[cite: 98]. Estos pueden clasificarse en dispositivos de entrada, salida o entrada y salida, dependiendo rigurosamente de la función específica que desempeñen dentro del hardware[cite: 99]. Ejemplos comunes incluyen teclados, monitores, impresoras, discos de almacenamiento y dispositivos de comunicación de red[cite: 100]. El microprocesador controla su funcionamiento mediante señales específicas que coordinan el intercambio de información, lo que amplía considerablemente las capacidades del sistema y facilita la ejecución de tareas diversas[cite: 101, 102].
-                    </p>
-
-                    <h4 class="text-warning mt-4 fw-bold">2.2.3. Interfaz Programable (8255)</h4>
-                    <p class="fs-5 text-secondary text-justify">
-                        El circuito integrado 8255, conocido como Interfaz Programable de Periféricos (PPI), es un dispositivo diseñado para facilitar la comunicación entre el microprocesador y los dispositivos externos[cite: 104]. Este componente proporciona tres puertos programables de entrada y salida que pueden configurarse de acuerdo con las necesidades específicas de una aplicación[cite: 105]. Su utilización permite ampliar la capacidad de conexión del sistema sin incrementar significativamente la complejidad del hardware en los circuitos integrados[cite: 106]. Además, ofrece diferentes modos de operación que optimizan el intercambio de datos entre los componentes conectados, siendo ampliamente usado en sistemas embebidos[cite: 107, 108].
-                    </p>
-
-                    <h4 class="text-danger mt-4 fw-bold">2.2.4. Interrupciones Programables (8259)</h4>
-                    <p class="fs-5 text-secondary text-justify">
-                        El controlador programable de interrupciones 8259 es un circuito integrado encargado de gestionar las solicitudes de interrupción provenientes de diferentes dispositivos externos[cite: 110]. Su función principal consiste en priorizar las interrupciones y notificar al microprocesador cuál debe ser atendida primero, evitando conflictos y mejorando la eficiencia del sistema[cite: 111]. Gracias a este mecanismo, el procesador puede responder rápidamente a eventos importantes sin necesidad de realizar verificaciones continuas sobre cada dispositivo[cite: 112]. El 8259 admite múltiples líneas de interrupción, permite configurar distintos niveles de prioridad y su implementación es clave para la administración de eventos en hardware[cite: 113, 114].
-                    </p>
+            <div class="accordion-item bg-black text-light mb-3 custom-accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed bg-dark text-warning fw-bold"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#tema2-1-3">
+                        2.1.3. Organización Externa del Microprocesador (Terminales)
+                    </button>
+                </h2>
+                <div id="tema2-1-3" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad2">
+                    <div class="accordion-body">
+                        <p class="fs-5 text-secondary text-justify">
+                            La organización externa del microprocesador está determinada por el conjunto de terminales o pines que permiten su comunicación con los demás componentes del sistema. Estas terminales se clasifican generalmente en líneas de datos, direcciones, control, alimentación eléctrica y señales especiales. Mediante ellas se establece el intercambio de información con la memoria, los periféricos y otros circuitos integrados. Cada terminal cumple una función específica que garantiza la correcta transferencia de señales y la sincronización de las operaciones. Por esta razón, el conocimiento de la distribución y función de los pines resulta esencial para el diseño e implementación de sistemas basados en microprocesadores.
+                        </p>
+                    </div>
                 </div>
             </div>
+
+            <div class="accordion-item bg-black text-light mb-3 custom-accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed bg-dark text-danger fw-bold"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#tema2-2">
+                        2.2. Conexión del Microprocesador con Dispositivos
+                    </button>
+                </h2>
+                <div id="tema2-2" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad2">
+                    <div class="accordion-body">
+                        <p class="fs-5 text-secondary text-justify">
+                            La conexión del microprocesador con los dispositivos externos permite la interacción entre la unidad central de procesamiento y los distintos elementos que conforman el sistema informático. Esta comunicación se realiza a través de buses y circuitos especializados que facilitan el intercambio de datos, direcciones y señales de control. Gracias a estos mecanismos, el procesador puede acceder a información almacenada, controlar dispositivos periféricos y responder a eventos externos. La eficiencia de estas conexiones influye directamente en el rendimiento general del sistema, convirtiéndolo en un aspecto fundamental dentro de la arquitectura de computadoras.
+                        </p>
+
+                        <h4 class="text-info mt-4 fw-bold">2.2.1. Memoria</h4>
+                        <p class="fs-5 text-secondary text-justify">
+                            La memoria constituye uno de los elementos más importantes conectados al microprocesador, ya que almacena tanto las instrucciones de los programas como los datos necesarios para su ejecución. El procesador accesses continuamente a la memoria mediante el bus de direcciones para localizar información específica y el bus de datos para transferirla. Existen diferentes tipos de memoria, entre ellas la RAM, utilizada para almacenamiento temporal, y la ROM, destinada a conservar información permanente. La velocidad y capacidad de la memoria tienen un impacto significativo en el desempeño global, por lo que su gestión eficiente es esencial para optimizar las operaciones computacionales.
+                        </p>
+
+                        <h4 class="text-success mt-4 fw-bold">2.2.2. Periféricos</h4>
+                        <p class="fs-5 text-secondary text-justify">
+                            Los periféricos son dispositivos externos que permiten la interacción entre el usuario y el sistema computacional, así como la comunicación con otros equipos. Estos pueden clasificarse en dispositivos de entrada, salida o entrada y salida, dependiendo rigurosamente de la función específica que desempeñen dentro del hardware. Ejemplos comunes incluyen teclados, monitores, impresoras, discos de almacenamiento y dispositivos de comunicación de red. El microprocesador controla su funcionamiento mediante señales específicas que coordinan el intercambio de información, lo que amplía considerablemente las capacidades del sistema y facilita la ejecución de tareas diversas.
+                        </p>
+
+                        <h4 class="text-warning mt-4 fw-bold">2.2.3. Interfaz Programable (8255)</h4>
+                        <p class="fs-5 text-secondary text-justify">
+                            El circuito integrado 8255, conocido como Interfaz Programable de Periféricos (PPI), es un dispositivo diseñado para facilitar la comunicación entre el microprocesador y los dispositivos externos. Este componente proporciona tres puertos programables de entrada y salida que pueden configurarse de acuerdo con las necesidades específicas de una aplicación. Su utilización permite ampliar la capacidad de conexión del sistema sin incrementar significativamente la complejidad del hardware en los circuitos integrados. Además, ofrece diferentes modos de operación que optimizan el intercambio de datos entre los componentes conectados, siendo ampliamente usado en sistemas embebidos.
+                        </p>
+
+                        <h4 class="text-danger mt-4 fw-bold">2.2.4. Interrupciones Programables (8259)</h4>
+                        <p class="fs-5 text-secondary text-justify">
+                            El controlador programable de interrupciones 8259 es un circuito integrado encargado de gestionar las solicitudes de interrupción provenientes de diferentes dispositivos externos. Su función principal consiste en priorizar las interrupciones y notificar al microprocesador cuál debe ser atendida primero, evitando conflictos y mejorando la eficiencia del sistema. Gracias a este mecanismo, el procesador puede responder rápidamente a eventos importantes sin necesidad de realizar verificaciones continuas sobre cada dispositivo. El 8259 admite múltiples líneas de interrupción, permite configurar distintos niveles de prioridad y su implementación es clave para la administración de eventos en hardware.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item bg-black text-light mb-3 custom-accordion-item" style="border-color: rgba(0, 180, 216, 0.4) !important;">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed bg-info text-dark fw-bold"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#temaTestUnidad2">
+                        ¡REALIZAR TEST DE EVALUACIÓN! (10 Preguntas)
+                    </button>
+                </h2>
+                <div id="temaTestUnidad2" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad2">
+                    <div class="accordion-body bg-dark rounded-bottom">
+                        <form id="quizFormUnidad2">
+                            
+                            <div class="mb-4 p-3 bg-black quiz-box border border-secondary">
+                                <p class="fw-bold text-info">1. ¿Qué define principalmente la arquitectura interna del microprocesador?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u2_q1" value="correct" id="u2_q1_a">
+                                    <label class="form-check-label text-secondary" for="u2_q1_a">La interacción entre unidades funcionales, registros, memorias, buses y las reglas de ejecución de programas.</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u2_q1" value="wrong" id="u2_q1_b">
+                                    <label class="form-check-label text-secondary" for="u2_q1_b">El tipo de encapsulado plástico y la cantidad de disipadores de cobre externos.</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="u2_q1" value="wrong" id="u2_q1_c">
+                                    <label class="form-check-label text-secondary" for="u2_q1_c">Únicamente la velocidad de conexión a las redes de servidores en la nube.</label>
+                                </div>
+                            </div>
+
+                            <div class="mb-4 p-3 bg-black quiz-box border border-secondary">
+                                <p class="fw-bold text-info">2. ¿Cuál es la característica principal de la Arquitectura Von Neumann propuesta en 1945?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u2_q2" value="wrong" id="u2_q2_a">
+                                    <label class="form-check-label text-secondary" for="u2_q2_a">Separar físicamente la memoria de datos de la memoria de instrucciones mediante buses independientes.</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u2_q2" value="correct" id="u2_q2_b">
+                                    <label class="form-check-label text-secondary" for="u2_q2_b">Almacenar tanto los datos como las instrucciones en una misma memoria principal con un sistema común de comunicación.</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="u2_q2" value="wrong" id="u2_q2_c">
+                                    <label class="form-check-label text-secondary" for="u2_q2_c">Prescindir por completo de una unidad aritmético-lógica para reducir costos lógicos.</label>
+                                </div>
+                            </div>
+
+                            <div class="mb-4 p-3 bg-black quiz-box border border-secondary">
+                                <p class="fw-bold text-info">3. ¿Qué componentes principales se visualizan generalmente en el Diagrama de Bloques del microprocesador?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u2_q3" value="correct" id="u2_q3_a">
+                                    <label class="form-check-label text-secondary" for="u2_q3_a">La unidad de control, ALU, registros internos, buses (datos/direcciones/control) y conexiones externas.</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u2_q3" value="wrong" id="u2_q3_b">
+                                    <label class="form-check-label text-secondary" for="u2_q3_b">Los periféricos de entrada/salida como impresoras y monitores únicamente.</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="u2_q3" value="wrong" id="u2_q3_c">
+                                    <label class="form-check-label text-secondary" for="u2_q3_c">El mapa de distribución térmica del silicio puro de grado industrial.</label>
+                                </div>
+                            </div>
+
+                            <div class="mb-4 p-3 bg-black quiz-box border border-secondary">
+                                <p class="fw-bold text-info">4. ¿Cómo se clasifican comúnmente las terminales o pines en la organización externa del procesador?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u2_q4" value="wrong" id="u2_q4_a">
+                                    <label class="form-check-label text-secondary" for="u2_q4_a">Pines lógicos, analógicos y magnéticos exclusivamente.</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u2_q4" value="correct" id="u2_q4_b">
+                                    <label class="form-check-label text-secondary" for="u2_q4_b">Líneas de datos, direcciones, control, alimentación eléctrica y señales especiales.</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="u2_q4" value="wrong" id="u2_q4_c">
+                                    <label class="form-check-label text-secondary" for="u2_q4_c">Pines de entrada binaria y pines de salida decimal sin buses.</label>
+                                </div>
+                            </div>
+
+                            <div class="mb-4 p-3 bg-black quiz-box border border-secondary">
+                                <p class="fw-bold text-info">5. ¿Qué buses utiliza el procesador para conectarse con la memoria y localizar o transferir información?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u2_q5" value="wrong" id="u2_q5_a">
+                                    <label class="form-check-label text-secondary" for="u2_q5_a">Buses analógicos multiplexados de alta frecuencia térmica.</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u2_q5" value="correct" id="u2_q5_b">
+                                    <label class="form-check-label text-secondary" for="u2_q5_b">El bus de direcciones para localizar la información y el bus de datos para transferirla.</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="u2_q5" value="wrong" id="u2_q5_c">
+                                    <label class="form-check-label text-secondary" for="u2_q5_c">El bus de interrupciones programadas de manera exclusiva.</label>
+                                </div>
+                            </div>
+
+                            <div class="mb-4 p-3 bg-black quiz-box border border-secondary">
+                                <p class="fw-bold text-info">6. Según el texto, ¿cuál es la diferencia funcional básica entre la memoria RAM y la ROM?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u2_q6" value="correct" id="u2_q6_a">
+                                    <label class="form-check-label text-secondary" for="u2_q6_a">La RAM se utiliza para almacenamiento temporal y la ROM está destinada a conservar información de forma permanente.</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u2_q6" value="wrong" id="u2_q6_b">
+                                    <label class="form-check-label text-secondary" for="u2_q6_b">La RAM guarda datos permanentes y la ROM es de acceso volátil y temporal.</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="u2_q6" value="wrong" id="u2_q6_c">
+                                    <label class="form-check-label text-secondary" for="u2_q6_c">No hay diferencias funcionales, ambas almacenan datos temporales dinámicos.</label>
+                                </div>
+                            </div>
+
+                            <div class="mb-4 p-3 bg-black quiz-box border border-secondary">
+                                <p class="fw-bold text-info">7. ¿Bajo qué criterio riguroso se clasifican los periféricos del sistema en el hardware?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u2_q7" value="wrong" id="u2_q7_a">
+                                    <label class="form-check-label text-secondary" for="u2_q7_a">Dependiendo del consumo de corriente eléctrica del dispositivo externo.</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u2_q7" value="correct" id="u2_q7_b">
+                                    <label class="form-check-label text-secondary" for="u2_q7_b">Dependiendo rigurosamente de la función específica que desempeñen (entrada, salida o entrada/salida).</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="u2_q7" value="wrong" id="u2_q7_c">
+                                    <label class="form-check-label text-secondary" for="u2_q7_c">Según la marca del fabricante y el protocolo de red inalámbrica.</label>
+                                </div>
+                            </div>
+
+                            <div class="mb-4 p-3 bg-black quiz-box border border-secondary">
+                                <p class="fw-bold text-info">8. ¿Qué dispositivo se conoce como Interfaz Programable de Periféricos (PPI) y para qué sirve?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u2_q8" value="wrong" id="u2_q8_a">
+                                    <label class="form-check-label text-secondary" for="u2_q8_a">El circuito 8259, diseñado para procesar las operaciones aritméticas masivas.</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u2_q8" value="wrong" id="u2_q8_b">
+                                    <label class="form-check-label text-secondary" for="u2_q8_b">El bus de control externo de la arquitectura híbrida modular.</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="u2_q8" value="correct" id="u2_q8_c">
+                                    <label class="form-check-label text-secondary" for="u2_q8_c">El circuito integrado 8255, que proporciona tres puertos programables de entrada/salida para facilitar la comunicación externa.</label>
+                                </div>
+                            </div>
+
+                            <div class="mb-4 p-3 bg-black quiz-box border border-secondary">
+                                <p class="fw-bold text-info">9. ¿Cuál es la función principal del Controlador Programable de Interrupciones 8259?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u2_q9" value="correct" id="u2_q9_a">
+                                    <label class="form-check-label text-secondary" for="u2_q9_a">Priorizar las solicitudes de interrupción de dispositivos externos y notificar al microprocesador cuál atender primero.</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u2_q9" value="wrong" id="u2_q9_b">
+                                    <label class="form-check-label text-secondary" for="u2_q9_b">Aumentar la capacidad de almacenamiento temporal de la memoria caché.</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="u2_q9" value="wrong" id="u2_q9_c">
+                                    <label class="form-check-label text-secondary" for="u2_q9_c">Sincronizar las señales analógicas de las terminales de alimentación eléctrica.</label>
+                                </div>
+                            </div>
+
+                            <div class="mb-4 p-3 bg-black quiz-box border border-secondary">
+                                <p class="fw-bold text-info">10. ¿Qué ventaja operativa ofrece la gestión de interrupciones con el 8259 para el procesador?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u2_q10" value="wrong" id="u2_q10_a">
+                                    <label class="form-check-label text-secondary" for="u2_q10_a">Permite al procesador ejecutar instrucciones sin necesidad de una unidad de control física.</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u2_q10" value="correct" id="u2_q10_b">
+                                    <label class="form-check-label text-secondary" for="u2_q10_b">Permite al procesador responder rápidamente a eventos críticos sin realizar verificaciones continuas (polling) sobre cada dispositivo.</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="u2_q10" value="wrong" id="u2_q10_c">
+                                    <label class="form-check-label text-secondary" for="u2_q10_c">Fuerza al sistema a borrar la memoria RAM cada vez que entra una señal de periférico.</label>
+                                </div>
+                            </div>
+
+                            <button type="button" class="btn btn-info fw-bold w-100 py-2 mt-2" onclick="evaluarQuizUnidad2()">
+                                Calcular Calificación
+                            </button>
+                        </form>
+
+                        <div id="resultadoQuizUnidad2" class="mt-4 p-3 rounded bg-black border border-info text-center d-none">
+                            <h4 class="fw-bold text-warning" id="scoreTextUnidad2"></h4>
+                            <p class="fs-5 text-light mb-0" id="feedbackTextUnidad2"></p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
         </div>
 
-    </div>
+    </section>
+</div>
 
-</section>
+<script>
+    const canvasU2 = document.getElementById('binaryCanvasU2');
+    const ctxU2 = canvasU2.getContext('2d');
+
+    function resizeCanvasU2() {
+        canvasU2.width = window.innerWidth;
+        canvasU2.height = window.innerHeight;
+    }
+    resizeCanvasU2();
+    window.addEventListener('resize', resizeCanvasU2);
+
+    const binaryCharsU2 = ["0", "1"];
+    const fontSizeU2 = 14;
+    const columnsU2 = Math.floor(canvasU2.width / 20);
+    
+    const dropsU2 = [];
+    for (let i = 0; i < columnsU2; i++) {
+        dropsU2[i] = Math.random() * -100;
+    }
+
+    function drawU2() {
+        ctxU2.fillStyle = 'rgba(0, 0, 0, 0.08)';
+        ctxU2.fillRect(0, 0, canvasU2.width, canvasU2.height);
+
+        ctxU2.fillStyle = 'rgba(0, 180, 216, 0.7)';
+        ctxU2.font = 'bold ' + fontSizeU2 + 'px Courier New, monospace';
+
+        for (let i = 0; i < dropsU2.length; i++) {
+            const text = binaryCharsU2[Math.floor(Math.random() * binaryCharsU2.length)];
+            const x = i * 20;
+            const y = dropsU2[i] * fontSizeU2;
+
+            ctxU2.fillText(text, x, y);
+
+            if (y > canvasU2.height && Math.random() > 0.975) {
+                dropsU2[i] = 0;
+            }
+            dropsU2[i] += 0.5;
+        }
+    }
+
+    setInterval(drawU2, 30);
+</script>
+
+<script>
+function evaluarQuizUnidad2() {
+    const totalPreguntas = 10;
+    let correctas = 0;
+    
+    for (let i = 1; i <= totalPreguntas; i++) {
+        const opcionSeleccionada = document.querySelector(`input[name="u2_q${i}"]:checked`);
+        if (opcionSeleccionada && opcionSeleccionada.value === "correct") {
+            correctas++;
+        }
+    }
+    
+    const contenedorResultado = document.getElementById("resultadoQuizUnidad2");
+    const scoreText = document.getElementById("scoreTextUnidad2");
+    const feedbackText = document.getElementById("feedbackTextUnidad2");
+    
+    contenedorResultado.classList.remove("d-none");
+    
+    let notaFinal = (correctas / totalPreguntas) * 100;
+    scoreText.innerText = `Resultado: ${correctas} / ${totalPreguntas} correctas (${notaFinal}%)`;
+    
+    if (notaFinal >= 70) {
+        feedbackText.innerText = "¡Excelente trabajo! Dominás con éxito la arquitectura interna, Von Neumann y los controladores 8255/8259.";
+        feedbackText.className = "fs-5 text-success mb-0";
+    } else {
+        feedbackText.innerText = "Buen intento. Te sugiero repasar los bloques del procesador y los modos de interrupción antes de volver a evaluar.";
+        feedbackText.className = "fs-5 text-danger mb-0";
+    }
+}
+</script>
 
 {% endblock %}

@@ -4,158 +4,506 @@
 
 {% block content %}
 
-<section class="py-5">
+<style>
+    /* El canvas ahora ocupa TODA la pantalla de fondo */
+    #binaryCanvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 0; /* Queda al fondo de todo */
+        opacity: 0.15; /* Opacidad sutil para no estorbar la lectura del contenido */
+        pointer-events: none; /* Evita que interfiera con los clics en los botones */
+    }
 
-    <div class="text-center mb-5">
-        <h1 class="display-4 fw-bold text-info">
-            UNIDAD I
-        </h1>
-        <p class="lead text-secondary fw-semibold">
-            Introducción a los Microprocesadores y Microcontroladores
-        </p>
-    </div>
+    /* Aseguramos que todo el contenido se renderice por encima del canvas de fondo */
+    .main-content-wrapper {
+        position: relative;
+        z-index: 1;
+    }
 
-    <div class="accordion accordion-flush" id="accordionUnidad1">
+    /* Contenedor del título con diseño de interfaz tecnológica limpia */
+    .hero-animation-bg {
+        background: rgba(0, 0, 0, 0.6);
+        border-radius: 16px;
+        padding: 3rem 2rem;
+        border: 1px solid rgba(0, 180, 216, 0.25);
+        box-shadow: 0 0 30px rgba(0, 180, 216, 0.15);
+        backdrop-filter: blur(4px); /* Suaviza el fondo donde pasa el código */
+    }
 
-        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
-            <h2 class="accordion-header">
-                <button class="accordion-button collapsed bg-dark text-info fw-bold"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#tema1">
-                    1.1. Conceptos de Arquitectura y Organización de Computadoras
-                </button>
-            </h2>
-            <div id="tema1" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
-                <div class="accordion-body">
-                    <p class="fs-5 text-secondary text-justify">
-                        La arquitectura y organización de computadoras es una rama de la informática que estudia la estructura interna de los sistemas computacionales y la manera en que cada componente trabaja para ejecutar instrucciones y procesar datos. Estos conceptos permiten comprender cómo funcionan dispositivos modernos como computadoras personales, servidores, teléfonos inteligentes y sistemas embebidos utilizados en electrónica. El estudio de esta área es fundamental para entender temas relacionados con microprocesadores, memoria, buses de comunicación y dispositivos electrónicos programables.
-                    </p>
-                    <img src="{% static 'img/unidad1/arquitectura.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
-                </div>
+    /* Efecto de pulso de luz sincronizado en el texto principal */
+    @keyframes textPulse {
+        0%, 100% { text-shadow: 0 0 10px rgba(0, 180, 216, 0.6); }
+        50% { text-shadow: 0 0 25px rgba(0, 180, 216, 0.9), 0 0 40px rgba(0, 180, 216, 0.4); }
+    }
+
+    .pulsing-text {
+        animation: textPulse 3s infinite ease-in-out;
+    }
+
+    /* Efecto de luz azul y bordes redondeados para las tarjetas del acordeón */
+    .custom-accordion-item {
+        border: 1px solid rgba(0, 180, 216, 0.2) !important;
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        border-radius: 12px !important;
+        overflow: hidden;
+        background-color: rgba(0, 0, 0, 0.8) !important; /* Un toque de transparencia */
+        backdrop-filter: blur(2px);
+    }
+
+    /* Animación e iluminación cuando el mouse pasa por encima de la tarjeta o test */
+    .custom-accordion-item:hover {
+        transform: translateY(-4px);
+        border-color: #00b4d8 !important;
+        box-shadow: 0 8px 25px rgba(0, 180, 216, 0.35);
+    }
+
+    /* Suavizado para los botones internos del acordeón */
+    .accordion-button {
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Efecto de luz azul para los bloques de preguntas individuales al pasar el mouse */
+    .quiz-box {
+        transition: all 0.3s ease;
+        border-radius: 10px;
+    }
+    .quiz-box:hover {
+        border-color: #00b4d8 !important;
+        box-shadow: 0 4px 15px rgba(0, 180, 216, 0.15);
+    }
+</style>
+
+<canvas id="binaryCanvas"></canvas>
+
+<div class="main-content-wrapper">
+    <section class="py-5">
+
+        <div class="text-center mb-5 hero-animation-bg">
+            <div class="hero-content">
+                <h1 class="display-4 fw-bold text-info pulsing-text m-0">
+                    UNIDAD I
+                </h1>
+                <p class="lead text-secondary fw-semibold mt-2 mb-0">
+                    Introducción a los Microprocesadores y Microcontroladores
+                </p>
             </div>
         </div>
 
-        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
-            <h2 class="accordion-header">
-                <button class="accordion-button collapsed bg-dark text-primary fw-bold"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#tema2">
-                    1.1.1.1. Arquitectura
-                </button>
-            </h2>
-            <div id="tema2" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
-                <div class="accordion-body">
-                    <p class="fs-5 text-secondary text-justify">
-                        La arquitectura de computadoras se refiere a los atributos de un sistema que son visibles para un programador, teniendo un impacto directo en la ejecución lógica de un programa. Estos atributos incluyen el conjunto de instrucciones, el número de bits utilizados para representar los datos, los mecanismos de direccionamiento de memoria y las técnicas de entrada y salida. Esencialmente, la arquitectura establece el diseño conceptual y la estructura operativa fundamental del sistema, definiendo la interfaz exacta entre el hardware físico y el software de bajo nivel.
-                    </p>
-                    <img src="{% static 'img/unidad1/arq_pc.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
+        <div class="accordion accordion-flush" id="accordionUnidad1">
 
+            <div class="accordion-item bg-black text-light mb-3 custom-accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed bg-dark text-info fw-bold"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#tema1">
+                        1.1. Conceptos de Arquitectura y Organización de Computadoras
+                    </button>
+                </h2>
+                <div id="tema1" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
+                    <div class="accordion-body">
+                        <p class="fs-5 text-secondary text-justify">
+                            La arquitectura y organización de computadoras es una rama de la informática que estudia la estructura interna de los sistemas computacionales y la manera en que cada componente trabaja para ejecutar instrucciones y procesar datos. Estos conceptos permiten comprender cómo funcionan dispositivos modernos como computadoras personales, servidores, teléfonos inteligentes y sistemas embebidos utilizados en electrónica. El estudio de esta área es fundamental para entender temas relacionados con microprocesadores, memoria, buses de comunicación y dispositivos electrónicos programables.
+                        </p>
+                        <img src="{% static 'img/unidad1/arquitectura.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
-            <h2 class="accordion-header">
-                <button class="accordion-button collapsed bg-dark text-success fw-bold"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#tema3">
-                    1.1.1.2. Organización
-                </button>
-            </h2>
-            <div id="tema3" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
-                <div class="accordion-body">
-                    <p class="fs-5 text-secondary text-justify">
-                        La organización de computadoras se enfoca en las unidades funcionales y sus interconexiones de manera que se materialicen todas las especificaciones detalladas por la arquitectura. Mientras que la arquitectura define qué hace el sistema, la organización se encarga de determinar detalladamente cómo se implementan dichas funciones a través del hardware disponible. Este concepto abarca aspectos fundamentales como las señales de control de los circuitos, las interfaces del sistema de memoria y la tecnología física utilizada en los componentes electrónicos.
-                    </p>
-
-                    <h4 class="text-warning mt-4 fw-bold">1.1.1.2.1. Estructura</h4>
-                    <p class="fs-5 text-secondary text-justify">
-                        La estructura se define formalmente como la forma particular en la que los componentes individuales de una computadora están interconectados entre sí dentro del sistema global. Para comprender el funcionamiento de una computadora, es totalmente indispensable analizar primero la disposición espacial y las relaciones jerárquicas que existen entre sus bloques principales. Esta configuración estructural garantiza que los datos y las señales de control fluyan de manera ordenada, eficiente y segura a través de los diferentes canales del circuito.
-                    </p>
-
-                    <h4 class="text-warning mt-4 fw-bold">1.1.1.2.2. Función</h4>
-                    <p class="fs-5 text-secondary text-justify">
-                        La función representa la operation individual que realiza cada componente de la computadora como parte integral de la estructura y del procesamiento general de la información. En términos generales, existen cuatro funciones operativas básicas que el sistema ejecuta de forma constante: procesamiento de datos, almacenamiento de datos, transferencia de datos y control de operaciones. Cada elemento del hardware está diseñado específicamente para cumplir una o más de estas tareas, logrando así un comportamiento armonioso y coordinado en todo momento.
-                    </p>
+            <div class="accordion-item bg-black text-light mb-3 custom-accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed bg-dark text-primary fw-bold"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#tema2">
+                        1.1.1.1. Arquitectura
+                    </button>
+                </h2>
+                <div id="tema2" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
+                    <div class="accordion-body">
+                        <p class="fs-5 text-secondary text-justify">
+                            La arquitectura de computadoras se refiere a los atributos de un sistema que son visibles para un programador, teniendo un impacto directo en la ejecución lógica de un programa. Estos atributos incluyen el conjunto de instrucciones, el número de bits utilizados para representar los datos, los mecanismos de direccionamiento de memoria y las técnicas de entrada y salida. Esencialmente, la arquitectura establece el diseño conceptual y la estructura operativa fundamental del sistema, definiendo la interfaz exacta entre el hardware físico y el software de bajo nivel.
+                        </p>
+                        <img src="{% static 'img/unidad1/arq_pc.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto">
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
-            <h2 class="accordion-header">
-                <button class="accordion-button collapsed bg-dark text-warning fw-bold"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#tema4">
-                    1.1.2. Estructura de la Computadora
-                </button>
-            </h2>
-            <div id="tema4" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
-                <div class="accordion-body">
-                    <p class="fs-5 text-secondary text-justify">
-                        La computadora está formada por distintos módulos autónomos capaces de procesar, almacenar y transferir información digital bajo criterios preestablecidos. El análisis modular de la estructura informática permite aislar fallas físicas y optimizar los buses lógicos que enlazan las respuestas lógicas del sistema operativo de manera coordinada.
-                    </p>
-                    
-                    <img src="{% static 'img/unidad1/estructura.jpg' %}" class="img-fluid rounded shadow my-4 d-block mx-auto">
+            <div class="accordion-item bg-black text-light mb-3 custom-accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed bg-dark text-success fw-bold"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#tema3">
+                        1.1.1.2. Organización
+                    </button>
+                </h2>
+                <div id="tema3" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
+                    <div class="accordion-body">
+                        <p class="fs-5 text-secondary text-justify">
+                            La organización de computadoras se enfoca en las unidades funcionales y sus interconexiones de manera que se materialicen todas las especificaciones detalladas por la arquitectura. Mientras que la arquitectura define qué hace el sistema, la organización se encarga de determinar detalladamente cómo se implementan dichas funciones a través del hardware disponible. Este concepto abarca aspectos fundamentales como las señales de control de los circuitos, las interfaces del sistema de memoria y la tecnología física utilizada en los componentes electrónicos.
+                        </p>
 
-                    <h4 class="text-info fw-bold">1.1.2.1. Procesamiento</h4>
-                    <p class="fs-5 text-secondary text-justify">
-                        El procesamiento de datos es la tarea ejecutada principalmente por la Unidad Central de Procesamiento, la cual se encarga de manipular la información según las instrucciones del software. Este bloque fundamental se compone de la Unidad Aritmético Lógica, encargada de realizar cálculos matemáticos y comparaciones lógicas, y de la Unidad de Control que dirige las operaciones. Adicionalmente, cuenta con registros de alta velocidad que almacenan temporalmente los datos más críticos y los resultados inmediatos que el sistema requiere para continuar operando continuamente.
-                    </p>
+                        <h4 class="text-warning mt-4 fw-bold">1.1.1.2.1. Estructura</h4>
+                        <p class="fs-5 text-secondary text-justify">
+                            La estructura se define formalmente como la forma particular en la que los componentes individuales de una computadora están interconectados entre sí dentro del sistema global. Para comprender el funcionamiento de una computadora, es totalmente indispensable analizar primero la disposición espacial y las relaciones jerárquicas que existen entre sus bloques principales. Esta configuración estructural garantiza que los datos y las señales de control fluyan de manera ordenada, eficiente y segura a través de los diferentes canales del circuito.
+                        </p>
 
-                    <h4 class="text-success mt-4 fw-bold">1.1.2.2. Sistema de Memoria</h4>
-                    <p class="fs-5 text-secondary text-justify">
-                        El sistema de memoria es el encargado de almacenar de forma digital tanto las instrucciones que ejecuta la computadora como los datos que están siendo procesados activamente. Este sistema se organiza comúnmente de forma jerárquica para balancear de manera óptima la velocidad de acceso, la capacidad de almacenamiento y los costos económicos de fabricación. Desde la memoria caché de alta velocidad hasta la memoria principal y los dispositivos de almacenamiento secundario, cada nivel cumple un rol vital en la estabilidad operativa de la máquina.
-                    </p>
-
-                    <h4 class="text-primary mt-4 fw-bold">1.1.2.3. Sistema de Entrada – Salida</h4>
-                    <p class="fs-5 text-secondary text-justify">
-                        El sistema de entrada y salida constituye el puente de comunicación indispensable entre los componentes internos de la computadora y el entorno externo o los usuarios humanos. A través de este sistema, los datos del mundo real se convierten en señales digitales comprensibles para el procesador, y los resultados del procesamiento se traducen nuevamente en formatos útiles. Los módulos de entrada y salida gestionan los protocolos de comunicación y el flujo de datos proveniente de periféricos como teclados, monitores, discos externos y redes.
-                    </p>
+                        <h4 class="text-warning mt-4 fw-bold">1.1.1.2.2. Función</h4>
+                        <p class="fs-5 text-secondary text-justify">
+                            La función representa la operación individual que realiza cada componente de la computadora como parte integral de la estructura y del procesamiento general de la información. En términos generales, existen cuatro funciones operativas básicas que el sistema ejecuta de forma constante: procesamiento de datos, almacenamiento de datos, transferencia de datos y control de operaciones. Cada elemento del hardware está diseñado específicamente para cumplir una o más de estas tareas, logrando así un comportamiento armonioso y coordinado en todo momento.
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
-            <h2 class="accordion-header">
-                <button class="accordion-button collapsed bg-dark text-danger fw-bold"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#tema5">
-                    1.2. Diferencia entre Microprocesador y Microcontrolador
-                </button>
-            </h2>
-            <div id="tema5" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
-                <div class="accordion-body">
-                    <p class="fs-5 text-secondary text-justify">
-                        El microprocesador y el microcontrolador son dispositivos semiconductores fundamentales en las bases de la ingeniería electrónica, la robótica contemporánea y las tecnologías de computación avanzadas. Ambos elementos basan su arquitectura física básica en compuertas lógicas integradas a gran escala dentro de láminas microscópicas de silicio puro de grado industrial.
-                    </p>
+            <div class="accordion-item bg-black text-light mb-3 custom-accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed bg-dark text-warning fw-bold"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#tema4">
+                        1.1.2. Estructura de la Computadora
+                    </button>
+                </h2>
+                <div id="tema4" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
+                    <div class="accordion-body">
+                        <p class="fs-5 text-secondary text-justify">
+                            La computadora está formada por distintos módulos autónomos capaces de procesar, almacenar y transferir información digital bajo criterios preestablecidos. El análisis modular de la estructura informática permite aislar fallas físicas y optimizar los buses lógicos que enlazan las respuestas lógicas del sistema operativo de manera coordinada.
+                        </p>
+                        
+                        <img src="{% static 'img/unidad1/estructura.jpg' %}" class="img-fluid rounded shadow my-4 d-block mx-auto">
 
-                    <img src="{% static 'img/unidad1/micro.png' %}" class="img-fluid rounded shadow my-4 d-block mx-auto">
+                        <h4 class="text-info fw-bold">1.1.2.1. Procesamiento</h4>
+                        <p class="fs-5 text-secondary text-justify">
+                            El procesamiento de datos es la tarea ejecutada principalmente por la Unidad Central de Procesamiento, la cual se encarga de manipular la información según las instrucciones del software. Este bloque fundamental se compone de la Unidad Aritmético Lógica, encargada de realizar cálculos matemáticos y comparaciones lógicas, y de la Unidad de Control que dirige las operaciones. Adicionalmente, cuenta con registros de alta velocidad que almacenan temporalmente los datos más críticos y los resultados inmediatos que el sistema requiere para continuar operando continuamente.
+                        </p>
 
-                    <h4 class="text-info fw-bold">1.2.1. Definición de Microprocesador</h4>
-                    <p class="fs-5 text-secondary text-justify">
-                        Un microprocesador es un circuito integrado de alta complejidad que agrupa exclusivamente las funciones de una Unidad Central de Procesamiento en un solo chip de silicio. Este componente requiere de la adición externa de módulos de memoria de acceso aleatorio, memoria de lectura, puertos de entrada y salida, y otros periféricos para operar adecuadamente. Debido a esta naturaleza modular, el microprocesador está diseñado para aplicaciones de propósito general donde se necesita una potencia de cálculo sumamente elevada, flexibilidad de configuración y velocidad.
-                    </p>
+                        <h4 class="text-success mt-4 fw-bold">1.1.2.2. Sistema de Memoria</h4>
+                        <p class="fs-5 text-secondary text-justify">
+                            El sistema de memoria es el encargado de almacenar de forma digital tanto las instrucciones que ejecuta la computadora como los datos que están siendo procesados activamente. Este sistema se organiza comúnmente de forma jerárquica para balancear de manera óptima la velocidad de acceso, la capacidad de almacenamiento y los costos económicos de fabricación. Desde la memoria caché de alta velocidad hasta la memoria principal y los dispositivos de almacenamiento secundario, cada nivel cumple un rol vital en la estabilidad operativa de la máquina.
+                        </p>
 
-                    <h4 class="text-success mt-4 fw-bold">1.2.2. Definición de Microcontrolador</h4>
-                    <p class="fs-5 text-secondary text-justify">
-                        Un microcontrolador es un sistema computacional completo contenido en un único chip de silicio, diseñado específicamente para realizar tareas de control automatizadas en sistemas embebidos. A diferencia del microprocesador, este circuito integra internamente la CPU junto con bloques de memoria RAM, memoria ROM, temporizadores y puertos de entrada y salida digitales o analógicos. Esta configuración integrada reduce drásticamente el espacio físico necesario en el diseño del hardware, optimiza el consumo energético general y disminuye significativamente los costos de producción.
-                    </p>
-
-                    <h4 class="text-warning mt-4 fw-bold">1.2.3. Diferencia entre el Microprocesador y Microcontrolador</h4>
-                    <p class="fs-5 text-secondary text-justify">
-                        La diferencia fundamental entre ambos radica principalmente en su arquitectura de integración, el propósito de su diseño industrial y el costo de su implementación en proyectos reales. El microprocesador busca maximizar la velocidad de cómputo delegando el almacenamiento y la conectividad a chips externos, lo que lo hace ideal para computadoras y servidores potentes. Por su parte, el microcontrolador prioriza la autosuficiencia, el bajo consumo de corriente y la economía, integrando todo en un único circuito para controlar electrodomésticos, vehículos y herramientas electrónicas.
-                    </p>
+                        <h4 class="text-primary mt-4 fw-bold">1.1.2.3. Sistema de Entrada – Salida</h4>
+                        <p class="fs-5 text-secondary text-justify">
+                            El sistema de entrada y salida constituye el puente de comunicación indispensable entre los componentes internos de la computadora y el entorno externo o los usuarios humanos. A través de este sistema, los datos del mundo real se convierten en señales digitales comprensibles para el procesador, y los resultados del procesamiento se traducen nuevamente en formatos útiles. Los módulos de entrada y salida gestionan los protocolos de comunicación y el flujo de datos proveniente de periféricos como teclados, monitores, discos externos y redes.
+                        </p>
+                    </div>
                 </div>
             </div>
+
+            <div class="accordion-item bg-black text-light mb-3 custom-accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed bg-dark text-danger fw-bold"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#tema5">
+                        1.2. Diferencia entre Microprocesador y Microcontrolador
+                    </button>
+                </h2>
+                <div id="tema5" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
+                    <div class="accordion-body">
+                        <p class="fs-5 text-secondary text-justify">
+                            El microprocesador y el microcontrolador son dispositivos semiconductores fundamentales en las bases de la ingeniería electrónica, la robótica contemporánea y las tecnologías de computación avanzadas. Ambos elementos basan su arquitectura física básica en compuertas lógicas integradas a gran escala dentro de láminas microscópicas de silicio puro de grado industrial.
+                        </p>
+
+                        <img src="{% static 'img/unidad1/micro.png' %}" class="img-fluid rounded shadow my-4 d-block mx-auto">
+
+                        <h4 class="text-info fw-bold">1.2.1. Definición de Microprocesador</h4>
+                        <p class="fs-5 text-secondary text-justify">
+                            Un microprocesador es un circuito integrado de alta complejidad que agrupa exclusivamente las funciones de una Unidad Central de Procesamiento en un solo chip de silicio. Este componente requiere de la adición externa de módulos de memoria de acceso aleatorio, memoria de lectura, puertos de entrada y salida, y otros periféricos para operar adecuadamente. Debido a esta naturaleza modular, el microprocesador está diseñado para aplicaciones de propósito general donde se necesita una potencia de cálculo sumamente elevada, flexibilidad de configuración y velocidad.
+                        </p>
+
+                        <h4 class="text-success mt-4 fw-bold">1.2.2. Definición de Microcontrolador</h4>
+                        <p class="fs-5 text-secondary text-justify">
+                            Un microcontrolador es un sistema computacional completo contenido en un único chip de silicio, diseñado específicamente para realizar tareas de control automatizadas en sistemas embebidos. A diferencia del microprocesador, este circuito integra internamente la CPU junto con bloques de memoria RAM, memoria ROM, temporizadores y puertos de entrada y salida digitales o analógicos. Esta configuración integrada reduce drásticamente el espacio físico necesario en el diseño del hardware, optimiza el consumo energético general y disminuye significativamente los costos de producción.
+                        </p>
+
+                        <h4 class="text-warning mt-4 fw-bold">1.2.3. Diferencia entre el Microprocesador y Microcontrolador</h4>
+                        <p class="fs-5 text-secondary text-justify">
+                            La diferencia fundamental entre ambos radica principalmente en su arquitectura de integración, el propósito de su diseño industrial y el costo de su implementación en proyectos reales. El microprocesador busca maximizar la velocidad de cómputo delegando el almacenamiento y la conectividad a chips externos, lo que lo hace ideal para computadoras y servidores potentes. Por su parte, el microcontrolador prioriza la autosuficiencia, el bajo consumo de corriente y la economía, integrando todo en un único circuito para controlar electrodomésticos, vehículos y herramientas electrónicas.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item bg-black text-light mb-3 custom-accordion-item" style="border-color: rgba(0, 180, 216, 0.4) !important;">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed bg-info text-dark fw-bold"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#temaTest">
+                        ¡REALIZAR TEST DE EVALUACIÓN! (10 Preguntas)
+                    </button>
+                </h2>
+                <div id="temaTest" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad1">
+                    <div class="accordion-body bg-dark rounded-bottom">
+                        <form id="quizForm">
+                            
+                            <div class="mb-4 p-3 bg-black quiz-box border border-secondary">
+                                <p class="fw-bold text-info">1. ¿Cuál es la diferencia principal entre 'Arquitectura' y 'Organización' según el texto?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="q1" value="correct" id="q1_a">
+                                    <label class="form-check-label text-secondary" for="q1_a">La arquitectura define el 'qué hace' (interfaz del programador), mientras la organización determina el 'cómo se implementa' en hardware.</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="q1" value="wrong" id="q1_b">
+                                    <label class="form-check-label text-secondary" for="q1_b">La arquitectura ve los circuitos físicos y la organización el software lúdico.</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="q1" value="wrong" id="q1_c">
+                                    <label class="form-check-label text-secondary" for="q1_c">No hay diferencia, son sinónimos perfectos de diseño de silicio.</label>
+                                </div>
+                            </div>
+
+                            <div class="mb-4 p-3 bg-black quiz-box border border-secondary">
+                                <p class="fw-bold text-info">2. ¿Cuál de estos atributos pertenece al campo de la Arquitectura?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="q2" value="wrong" id="q2_a">
+                                    <label class="form-check-label text-secondary" for="q2_a">La tecnología física de fabricación de los transistores.</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="q2" value="correct" id="q2_b">
+                                    <label class="form-check-label text-secondary" for="q2_b">El conjunto de instrucciones y los mecanismos de direccionamiento de memoria.</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="q2" value="wrong" id="q2_c">
+                                    <label class="form-check-label text-secondary" for="q2_c">Las señales eléctricas de control del circuito integrado.</label>
+                                </div>
+                            </div>
+
+                            <div class="mb-4 p-3 bg-black quiz-box border border-secondary">
+                                <p class="fw-bold text-info">3. ¿Cómo se define formalmente la 'Estructura' en la organización del computador?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="q3" value="correct" id="q3_a">
+                                    <label class="form-check-label text-secondary" for="q3_a">La forma particular en la que los componentes individuales están interconectados entre sí.</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="q3" value="wrong" id="q3_b">
+                                    <label class="form-check-label text-secondary" for="q3_b">La operación algorítmica de alto nivel que corre en la GPU.</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="q3" value="wrong" id="q3_c">
+                                    <label class="form-check-label text-secondary" for="q3_c">El encapsulado plástico exterior que protege la tarjeta madre.</label>
+                                </div>
+                            </div>
+
+                            <div class="mb-4 p-3 bg-black quiz-box border border-secondary">
+                                <p class="fw-bold text-info">4. ¿Cuáles son las 4 funciones operativas básicas del sistema?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="q4" value="wrong" id="q4_a">
+                                    <label class="form-check-label text-secondary" for="q4_a">Compilación, Enrutamiento, Fragmentación y Escaneo.</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="q4" value="correct" id="q4_b">
+                                    <label class="form-check-label text-secondary" for="q4_b">Procesamiento, almacenamiento, transferencia de datos y control de operaciones.</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="q4" value="wrong" id="q4_c">
+                                    <label class="form-check-label text-secondary" for="q4_c">Cifrado, Modulación, Paginación y Renderizado.</label>
+                                </div>
+                            </div>
+
+                            <div class="mb-4 p-3 bg-black quiz-box border border-secondary">
+                                <p class="fw-bold text-info">5. ¿Qué componentes integran el bloque interno de Procesamiento (CPU)?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="q5" value="wrong" id="q5_a">
+                                    <label class="form-check-label text-secondary" for="q5_a">La memoria RAM, la ROM y los discos mecánicos.</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="q5" value="correct" id="q5_b">
+                                    <label class="form-check-label text-secondary" for="q5_b">La Unidad Aritmético Lógica, la Unidad de Control y los registros de alta velocidad.</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="q5" value="wrong" id="q5_c">
+                                    <label class="form-check-label text-secondary" for="q5_c">Los puertos analógicos y los buses ISA/PCI de la placa.</label>
+                                </div>
+                            </div>
+
+                            <div class="mb-4 p-3 bg-black quiz-box border border-secondary">
+                                <p class="fw-bold text-info">6. ¿Para qué se organiza el sistema de memoria de forma jerárquica?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="q6" value="correct" id="q6_a">
+                                    <label class="form-check-label text-secondary" for="q6_a">Para balancear de manera óptima la velocidad de acceso, la capacidad y los costos económicos.</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="q6" value="wrong" id="q6_b">
+                                    <label class="form-check-label text-secondary" for="q6_b">Para que el microprocesador use exclusivamente memoria caché sin depender de RAM.</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="q6" value="wrong" id="q6_c">
+                                    <label class="form-check-label text-secondary" for="q6_c">Para forzar al programador a reescribir las instrucciones en bajo nivel.</label>
+                                </div>
+                            </div>
+
+                            <div class="mb-4 p-3 bg-black quiz-box border border-secondary">
+                                <p class="fw-bold text-info">7. ¿Qué función cumple el Sistema de Entrada - Salida?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="q7" value="wrong" id="q7_a">
+                                    <label class="form-check-label text-secondary" for="q7_a">Elevar el voltaje del chip de silicio puro de grado industrial.</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="q7" value="correct" id="q7_b">
+                                    <label class="form-check-label text-secondary" for="q7_b">Constituir el puente de comunicación entre componentes internos y el entorno externo.</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="q7" value="wrong" id="q7_c">
+                                    <label class="form-check-label text-secondary" for="q7_c">Ejecutar operaciones matemáticas inmediatas y comparaciones booleanas.</label>
+                                </div>
+                            </div>
+
+                            <div class="mb-4 p-3 bg-black quiz-box border border-secondary">
+                                <p class="fw-bold text-info">8. ¿En qué material basan su arquitectura física básica ambos dispositivos?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="q8" value="wrong" id="q8_a">
+                                    <label class="form-check-label text-secondary" for="q8_a">Polímeros plásticos reciclados flexibles.</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="q8" value="wrong" id="q8_b">
+                                    <label class="form-check-label text-secondary" for="q8_b">Láminas de cobre puro electrolítico de alta tensión.</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="q8" value="correct" id="q8_c">
+                                    <label class="form-check-label text-secondary" for="q8_c">Compuertas lógicas integradas dentro de láminas microscópicas de silicio puro.</label>
+                                </div>
+                            </div>
+
+                            <div class="mb-4 p-3 bg-black quiz-box border border-secondary">
+                                <p class="fw-bold text-info">9. ¿Qué requiere un Microprocesador externamente para poder operar?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="q9" value="correct" id="q9_a">
+                                    <label class="form-check-label text-secondary" for="q9_a">Módulos externos de memoria RAM, ROM, puertos de entrada/salida y periféricos.</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="q9" value="wrong" id="q9_b">
+                                    <label class="form-check-label text-secondary" for="q9_b">Absolutamente nada, ya que aloja todo de manera autosuficiente en un chip.</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="q9" value="wrong" id="q9_c">
+                                    <label class="form-check-label text-secondary" for="q9_c">Únicamente un sistema operativo gráfico corriendo desde la nube virtual.</label>
+                                </div>
+                            </div>
+
+                            <div class="mb-4 p-3 bg-black quiz-box border border-secondary">
+                                <p class="fw-bold text-info">10. ¿Cuál es el enfoque principal de diseño de un Microcontrolador?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="q10" value="wrong" id="q10_a">
+                                    <label class="form-check-label text-secondary" for="q10_a">Maximizar cálculos complejos masivos para servidores y supercomputadoras.</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="q10" value="correct" id="q10_b">
+                                    <label class="form-check-label text-secondary" for="q10_b">La autosuficiencia, bajo consumo de corriente y economía para sistemas embebidos.</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="q10" value="wrong" id="q10_c">
+                                    <label class="form-check-label text-secondary" for="q10_c">Prescindir de la memoria RAM interna para abaratar los costes de silicio.</label>
+                                </div>
+                            </div>
+
+                            <button type="button" class="btn btn-info fw-bold w-100 py-2 mt-2" onclick="evaluarQuiz()">
+                                Calcular Calificación
+                            </button>
+                        </form>
+
+                        <div id="resultadoQuiz" class="mt-4 p-3 rounded bg-black border border-info text-center d-none">
+                            <h4 class="fw-bold text-warning" id="scoreText"></h4>
+                            <p class="fs-5 text-light mb-0" id="feedbackText"></p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
         </div>
 
-    </div>
+    </section>
+</div>
 
-</section>
+<script>
+    const canvas = document.getElementById('binaryCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Ajustar tamaño del canvas para cubrir completamente la ventana del navegador (viewport)
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Caracteres del sistema numérico binario
+    const binaryChars = ["0", "1"];
+    const fontSize = 14;
+    const columns = Math.floor(canvas.width / 20); // Distribución espacial horizontal de columnas
+    
+    const drops = [];
+    for (let i = 0; i < columns; i++) {
+        // Distribución inicial aleatoria vertical para que no caigan todas en fila al cargar
+        drops[i] = Math.random() * -100;
+    }
+
+    function draw() {
+        // Rastro semitransparente oscuro
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Color azul neón cian tecnológico para los bits
+        ctx.fillStyle = 'rgba(0, 180, 216, 0.7)';
+        ctx.font = 'bold ' + fontSize + 'px Courier New, monospace';
+
+        for (let i = 0; i < drops.length; i++) {
+            // Alternar de forma aleatoria entre 0 y 1 en la caída
+            const text = binaryChars[Math.floor(Math.random() * binaryChars.length)];
+            const x = i * 20;
+            const y = drops[i] * fontSize;
+
+            ctx.fillText(text, x, y);
+
+            // Si pasa del fondo de la ventana actual, reiniciamos la columna arriba
+            if (y > canvas.height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+
+            // Velocidad constante de caída
+            drops[i] += 0.5;
+        }
+    }
+
+    setInterval(draw, 30);
+</script>
+
+<script>
+function evaluarQuiz() {
+    const totalPreguntas = 10;
+    let correctas = 0;
+    
+    for (let i = 1; i <= totalPreguntas; i++) {
+        const opcionSeleccionada = document.querySelector(`input[name="q${i}"]:checked`);
+        if (opcionSeleccionada && opcionSeleccionada.value === "correct") {
+            correctas++;
+        }
+    }
+    
+    const contenedorResultado = document.getElementById("resultadoQuiz");
+    const scoreText = document.getElementById("scoreText");
+    const feedbackText = document.getElementById("feedbackText");
+    
+    contenedorResultado.classList.remove("d-none");
+    
+    let notaFinal = (correctas / totalPreguntas) * 100;
+    scoreText.innerText = `Resultado: ${correctas} / ${totalPreguntas} correctas (${notaFinal}%)`;
+    
+    if (notaFinal >= 70) {
+        feedbackText.innerText = "¡Excelente! Dominás muy bien los conceptos de arquitectura y microcontroladores.";
+        feedbackText.className = "fs-5 text-success mb-0";
+    } else {
+        feedbackText.innerText = "Te recomiendo repasar las secciones colapsables de arriba y volver a intentarlo.";
+        feedbackText.className = "fs-5 text-danger mb-0";
+    }
+}
+</script>
 
 {% endblock %}

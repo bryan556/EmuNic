@@ -4,127 +4,463 @@
 
 {% block content %}
 
-<section class="py-5">
+<style>
+    /* El canvas ahora ocupa TODA la pantalla de fondo */
+    #binaryCanvasU5 {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 0; /* Queda al fondo de todo */
+        opacity: 0.15; /* Opacidad sutil para no estorbar la lectura del contenido */
+        pointer-events: none; /* Evita que interfiera con los clics en los botones */
+    }
 
-    <div class="text-center mb-5">
-        <h1 class="display-4 fw-bold text-info">
-            UNIDAD V
-        </h1>
-        <p class="lead text-secondary fw-semibold">
-            Programadores del Microcontrolador
-        </p>
-    </div>
+    /* Aseguramos que todo el contenido se renderice por encima del canvas de fondo */
+    .main-content-wrapper {
+        position: relative;
+        z-index: 1;
+    }
 
-    <div class="accordion accordion-flush" id="accordionUnidad5">
+    /* Contenedor del título con diseño de interfaz tecnológica limpia */
+    .hero-animation-bg {
+        background: rgba(0, 0, 0, 0.6);
+        border-radius: 16px;
+        padding: 3rem 2rem;
+        border: 1px solid rgba(0, 180, 216, 0.25);
+        box-shadow: 0 0 30px rgba(0, 180, 216, 0.15);
+        backdrop-filter: blur(4px); /* Suaviza el fondo donde pasa el código */
+    }
 
-        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
-            <h2 class="accordion-header">
-                <button class="accordion-button collapsed bg-dark text-info fw-bold"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#tema5-1">
-                    5.1. Repertorio de Instrucciones
-                </button>
-            </h2>
-            <div id="tema5-1" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad5">
-                <div class="accordion-body">
-                    <p class="fs-5 text-secondary text-justify mb-4">
-                        El repertorio de instrucciones corresponde al conjunto de operaciones que un microcontrolador es capaz de ejecutar directamente mediante su unidad central de procesamiento. Estas instrucciones constituyen el lenguaje básico que permite controlar el hardware y realizar diversas tareas de procesamiento de información. Cada arquitectura dispone de un repertorio específico diseñado para optimizar el rendimiento y la eficiencia del sistema. Las instrucciones pueden clasificarse según la función que desempeñan, como transferencia de datos, operaciones aritméticas, control de flujo y manipulación de bits. Su conocimiento es fundamental para desarrollar programas eficientes en lenguaje ensamblador.
-                    </p>
+    /* Efecto de pulso de luz sincronizado en el texto principal */
+    @keyframes textPulse {
+        0%, 100% { text-shadow: 0 0 10px rgba(0, 180, 216, 0.6); }
+        50% { text-shadow: 0 0 25px rgba(0, 180, 216, 0.9), 0 0 40px rgba(0, 180, 216, 0.4); }
+    }
 
-                    <h4 class="text-info fw-bold mt-4">5.1.1. Instrucciones de Transferencia de Datos</h4>
-                    <p class="fs-5 text-secondary text-justify">
-                        Las instrucciones de transferencia de datos permiten mover información entre registros, memoria y dispositivos de entrada o salida. Estas operaciones son esenciales para el funcionamiento de cualquier programa, ya que facilitan el acceso y almacenamiento de los datos necesarios para la ejecución de tareas. Entre las acciones más comunes se encuentran la carga, copia y almacenamiento de valores. Además, estas instrucciones contribuyen a la organización eficiente de la información dentro del sistema. Su correcta utilización mejora significativamente el rendimiento de las aplicaciones desarrolladas.
-                    </p>
+    .pulsing-text {
+        animation: textPulse 3s infinite ease-in-out;
+    }
 
-                    <h4 class="text-primary fw-bold mt-4">5.1.2. Instrucciones Aritméticas y Lógicas</h4>
-                    <p class="fs-5 text-secondary text-justify">
-                        Las instrucciones aritméticas y lógicas son responsables de realizar cálculos matemáticos y operaciones de comparación sobre los datos procesados por el microcontrolador. Entre las operaciones aritméticas más comunes se encuentran la suma, resta, multiplicación e incremento de valores. Por otra parte, las operaciones lógicas incluyen comparaciones, negaciones y combinaciones mediante operadores booleanos. Estas instrucciones permiten implementar algoritmos capaces de tomar decisiones y procesar información de manera eficiente. Debido a su importancia, constituyen uno de los grupos más utilizados dentro de la programación de sistemas digitales.
-                    </p>
+    /* Efecto de luz azul y bordes redondeados para las tarjetas del acordeón */
+    .custom-accordion-item {
+        border: 1px solid rgba(0, 180, 216, 0.2) !important;
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        border-radius: 12px !important;
+        overflow: hidden;
+        background-color: rgba(0, 0, 0, 0.8) !important; /* Un toque de transparencia */
+        backdrop-filter: blur(2px);
+    }
 
-                    <h4 class="text-success fw-bold mt-4">5.1.3. Control de Flujo de Programa</h4>
-                    <p class="fs-5 text-secondary text-justify mb-3">
-                        El control de flujo de programa comprende las instrucciones encargadas de modificar la secuencia normal de ejecución de un conjunto de instrucciones. Gracias a estos mecanismos, es posible implementar estructuras de decisión, ciclos repetitivos y llamadas a subrutinas. Estas herramientas permiten desarrollar programas dinámicos capaces de responder a diferentes condiciones durante su ejecución. Asimismo, contribuyen a optimizar el uso de recursos y mejorar la organización del código. Su aplicación es indispensable en prácticamente cualquier software desarrollado para microcontroladores.
-                    </p>
+    /* Animación e iluminación cuando el mouse pasa por encima de la tarjeta o test */
+    .custom-accordion-item:hover {
+        transform: translateY(-4px);
+        border-color: #00b4d8 !important;
+        box-shadow: 0 8px 25px rgba(0, 180, 216, 0.35);
+    }
 
-                    <h5 class="text-warning fw-bold ps-3 mt-3">5.1.3.1. Salto Incondicional</h5>
-                    <p class="fs-5 text-secondary text-justify ps-3">
-                        El salto incondicional es una instrucción que transfiere el control de ejecución hacia una dirección específica del programa sin evaluar ninguna condición previa. Su principal función consiste en alterar el flujo normal de las instrucciones para continuar la ejecución en otra sección del código. Este mecanismo es ampliamente utilizado en la implementación de ciclos, menús y rutinas de control. Además, permite reorganizar la ejecución de programas complejos de manera eficiente. Su simplicidad lo convierte en una herramienta fundamental dentro del lenguaje ensamblador.
-                    </p>
+    /* Suavizado para los botones internos del acordeón */
+    .accordion-button {
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
 
-                    <h5 class="text-danger fw-bold ps-3 mt-3">5.1.3.2. Salto Condicionado</h5>
-                    <p class="fs-5 text-secondary text-justify ps-3">
-                        El salto condicionado es una instrucción que modifies el flujo de ejecución únicamente cuando se cumple una condición previamente establecida. Generalmente, esta condición se determina mediante el resultado de comparaciones o el estado de determinados indicadores del procesador. Este tipo de instrucción resulta esencial para implementar estructuras de decisión similares a las empleadas en lenguajes de alto nivel. Gracias a su flexibilidad, permite desarrollar programas capaces de adaptarse a diferentes situaciones. Su utilización adecuada mejora la eficiencia y funcionalidad de las aplicaciones.
-                    </p>
+    /* Efecto de luz azul para los bloques de preguntas individuales al pasar el mouse */
+    .quiz-box {
+        transition: all 0.3s ease;
+        border-radius: 10px;
+    }
+    .quiz-box:hover {
+        border-color: #00b4d8 !important;
+        box-shadow: 0 4px 15px rgba(0, 180, 216, 0.15);
+    }
+</style>
 
-                    <h4 class="text-warning fw-bold mt-4">5.1.4. Instrucciones de Bits</h4>
-                    <p class="fs-5 text-secondary text-justify">
-                        Las instrucciones de bits permiten manipular individualmente los bits que conforman un dato almacenado en memoria o registros internos. Estas operaciones incluyen establecer, borrar, invertir y comprobar el estado de determinados bits según las necesidades de la aplicación. Su utilización es especialmente importante en sistemas embebidos donde el control directo del hardware requiere acceder a señales específicas. Además, permiten optimizar el uso de la memoria y mejorar el rendimiento del sistema. Por ello, constituyen una herramienta indispensable en la programación de microcontroladores.
-                    </p>
-                </div>
+<canvas id="binaryCanvasU5"></canvas>
+
+<div class="main-content-wrapper">
+    <section class="py-5">
+
+        <div class="text-center mb-5 hero-animation-bg">
+            <div class="hero-content">
+                <h1 class="display-4 fw-bold text-info pulsing-text m-0">
+                    UNIDAD V
+                </h1>
+                <p class="lead text-secondary fw-semibold mt-2 mb-0">
+                    Programadores del Microcontrolador
+                </p>
             </div>
         </div>
 
-        <div class="accordion-item bg-black text-light border-secondary mb-3 rounded">
-            <h2 class="accordion-header">
-                <button class="accordion-button collapsed bg-dark text-primary fw-bold"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#tema5-2">
-                    5.2. Fundamentos del Lenguaje Ensamblador
-                </button>
-            </h2>
-            <div id="tema5-2" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad5">
-                <div class="accordion-body">
-                    <p class="fs-5 text-secondary text-justify mb-4">
-                        El lenguaje ensamblador es un lenguaje de programación de bajo nivel que permite controlar directamente los recursos internos del microcontrolador. Cada instrucción escrita en ensamblador tiene una correspondencia directa con una instrucción ejecutada por el hardware. Esta característica proporciona un elevado grado de control sobre el funcionamiento del sistema y permite optimizar el uso de memoria y procesamiento. Aunque requiere un conocimiento detallado de la arquitectura utilizada, sigue siendo una herramienta importante en aplicaciones de tiempo real y sistemas embebidos. Su estudio contribuye a comprender el funcionamiento interno de los dispositivos electrónicos programables.
-                    </p>
+        <div class="accordion accordion-flush" id="accordionUnidad5">
 
-                    <h4 class="text-info fw-bold mt-4">5.2.1. Expresiones, Operaciones y Operadores</h4>
-                    <p class="fs-5 text-secondary text-justify">
-                        Las expresiones en lenguaje ensamblador son combinaciones de valores, constantes y operadores utilizadas para realizar cálculos o determinar direcciones de memoria. Los operadores permiten efectuar operaciones aritméticas, lógicas y relacionales necesarias durante el proceso de programación. Estas herramientas facilitan la construcción de instrucciones más flexibles y adaptables a diferentes necesidades. Asimismo, contribuyen a mejorar la claridad y organización del código fuente. Su comprensión resulta esencial para desarrollar programas funcionales y eficientes.
-                    </p>
+            <div class="accordion-item bg-black text-light mb-3 custom-accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed bg-dark text-info fw-bold"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#tema5-1">
+                        5.1. Repertorio de Instrucciones
+                    </button>
+                </h2>
+                <div id="tema5-1" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad5">
+                    <div class="accordion-body">
+                        <p class="fs-5 text-secondary text-justify mb-4">
+                            El repertorio de instrucciones corresponde al conjunto de operaciones que un microcontrolador es capaz de ejecutar directamente mediante su unidad central de procesamiento. Estas instrucciones constituyen el lenguaje básico que permite controlar el hardware y realizar diversas tareas de procesamiento de información. Cada arquitectura dispone de un repertorio específico diseñado para optimizar el rendimiento y la eficiencia del sistema. Las instrucciones pueden clasificarse según la función que desempeñan, como transferencia de datos, operaciones aritméticas, control de flujo y manipulación de bits. Su conocimiento es fundamental para desarrollar programas eficientes en lenguaje ensamblador.
+                        </p>
 
-                    <h4 class="text-success fw-bold mt-4">5.2.2. Directivas</h4>
-                    <p class="fs-5 text-secondary text-justify">
-                        Las directivas son instrucciones especiales dirigidas al ensamblador y no al microcontrolador durante la ejecución del programa. Su función principal consiste en controlar el proceso de ensamblaje, definir segmentos de memoria, declarar variables y establecer configuraciones específicas. Estas instrucciones permiten organizar adecuadamente el código fuente y facilitar su mantenimiento. Además, proporcionan mecanismos para optimizar la estructura del programa antes de su conversión a lenguaje máquina. Por esta razón, las directivas forman parte fundamental del desarrollo de aplicaciones en ensamblador.
-                    </p>
+                        <h4 class="text-info fw-bold mt-4">5.1.1. Instrucciones de Transferencia de Datos</h4>
+                        <p class="fs-5 text-secondary text-justify">
+                            Las instrucciones de transferencia de datos permiten mover información entre registros, memoria y dispositivos de entrada o salida. Estas operaciones son esenciales para el funcionamiento de cualquier programa, ya que facilitan el acceso y almacenamiento de los datos necesarios para la ejecución de tareas. Entre las acciones más comunes se encuentran la carga, copia y almacenamiento de valores. Además, estas instrucciones contribuyen a la organización eficiente de la información dentro del sistema. Su correcta utilización mejora significativamente el rendimiento de las aplicaciones desarrolladas.
+                        </p>
 
-                    <h4 class="text-warning fw-bold mt-4">5.2.3. Macroinstrucciones</h4>
-                    <p class="fs-5 text-secondary text-justify">
-                        Las macroinstrucciones son secuencias de instrucciones agrupadas bajo un identificador único que pueden reutilizarse múltiples veces dentro de un programa. Este mecanismo permite simplificar tareas repetitivas y reducir la cantidad de código escrito por el programador. Durante el proceso de ensamblaje, el ensamblador sustituye automáticamente la llamada a la macro por el conjunto completo de instrucciones que la componen. Esta característica mejora la productividad y disminuye la probabilidad de errores. Además, favorece la legibilidad y mantenimiento del código fuente.
-                    </p>
+                        <h4 class="text-primary fw-bold mt-4">5.1.2. Instrucciones Aritméticas y Lógicas</h4>
+                        <p class="fs-5 text-secondary text-justify">
+                            Las instrucciones aritméticas y lógicas son responsables de realizar cálculos matemáticos y operaciones de comparación sobre los datos procesados por el microcontrolador. Entre las operaciones aritméticas más comunes se encuentran la suma, resta, multiplicación e incremento de valores. Por otra parte, las operaciones lógicas incluyen comparaciones, negaciones y combinaciones mediante operadores booleanos. Estas instrucciones permiten implementar algoritmos capaces de tomar decisiones y procesar información de manera eficiente. Debido a su importancia, constituyen uno de los grupos más utilizados dentro de la programación de sistemas digitales.
+                        </p>
 
-                    <h4 class="text-danger fw-bold mt-4">5.2.4. Subrutinas</h4>
-                    <p class="fs-5 text-secondary text-justify">
-                        Las subrutinas son bloques de código diseñados para ejecutar tareas específicas que pueden ser invocadas desde diferentes partes de un programa. Su principal objetivo es promover la reutilización del código y facilitar la organización de aplicaciones complejas. Cuando una subrutina es llamada, el flujo de ejecución se transfiere temporalmente a dicha sección y posteriormente retorna al punto de origen. Esta metodología mejora la modularidad y simplifica las labores de mantenimiento. Por ello, las subrutinas constituyen una herramienta fundamental en la programación estructurada.
-                    </p>
+                        <h4 class="text-success fw-bold mt-4">5.1.3. Control de Flujo de Programa</h4>
+                        <p class="fs-5 text-secondary text-justify mb-3">
+                            El control de flujo de programa comprende las instrucciones encargadas de modificar la secuencia normal de ejecución de un conjunto de instrucciones. Gracias a estos mecanismos, es posible implementar estructuras de decisión, ciclos repetitivos y llamadas a subrutinas. Estas herramientas permiten desarrollar programas dinámicos capaces de responder a diferentes condiciones durante su ejecución. Asimismo, contribuyen a optimizar el uso de recursos y mejorar la organización del código. Su aplicación es indispensable en prácticamente cualquier software desarrollado para microcontroladores.
+                        </p>
 
-                    <h4 class="text-info fw-bold mt-4">5.2.5. Organización de un Programa en Lenguaje Ensamblador</h4>
-                    <p class="fs-5 text-secondary text-justify">
-                        La organización de un programa en lenguaje ensamblador implica la distribución adecuada de las diferentes secciones que conforman el código fuente. Generalmente, estas incluyen áreas destinadas a la declaración de constantes, variables, segmentos de datos y bloques de instrucciones ejecutables. Una estructura bien definida facilita la comprensión, depuración y mantenimiento del programa. Además, permite aprovechar de manera eficiente los recursos disponibles en el microcontrolador. Por esta razón, la planificación de la organización del código constituye una etapa esencial del proceso de desarrollo.
-                    </p>
+                        <h5 class="text-warning fw-bold ps-3 mt-3">5.1.3.1. Salto Incondicional</h5>
+                        <p class="fs-5 text-secondary text-justify ps-3">
+                            El salto incondicional es una instrucción que transfiere el control de ejecución hacia una dirección específica del programa sin evaluar ninguna condición previa. Su principal función consiste en alterar el flujo normal de las instrucciones para continuar la ejecución en otra sección del código. Este mecanismo es ampliamente utilizado en la implementación de ciclos, menús y rutinas de control. Además, permite reorganizar la ejecución de programas complejos de manera eficiente. Su simplicidad lo convierte en una herramienta fundamental dentro del lenguaje ensamblador.
+                        </p>
 
-                    <h4 class="text-success fw-bold mt-4">5.2.6. Los Sistemas Informáticos MPLAB y PROTEUS</h4>
-                    <p class="fs-5 text-secondary text-justify">
-                        MPLAB y PROTEUS son herramientas ampliamente utilizadas en el desarrollo y simulación de aplicaciones basadas en microcontroladores. MPLAB proporciona un entorno integrado de desarrollo que permite escribir, compilar, depurar y programar dispositivos fabricados por Microchip. 
-                    </p>
+                        <h5 class="text-danger fw-bold ps-3 mt-3">5.1.3.2. Salto Condicionado</h5>
+                        <p class="fs-5 text-secondary text-justify ps-3">
+                            El salto condicionado es una instrucción que modifies el flujo de ejecución únicamente cuando se cumple una condición previamente establecida. Generalmente, esta condición se determina mediante el resultado de comparaciones o el estado de determinados indicadores del procesador. Este tipo de instrucción resulta esencial para implementar estructuras de decisión similares a las empleadas en lenguajes de alto nivel. Gracias a su flexibilidad, permite desarrollar programas capaces de adaptarse a diferentes situaciones. Su utilización adecuada mejora la eficiencia y funcionalidad de las aplicaciones.
+                        </p>
+
+                        <h4 class="text-warning fw-bold mt-4">5.1.4. Instrucciones de Bits</h4>
+                        <p class="fs-5 text-secondary text-justify">
+                            Las instrucciones de bits permiten manipular individualmente los bits que conforman un dato almacenado en memoria o registros internos. Estas operaciones incluyen establecer, borrar, invertir y comprobar el estado de determinados bits según las necesidades de la aplicación. Su utilización es especialmente importante en sistemas embebidos donde el control directo del hardware requiere acceder a señales específicas. Además, permiten optimizar el uso de la memoria y mejorar el rendimiento del sistema. Por ello, constituyen una herramienta indispensable en la programación de microcontroladores.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item bg-black text-light mb-3 custom-accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed bg-dark text-primary fw-bold"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#tema5-2">
+                        5.2. Fundamentos del Lenguaje Ensamblador
+                    </button>
+                </h2>
+                <div id="tema5-2" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad5">
+                    <div class="accordion-body">
+                        <p class="fs-5 text-secondary text-justify mb-4">
+                            El lenguaje ensamblador es un lenguaje de programación de bajo nivel que permite controlar directamente los recursos internos del microcontrolador. Cada instrucción escrita en ensamblador tiene una correspondencia directa con una instrucción ejecutada por el hardware. Esta característica proporciona un elevado grado de control sobre el funcionamiento del sistema y permite optimizar el uso de memoria y procesamiento. Aunque requiere un conocimiento detallado de la arquitectura utilizada, sigue siendo una herramienta importante en aplicaciones de tiempo real y sistemas embebidos. Su estudio contribuye a comprender el funcionamiento interno de los dispositivos electrónicos programables.
+                        </p>
+
+                        <h4 class="text-info fw-bold mt-4">5.2.1. Expresiones, Operaciones y Operadores</h4>
+                        <p class="fs-5 text-secondary text-justify">
+                            Las expresiones en lenguaje ensamblador son combinaciones de valores, constantes y operadores utilizadas para realizar cálculos o determinar direcciones de memoria. Los operadores permiten efectuar operaciones aritméticas, lógicas y relacionales necesarias durante el proceso de programación. Estas herramientas facilitan la construcción de instrucciones más flexibles y adaptables a diferentes necesidades. Asimismo, contribuyen a mejorar la claridad y organización del código fuente. Su comprensión resulta esencial para desarrollar programas funcionales y eficientes.
+                        </p>
+
+                        <h4 class="text-success fw-bold mt-4">5.2.2. Directivas</h4>
+                        <p class="fs-5 text-secondary text-justify">
+                            Las directivas son instrucciones especiales dirigidas al ensamblador y no al microcontrolador durante la ejecución del programa. Su función principal consiste en controlar el proceso de ensamblaje, definir segmentos de memoria, declarar variables y establecer configuraciones específicas. Estas instrucciones permiten organizar adecuadamente el código fuente y facilitar su mantenimiento. Además, proporcionan mecanismos para optimizar la estructura del programa antes de su conversión a lenguaje máquina. Por esta razón, las directivas forman parte fundamental del desarrollo de aplicaciones en ensamblador.
+                        </p>
+
+                        <h4 class="text-warning fw-bold mt-4">5.2.3. Macroinstrucciones</h4>
+                        <p class="fs-5 text-secondary text-justify">
+                            Las macroinstrucciones son secuencias de instrucciones agrupadas bajo un identificador único que pueden reutilizarse múltiples veces dentro de un programa. Este mecanismo permite simplificar tareas repetitivas y reducir la cantidad de código escrito por el programador. Durante el proceso de ensamblaje, el ensamblador sustituye automáticamente la llamada a la macro por el conjunto completo de instrucciones que la componen. Esta característica mejora la productividad y disminuye la probabilidad de errores. Además, favorece la legibilidad y mantenimiento del código fuente.
+                        </p>
+
+                        <h4 class="text-danger fw-bold mt-4">5.2.4. Subrutinas</h4>
+                        <p class="fs-5 text-secondary text-justify">
+                            Las subrutinas son bloques de código diseñados para ejecutar tareas específicas que pueden ser invocadas desde diferentes partes de un programa. Su principal objetivo es promover la reutilización del código y facilitar la organización de aplicaciones complejas. Cuando una subrutina es llamada, el flujo de ejecución se transfiere temporalmente a dicha sección y posteriormente retorna al punto de origen. Esta metodología mejora la modularidad y simplifica las labores de mantenimiento. Por ello, las subrutinas constituyen una herramienta fundamental en la programación estructurada.
+                        </p>
+
+                        <h4 class="text-info fw-bold mt-4">5.2.5. Organización de un Programa en Lenguaje Ensamblador</h4>
+                        <p class="fs-5 text-secondary text-justify">
+                            La organización de un programa en lenguaje ensamblador implica la distribución adecuada de las diferentes secciones que conforman el código fuente. Generalmente, estas incluyen áreas destinadas a la declaración de constantes, variables, segmentos de datos y bloques de instrucciones ejecutables. Una estructura bien definida facilita la comprensión, depuración y mantenimiento del programa. Además, permite aprovechar de manera eficiente los recursos disponibles en el microcontrolador. Por esta razón, la planificación de la organización del código constituye una etapa esencial del proceso de desarrollo.
+                        </p>
+
+                        <h4 class="text-success fw-bold mt-4">5.2.6. Los Sistemas Informáticos MPLAB y PROTEUS</h4>
+                        <p class="fs-5 text-secondary text-justify">
+                            MPLAB y PROTEUS son herramientas ampliamente utilizadas en el desarrollo y simulación de aplicaciones basadas en microcontroladores. MPLAB proporciona un entorno integrado de desarrollo que permite escribir, compilar, depurar y programar dispositivos fabricados por Microchip. 
+                        </p>
                         <img src="{% static 'img/unidad5/mplab.png' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto" style="max-width: 200px; height: auto;">
 
-
-                    <p class="fs-5 text-secondary text-justify">
-                        Por su parte, PROTEUS ofrece capacidades de simulación electrónica que permiten verificar el funcionamiento de circuitos y programas antes de su implementación física. La combinación de ambas plataformas facilita el diseño, prueba y validación de proyectos electrónicos. Gracias a estas herramientas, los desarrolladores pueden reducir costos y mejorar la eficiencia durante el proceso de creación de sistemas embebidos.
-                    </p>
-                        <img src="{% static 'img/unidad5/Proteus.jpg' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto " style="max-width: 200px; height: auto;">
-
+                        <p class="fs-5 text-secondary text-justify mt-4">
+                            Por su parte, PROTEUS ofrece capacidades de simulación electrónica que permiten verificar el funcionamiento de circuitos y programas antes de su implementación física. La combinación de ambas plataformas facilita el diseño, prueba y validación de proyectos electrónicos. Gracias a estas herramientas, los desarrolladores pueden reducir costos y mejorar la eficiencia durante el proceso de creación de sistemas embebidos.
+                        </p>
+                        <img src="{% static 'img/unidad5/Proteus.jpg' %}" class="img-fluid rounded shadow mt-4 d-block mx-auto" style="max-width: 200px; height: auto;">
+                    </div>
                 </div>
             </div>
+
+            <div class="accordion-item bg-black text-light mb-3 custom-accordion-item" style="border-color: rgba(0, 180, 216, 0.4) !important;">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed bg-info text-dark fw-bold"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#temaTestUnidad5">
+                        ¡REALIZAR TEST DE EVALUACIÓN! (10 Preguntas)
+                    </button>
+                </h2>
+                <div id="temaTestUnidad5" class="accordion-collapse collapse" data-bs-parent="#accordionUnidad5">
+                    <div class="accordion-body bg-dark rounded-bottom">
+                        <form id="quizFormUnidad5">
+                            
+                            <div class="mb-4 p-3 bg-black quiz-box border border-secondary">
+                                <p class="fw-bold text-info">1. ¿Qué se entiende formalmente por 'Repertorio de Instrucciones' de un microcontrolador?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u5_q1" value="correct" id="u5_q1_a">
+                                    <label class="form-check-label text-secondary" for="u5_q1_a">El conjunto de operaciones que el dispositivo es capaz de ejecutar directamente mediante su unidad central de procesamiento.</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u5_q1" value="wrong" id="u5_q1_b">
+                                    <label class="form-check-label text-secondary" for="u5_q1_b">La lista de programas externos de alto nivel almacenados en servidores remotos.</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="u5_q1" value="wrong" id="u5_q1_c">
+                                    <label class="form-check-label text-secondary" for="u5_q1_c">La estructura de pines metálicos externos dedicados a la alimentación eléctrica.</label>
+                                </div>
+                            </div>
+
+                            <div class="mb-4 p-3 bg-black quiz-box border border-secondary">
+                                <p class="fw-bold text-info">2. ¿Qué tareas facilitan específicamente las instrucciones de transferencia de datos?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u5_q2" value="wrong" id="u5_q2_a">
+                                    <label class="form-check-label text-secondary" for="u5_q2_a">Efectuar combinaciones lógicas a nivel booleano y operaciones aritméticas complejas.</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u5_q2" value="correct" id="u5_q2_b">
+                                    <label class="form-check-label text-secondary" for="u5_q2_b">Mover información entre registros, memoria y dispositivos de entrada o salida (carga, copia y almacenamiento).</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="u5_q2" value="wrong" id="u5_q2_c">
+                                    <label class="form-check-label text-secondary" for="u5_q2_c">Compilar y depurar el código fuente de manera automática dentro de MPLAB.</label>
+                                </div>
+                            </div>
+
+                            <div class="mb-4 p-3 bg-black quiz-box border border-secondary">
+                                <p class="fw-bold text-info">3. ¿Cuál es la diferencia funcional entre un 'Salto Incondicional' y un 'Salto Condicionado'?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u5_q3" value="correct" id="u5_q3_a">
+                                    <label class="form-check-label text-secondary" for="u5_q3_a">El incondicional transfiere el control sin evaluar ninguna condición previa; el condicionado lo hace solo si se cumple un criterio establecido.</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u5_q3" value="wrong" id="u5_q3_b">
+                                    <label class="form-check-label text-secondary" for="u5_q3_b">El incondicional requiere de operadores aritméticos y el condicionado manipula únicamente bits lógicos individuales.</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="u5_q3" value="wrong" id="u5_q3_c">
+                                    <label class="form-check-label text-secondary" for="u5_q3_c">El incondicional se dirige al ensamblador y el condicionado es ejecutado directamente por PROTEUS.</label>
+                                </div>
+                            </div>
+
+                            <div class="mb-4 p-3 bg-black quiz-box border border-secondary">
+                                <p class="fw-bold text-info">4. ¿Por qué son de especial relevancia las 'Instrucciones de Bits' en el entorno de los sistemas embebidos?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u5_q4" value="wrong" id="u4_q4_a">
+                                    <label class="form-check-label text-secondary" for="u4_q4_a">Porque posibilitan la declaración de múltiples subrutinas complejas sin usar memoria RAM.</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u5_q4" value="correct" id="u4_q4_b">
+                                    <label class="form-check-label text-secondary" for="u4_q4_b">Porque permiten el control directo del hardware al establecer, borrar, invertir y comprobar señales o bits específicos.</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="u5_q4" value="wrong" id="u4_q4_c">
+                                    <label class="form-check-label text-secondary" for="u4_q4_c">Porque transforman de manera automática las constantes hexadecimales en código binario puro.</label>
+                                </div>
+                            </div>
+
+                            <div class="mb-4 p-3 bg-black quiz-box border border-secondary">
+                                <p class="fw-bold text-info">5. ¿Qué correspondencia tiene una instrucción escrita en lenguaje ensamblador respecto al hardware?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u5_q5" value="wrong" id="u5_q5_a">
+                                    <label class="form-check-label text-secondary" for="u5_q5_a">No guarda relación directa, requiriendo un intérprete virtual gráfico en tiempo de ejecución.</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u5_q5" value="correct" id="u5_q5_b">
+                                    <label class="form-check-label text-secondary" for="u5_q5_b">Posee una correspondencia directa con una instrucción ejecutada por el hardware del microcontrolador.</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="u5_q5" value="wrong" id="u5_q5_c">
+                                    <label class="form-check-label text-secondary" for="u5_q5_c">Equivale estrictamente a una macroinstrucción precompilada del sistema operativo.</label>
+                                </div>
+                            </div>
+
+                            <div class="mb-4 p-3 bg-black quiz-box border border-secondary">
+                                <p class="fw-bold text-info">6. ¿Qué define formalmente a las 'Directivas' en la programación en bajo nivel?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u5_q6" value="correct" id="u5_q6_a">
+                                    <label class="form-check-label text-secondary" for="u5_q6_a">Son instrucciones dirigidas al ensamblador durante el proceso de compilación y no al microcontrolador en su ejecución.</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u5_q6" value="wrong" id="u5_q6_b">
+                                    <label class="form-check-label text-secondary" for="u5_q6_b">Son bloques lógicos ejecutados por la ALU para efectuar cálculos matemáticos relacionales.</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="u5_q6" value="wrong" id="u5_q6_c">
+                                    <label class="form-check-label text-secondary" for="u5_q6_c">Son comandos de simulación física exclusivos del software PROTEUS.</label>
+                                </div>
+                            </div>
+
+                            <div class="mb-4 p-3 bg-black quiz-box border border-secondary">
+                                <p class="fw-bold text-info">7. ¿Qué acción realiza el ensamblador cuando encuentra una llamada a una 'Macroinstrucción'?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u5_q7" value="wrong" id="u5_q7_a">
+                                    <label class="form-check-label text-secondary" for="u5_q7_a">Desvía el flujo de ejecución del hardware temporalmente hacia un segmento de pila externo.</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u5_q7" value="correct" id="u5_q7_b">
+                                    <label class="form-check-label text-secondary" for="u5_q7_b">Sustituye automáticamente la llamada por el conjunto completo de instrucciones que componen la macro.</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="u5_q7" value="wrong" id="u5_q7_c">
+                                    <label class="form-check-label text-secondary" for="u5_q7_c">Oculte el código fuente y detiene el proceso de conversión a lenguaje máquina.</label>
+                                </div>
+                            </div>
+
+                            <div class="mb-4 p-3 bg-black quiz-box border border-secondary">
+                                <p class="fw-bold text-info">8. ¿Cuál es el principal objetivo del diseño y utilización de 'Subrutinas'?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u5_q8" value="wrong" id="u5_q8_a">
+                                    <label class="form-check-label text-secondary" for="u5_q8_a">Evitar que el procesador haga uso de expresiones y operadores de tipo booleano.</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u5_q8" value="wrong" id="u5_q8_b">
+                                    <label class="form-check-label text-secondary" for="u5_q8_b">Sustituir de forma definitiva la declaración de variables globales y constantes fijas.</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="u5_q8" value="correct" id="u5_q8_c">
+                                    <label class="form-check-label text-secondary" for="u5_q8_c">Promover la reutilización del código, aportando modularidad y facilitando la organización de programas complejos.</label>
+                                </div>
+                            </div>
+
+                            <div class="mb-4 p-3 bg-black quiz-box border border-secondary">
+                                <p class="fw-bold text-info">9. ¿Qué secciones comprende de forma general la correcta organización de un programa en lenguaje ensamblador?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u5_q9" value="correct" id="u5_q9_a">
+                                    <label class="form-check-label text-secondary" for="u5_q9_a">Áreas destinadas a la declaración de constantes, variables, segmentos de datos y bloques de instrucciones ejecutables.</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u5_q9" value="wrong" id="u5_q9_b">
+                                    <label class="form-check-label text-secondary" for="u5_q9_b">Únicamente macros y subrutinas virtuales enlazadas a redes cableadas externas.</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="u5_q9" value="wrong" id="u5_q9_c">
+                                    <label class="form-check-label text-secondary" for="u5_q9_c">Segmentos de control térmico y mapeo analógico del encapsulado de silicio.</label>
+                                </div>
+                            </div>
+
+                            <div class="mb-4 p-3 bg-black quiz-box border border-secondary">
+                                <p class="fw-bold text-info">10. ¿Qué rol específico desempeñan los entornos MPLAB y PROTEUS combinados en el desarrollo?</p>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u5_q10" value="wrong" id="u5_q10_a">
+                                    <label class="form-check-label text-secondary" for="u5_q10_a">MPLAB modifica el hardware físico del silicio y PROTEUS actúa como un compilador de lenguajes gráficos de alto nivel.</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="u5_q10" value="correct" id="u5_q10_b">
+                                    <label class="form-check-label text-secondary" for="u5_q10_b">MPLAB provee el entorno para escribir, compilar y depurar el programa; PROTEUS simula el circuito electrónico para validar su correcto funcionamiento.</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="u5_q10" value="wrong" id="u5_q10_c">
+                                    <label class="form-check-label text-secondary" for="u5_q10_c">Ambos sistemas eliminan las directivas y subrutinas para reducir el tamaño del archivo binario.</label>
+                                </div>
+                            </div>
+
+                            <button type="button" class="btn btn-info fw-bold w-100 py-2 mt-2" onclick="evaluarQuizUnidad5()">
+                                Calcular Calificación
+                            </button>
+                        </form>
+
+                        <div id="resultadoQuizUnidad5" class="mt-4 p-3 rounded bg-black border border-info text-center d-none">
+                            <h4 class="fw-bold text-warning" id="scoreTextUnidad5"></h4>
+                            <p class="fs-5 text-light mb-0" id="feedbackTextUnidad5"></p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
         </div>
 
-        
+    </section>
+</div>
 
-    </div>
+<script>
+    const canvasU5 = document.getElementById('binaryCanvasU5');
+    const ctxU5 = canvasU5.getContext('2d');
 
-</section>
+    function resizeCanvasU5() {
+        canvasU5.width = window.innerWidth;
+        canvasU5.height = window.innerHeight;
+    }
+    resizeCanvasU5();
+    window.addEventListener('resize', resizeCanvasU5);
+
+    const binaryCharsU5 = ["0", "1"];
+    const fontSizeU5 = 14;
+    const columnsU5 = Math.floor(canvasU5.width / 20);
+    
+    const dropsU5 = [];
+    for (let i = 0; i < columnsU5; i++) {
+        dropsU5[i] = Math.random() * -100;
+    }
+
+    function drawU5() {
+        ctxU5.fillStyle = 'rgba(0, 0, 0, 0.08)';
+        ctxU5.fillRect(0, 0, canvasU5.width, canvasU5.height);
+
+        ctxU5.fillStyle = 'rgba(0, 180, 216, 0.7)';
+        ctxU5.font = 'bold ' + fontSizeU5 + 'px Courier New, monospace';
+
+        for (let i = 0; i < dropsU5.length; i++) {
+            const text = binaryCharsU5[Math.floor(Math.random() * binaryCharsU5.length)];
+            const x = i * 20;
+            const y = dropsU5[i] * fontSizeU5;
+
+            ctxU5.fillText(text, x, y);
+
+            if (y > canvasU5.height && Math.random() > 0.975) {
+                dropsU5[i] = 0;
+            }
+            dropsU5[i] += 0.5;
+        }
+    }
+
+    setInterval(drawU5, 30);
+</script>
+
+<script>
+function evaluarQuizUnidad5() {
+    const totalPreguntas = 10;
+    let correctas = 0;
+    
+    for (let i = 1; i <= totalPreguntas; i++) {
+        const opcionSeleccionada = document.querySelector(`input[name="u5_q${i}"]:checked`);
+        if (opcionSeleccionada && opcionSeleccionada.value === "correct") {
+            correctas++;
+        }
+    }
+    
+    const contenedorResultado = document.getElementById("resultadoQuizUnidad5");
+    const scoreText = document.getElementById("scoreTextUnidad5");
+    const feedbackText = document.getElementById("feedbackTextUnidad5");
+    
+    contenedorResultado.classList.remove("d-none");
+    
+    let notaFinal = (correctas / totalPreguntas) * 100;
+    scoreText.innerText = `Resultado: ${correctas} / ${totalPreguntas} correctas (${notaFinal}%)`;
+    
+    if (notaFinal >= 70) {
+        feedbackText.innerText = "¡Excelente! Dominás los conceptos del repertorio de instrucciones, subrutinas, directivas y las herramientas MPLAB/PROTEUS.";
+        feedbackText.className = "fs-5 text-success mb-0";
+    } else {
+        feedbackText.innerText = "Buen intento. Te recomiendo repasar las diferencias entre macros, subrutinas y directivas antes de volver a intentarlo.";
+        feedbackText.className = "fs-5 text-danger mb-0";
+    }
+}
+</script>
 
 {% endblock %}
